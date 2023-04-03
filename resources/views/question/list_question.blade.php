@@ -78,9 +78,9 @@
                                                 ?>
                                                 @foreach($listQuestion as $key => $question)
                                                 <tr>
-                                                    <td width="20"><input type="checkbox" name="" class="choose-question" id=""></td>
+                                                    <td width="20"><input type="checkbox" name="" value="{{$question->id_question}}" class="choose-question" id=""></td>
                                                     <td scope="row">{{$key + 1}}</td>
-                                                    <td>{{$question->question}}</td>
+                                                    <td class="question-{{$key}}">{{$question->question}}</td>
                                                     <td>
                                                         <a href="" class="btn btn-success mr-3"><i class="fa-solid fa-pen-to-square"></i></a>
                                                         <a href="" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
@@ -103,11 +103,49 @@
                             <div class="card-body">
                                 <h5 class="card-title text-center">Chọn thao tác</h5>
                                 <div class="mt-3">
-                                    <button type="submit" class="d-block m-auto btn btn-success rounded disabled add-question" style="pointer-events: none;">Trả lời câu hỏi</button>
+                                    <button type="submit" class="d-block m-auto btn btn-success rounded disabled add-question" data-toggle="modal" data-target="#modalCart" style="pointer-events: none;">Trả lời câu hỏi</button>
                                 </div>
                                 <div class="mt-3">
                                     <button type="submit" class="d-block m-auto mt-1 btn btn-success rounded" disabled>Trả lời câu hỏi</button>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <!--Header-->
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Trả lời câu hỏi</h4>
+                                <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="message-answer">
+                         
+                            </div>
+                            <!--Body-->
+                            <div class="modal-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Câu hỏi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list-question-choose">
+                                    </tbody>
+                                </table>
+                                <div class="form-group">
+                                    <label for="">Câu trả lời</label>
+                                    <textarea name="text-question" placeholder="Câu trả lời" class="form-control mt-2 text-question-choose" id="" cols="30" rows="10"></textarea>
+                                </div>
+                            </div>
+                            <!--Footer-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-primary rounded" data-dismiss="modal">Đóng</button>
+                                <button class="btn btn-primary rounded answer-question-choose pe-none disabled">Trả lời</button>
                             </div>
                         </div>
                     </div>

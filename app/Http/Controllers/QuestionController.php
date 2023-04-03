@@ -38,4 +38,6 @@ class QuestionController extends Controller
             return redirect()->route('question.listQuestion')->with('message','Thêm câu hỏi thất bại!');
         }
     }
+
+
 }

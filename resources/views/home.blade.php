@@ -187,7 +187,7 @@
                 )},1000);
                 // console.log(question);
             $.ajax({
-                url: "{{route('page.api')}}",
+                url: "{{route('answer.botAnswer')}}",
                 method: 'POST',
                 data: {
                     question: question,
@@ -197,14 +197,14 @@
                 },
                 success: function(data){
                     // console.log(data);
-                    if(data == 'fail'){
+                    if(data.res == 'fail'){
                         setTimeout(function(){
                         $('.list-message').append(
                             '<div class="media media-chat">'+
                                 '<img class="avatar" src="{{asset("fe/image/icons8-bot-30.png")}}" alt="...">'+
                                 '<div class="media-body hold">'+
                                     '<p class="mb-0 mr-10 media-answer-'+rand+'">'+
-                                        printText('Cảm ơn bạn vì đã thích câu nói vừa rồi!',-1)+
+                                        printText(data.status,-1)+
                                     '</p>'+
                                     '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">'+time+'</p>'+
                                 '</div>'+
@@ -218,7 +218,7 @@
                                 '<img class="avatar" src="{{asset("fe/image/icons8-bot-30.png")}}" alt="...">'+
                                 '<div class="media-body hold">'+
                                     '<p class="mb-0 px-3 mr-10 media-answer-'+rand+'">'+
-                                        printText(data,-1)+
+                                        printText(data.result,-1)+
                                     '</p>'+
                                     '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">'+time+'</p>'+
                                 '</div>'+

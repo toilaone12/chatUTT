@@ -11,13 +11,14 @@
       <![endif]-->
     <!-- Meta -->
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="Mega Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
     <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="codedthemes" />
     <!-- Favicon icon -->
-    <link rel="icon" href="{{asset('be/images/favicon.ico')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('be/images/utt.png')}}" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <!-- waves.css -->
@@ -264,7 +265,7 @@
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="fa-solid fa-question"></i></span>
                                         <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Câu hỏi</span>
-                                        
+
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="">
@@ -323,18 +324,70 @@
     <!-- custom js -->
     <script type="text/javascript" src="{{asset('be/js/custom-dashboard.js')}}"></script>
     <script type="text/javascript" src="{{asset('be/js/script.js')}} "></script>
-
     <script>
-        $(document).ready(function(){
-            $('.choose-question').click(function(){
+        $(document).ready(function() {
+            $('.choose-question').click(function() {
                 // alert(1);
-                if($('input[type="checkbox"]:checked').length > 0){
+                if ($('input[type="checkbox"]:checked').length > 0) {
                     $('.add-question').addClass('pe-auto');
                     $('.add-question').removeClass('disabled');
-                }else{
+                } else {
                     $('.add-question').removeClass('pe-auto');
                     $('.add-question').addClass('disabled');
                 }
+            });
+            $('.add-question').click(function() {
+                // var choose = [];
+                var html = '';
+                $('.choose-question:checked').each(function(key,val) {
+                    html += '<tr>'
+                    html += '<th scope = "row">'+(parseInt(key)+1)+'</th>'
+                    html += '<td class="question-choose">'+$('.question-'+key).text()+'</td>'
+                    html += '</tr>'
+                    // choose.push($(this).val());
+                });
+                $('.list-question-choose').html(html);
+            });
+            $('.text-question-choose').keyup(function(){
+                console.log($(this).val().length);
+                if($(this).val().length > 0){
+                    $('.answer-question-choose').addClass('pe-auto');
+                    $('.answer-question-choose').removeClass('disabled');
+                    $('.answer-question-choose').removeClass('pe-none');
+                }
+            }); 
+            $('.answer-question-choose').click(function(){
+                var textAnswer = $('.text-question-choose').val();
+                var chooseQuestion = $('.question-choose').text();
+                var arrQuestion = '|';
+                $('.choose-question:checked').each(function(key,val) {
+                    arrQuestion += $('.question-'+key).text();
+                    arrQuestion += '|';
+                });
+                // console.log(textAnswer+'/'+arrQuestion);
+                $.ajax({
+                    url: '{{route("answer.answerListQuestion")}}',
+                    type: 'POST',
+                    data: {
+                        answer: textAnswer,
+                        question: arrQuestion,
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data);
+                        if(data.res == 'success'){
+                            $('.message-answer').text('<span class="text-success">'+data.status+'</span>');
+                        }else if(data.res == 'fail'){
+                            $('.message-answer').text('<span class="text-danger">'+data.status+'</span>');
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                })
             });
         });
     </script>
