@@ -18,16 +18,27 @@
     <section class="gradient-custom mode">
         <div class="container py-5 h-100">
             <div class="row f-100">
-                <div class="col-md-5 col-lg-5 col-xl-5 mb-4 mb-md-0 bg-light rounded setting">
+                <div class="col-md-5 col-lg-5 col-xl-5 mb-4 mb-md-0 bg-light rounded setting" style="height: 630px">
                     <h5 class="font-weight-bold mb-3 mt-4 text-dark">Cài đặt</h5>
                     <div class="card p-3">
-                        <span class="text-secondary fs-16 font-weight-bold mb-4">Chọn chế độ ánh sáng</span>
-                        <input type="checkbox" id="toggle" class="toggle--checkbox">
-                        <label for="toggle" class="toggle--label">
-                        </label>
+                        <span class="text-secondary fs-18 ml-1 font-weight-bold mb-3">Các chế độ người dùng</span>
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" id="toggle" class="toggle--checkbox">
+                            <label for="toggle" class="toggle--label">
+                            </label>
+                            <span class="text-secondary fs-16 font-weight-bold mb-2 ml-2">Chọn chế độ ánh sáng</span>
+                        </div>
+                        <div class="">
+                            <span class="text-secondary fs-16 font-weight-bold mb-4 mt-2 d-flex align-items-center open-room">
+                                <i class="ml-3 mr-2 fa-solid fa-square-plus fs-20" style="font-size: 30px;"></i>
+                                Tạo cuộc trò chuyện mới
+                            </span>
+                        </div>
                     </div>
+                    <!-- <div class="card">
+                    </div> -->
                 </div>
-                <div class="col-md-7 col-lg-7 col-xl-7">
+                <div class="col-md-7 col-lg-7 col-xl-7 d-none room-chat">
                     <div class="card card-bordered">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center mt-2">
@@ -97,6 +108,9 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(document).ready(function(){
+        $('.open-room').click(function(){
+            $('.room-chat').addClass('d-block')
+        });
         var recognition = new webkitSpeechRecognition();
 		recognition.continuous = true;
 		recognition.interimResults = true;
@@ -196,7 +210,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data){
-                    // console.log(data);
+                    console.log(data.result.time_request);
                     if(data.res == 'fail'){
                         setTimeout(function(){
                         $('.list-message').append(
@@ -218,13 +232,13 @@
                                 '<img class="avatar" src="{{asset("fe/image/icons8-bot-30.png")}}" alt="...">'+
                                 '<div class="media-body hold">'+
                                     '<p class="mb-0 px-3 mr-10 media-answer-'+rand+'">'+
-                                        printText(data.result,-1)+
+                                        printText(data.result.answer,-1)+
                                     '</p>'+
                                     '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">'+time+'</p>'+
                                 '</div>'+
                         '</div>',
                         $('.lds-ellipsis').hide()
-                        )},delay);
+                        )},data.result.time_request * 100);
                     }
                 } 
             })

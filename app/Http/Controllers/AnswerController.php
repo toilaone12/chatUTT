@@ -26,11 +26,14 @@ class AnswerController extends Controller
         if($data['question'] == ''){
             return response()->json(['res' => 'fail','status' => 'Cảm ơn bạn vì đã thích câu nói vừa rồi!'],200);
         }else{
+            $startTime = microtime(true);
             $select = Answer::where('question_list','like','%'.$data['question'].'%')->get();
+            $endTime = microtime(true);
+            $queryTime = ($endTime - $startTime) * 1000;
             if(count($select) > 0){
-                return response()->json(['res' => 'success', 'status' => 'Trả lời thành công!', 'result' => $select[0]->answer]);
+                return response()->json(['res' => 'success', 'status' => 'Trả lời thành công!', 'result' => ['answer' => $select[0]->answer,'time_request' => $queryTime]]);
             }else{
-                return response()->json(['res' => 'fail','status' => 'Kiểm tra lại truy vấn của bạn!'],200);
+                return response()->json(['res' => 'fail','status' => 'Kiểm tra lại truy vấn của bạn!', 'result' => ['time_request' => $queryTime / 1000000 ]],200);
             }
         }
     }
