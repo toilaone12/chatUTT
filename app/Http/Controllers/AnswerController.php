@@ -30,6 +30,7 @@ class AnswerController extends Controller
             $select = Answer::where('question_list','like','%'.$data['question'].'%')->get();
             $endTime = microtime(true);
             $queryTime = ($endTime - $startTime) * 1000;
+            // $updateNameRoom = Room::update()
             if(count($select) > 0){
                 return response()->json(['res' => 'success', 'status' => 'Trả lời thành công!', 'result' => ['answer' => $select[0]->answer,'time_request' => $queryTime]]);
             }else{
