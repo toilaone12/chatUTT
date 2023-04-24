@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\HistoryMessage;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class AnswerController extends Controller
@@ -32,7 +34,22 @@ class AnswerController extends Controller
             $queryTime = ($endTime - $startTime) * 1000;
             // $updateNameRoom = Room::update()
             if(count($select) > 0){
-                return response()->json(['res' => 'success', 'status' => 'Trả lời thành công!', 'result' => ['answer' => $select[0]->answer,'time_request' => $queryTime]]);
+                $noti = '';
+                $insertHistoryMessage = HistoryMessage::create([
+                    'id_user' => $data['userId'],
+                    'code_history' => $data['codeRoom'],
+                    'question' => $data['question'],
+                    'answer' => $select[0]->answer
+                ]);
+                $oneRoom = Room::where('code_history',$data['codeRoom'])->first();
+                if($oneRoom->name_room == ''){
+                    $oneRoom->name_room = $data['question'];
+                    $oneRoom->save();
+                    $noti = true;
+                }else{
+                    $noti = false;
+                }
+                return response()->json(['res' => 'success', 'status' => 'Trả lời thành công!', 'result' => ['answer' => $select[0]->answer,'noti' => $noti, 'code_room' => $data['codeRoom'], 'time_request' => $queryTime]]);
             }else{
                 return response()->json(['res' => 'fail','status' => 'Kiểm tra lại truy vấn của bạn!', 'result' => ['time_request' => $queryTime / 1000000 ]],200);
             }

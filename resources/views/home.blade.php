@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="mode">
+<body class="mode" data-id="{{$oneCustomer[0]->id_customer}}">
     <div class="widget">
         <div class="left-panel panel ">
             <div class="date-chat">
@@ -33,7 +33,7 @@
     <section class="gradient-custom mode mt-5 pt-5" >
         <div class="container py-5 mt-5 h-100">
             <div class="row f-100" style="margin-top: 100px;">
-                <div class="col-md-4 col-lg-4 col-xl-4 mb-4 mb-md-0 bg-light rounded setting" style="height: 630px">
+                <div class="col-md-4 col-lg-4 col-xl-4 mb-4 mb-md-0 bg-light rounded setting">
                     <h5 class="font-weight-bold mb-3 mt-4 text-dark">Cài đặt</h5>
                     <div class="card p-3">
                         <span class="text-secondary fs-18 ml-1 font-weight-bold mb-3">Các chế độ người dùng</span>
@@ -51,23 +51,17 @@
                         </div>
                     </div>
                     <div class="history-chat mt-3">
-                        <div class="d-flex w-100 h-100 border-0 room-chat-items mt-3 align-items-center pl-2" style="background-color: transparent;">
+                        @foreach($allRoomByUser as $key => $roomId)
+                        <div class="d-flex w-100 h-100 border-0 room-chat-items mt-3 align-items-center pl-2" data-room="{{$roomId->code_history}}" style="background-color: transparent;">
                             <i class="fa-solid fa-message text-secondary fs-20"></i>
-                            <span class="text-secondary ml-2 fs-16">Bạn đã làm gì</span>
+                            <span class="text-secondary ml-2 fs-16">{{$roomId->name_room == '' ? 'Phòng mới' : $roomId->name_room}}</span>
                         </div>
-                        <!-- <div class="d-flex w-100 h-100 border-0 room-chat-items mt-3 align-items-center pl-2" style="background-color: transparent;">
-                            <i class="fa-solid fa-message text-secondary fs-20"></i>
-                            <span class="text-secondary ml-2 fs-16">Bạn đã làm gì</span>
-                        </div>
-                        <div class="d-flex w-100 h-100 border-0 room-chat-items mt-3 align-items-center pl-2" style="background-color: transparent;">
-                            <i class="fa-solid fa-message text-secondary fs-20"></i>
-                            <span class="text-secondary ml-2 fs-16">Bạn đã làm gì</span>
-                        </div> -->
+                        @endforeach
                     </div>
                     <!-- <div class="card">
                     </div> -->
                 </div>
-                <div class="col-md-8 col-lg-8 col-xl-8 d-none room-chat">
+                <div class="col-md-8 col-lg-8 col-xl-8 d-none room-chat" data-code="">
                     <div class="card card-bordered">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center mt-2">
@@ -75,31 +69,6 @@
                             </div>
                         </div>
                         <div class="ps-container ps-theme-default ps-active-y list-message" id="chat-content" style="overflow-y: scroll !important; height:500px !important;">
-                            <!-- <div class="media media-chat">
-                                <img class="avatar" src="{{asset("fe/image/icons8-bot-30.png")}}" alt="...">
-                                <div class="media-body">
-                                    <p class="mb-0 mr-10">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                        eiusmod tempor
-                                    </p>
-                                    <p class="mr-1 text-dark small mb-0 meta"> 23:58</p>
-                                </div>
-                            </div>
-
-                            <div class="media media-meta-day">Today</div>
-
-                            <div class="media media-chat media-chat-reverse">
-                                <div class="media-body">
-                                    <p class="mb-0">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                        eiusmod tempor
-                                    </p>
-                                    <p class="mr-1 text-dark small mb-0 d-flex justify-content-end meta"> 23:58</p>
-                                    <div class="lds-ellipsis border"><div></div><div></div><div></div></div>
-                                </div>
-                            </div> -->
-
-
                             <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
                                 <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;">
                                 </div>
@@ -111,7 +80,7 @@
                         </div>
 
                         <div class="publisher bt-1 border-light">
-                            <img class="avatar avatar-xs" src="{{asset("fe/image/icons8-bot-30.png")}}" alt="...">
+                            <img class="avatar avatar-xs" src="{{$oneCustomer[0]->image_customer}}" alt="...">
                             <input class="publisher-input form-control question" type="text" placeholder="">
                             <span class="publisher-btn voice-btn">
                                 <i class="fa-solid fa-microphone fs-22"></i>
@@ -149,6 +118,9 @@
                 hours = '0'+hours;
             }
             var minutes = date.getMinutes();
+            if(minutes < 10){
+                minutes = '0'+minutes;
+            }
             var dateTime = day+', '+days+'/'+month+'/'+year+' '+hours+':'+minutes;
             $('.city-chat').text(data.name);
             $('.date-chat').text(dateTime);
@@ -181,12 +153,16 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
+                data:{
+                    userId: $('body').data('id')
+                },
                 success: function(data){
                     if(data.res == 'success'){
                         $('.room-chat').addClass('d-block');
+                        $('.room-chat').attr('data-code',data.code_room);
                         var html = '';
                         if(data.name_room == ''){
-                            html += '<div class="d-flex w-100 h-100 border-0 room-chat-items mt-3 align-items-center pl-2" style="background-color: transparent;">'
+                            html += '<div class="d-flex w-100 h-100 border-0 room-chat-items-'+data.code_room+' mt-3 align-items-center pl-2" style="background-color: transparent;">'
                             html += '<i class="fa-solid fa-plus text-secondary fs-20"></i>'
                             html += '<span class="text-secondary ml-2 fs-16">Phòng mới</span>'
                             html += '</div>'
@@ -294,12 +270,14 @@
                 method: 'POST',
                 data: {
                     question: question,
+                    userId: $('body').data('id'),
+                    codeRoom: $('.room-chat').data('code')
                 },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    console.log(data.result.time_request);
+                    // console.log(data.result.time_request);
                     if (data.res == 'fail') {
                         setTimeout(function() {
                             $('.list-message').append(
@@ -328,6 +306,11 @@
                                 '</div>',
                                 $('.lds-ellipsis').hide()
                             )
+                            // if($('.room-chat-items').attr('data-room') == data.code_room){
+                            if(data.noti == true){
+                                $('.room-chat-items-'.data.code_room).text(printText(question));
+                            }
+                            // }
                         }, data.result.time_request * 100);
                     }
                 }
