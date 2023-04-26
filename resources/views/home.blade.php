@@ -30,31 +30,37 @@
         </div>
 
     </div>
-    <section class="gradient-custom mode mt-5 pt-5" >
+    <section class="gradient-custom mode mt-5 pt-5">
         <div class="container py-5 mt-5 h-100">
             <div class="row f-100" style="margin-top: 100px;">
-                <div class="col-md-4 col-lg-4 col-xl-4 mb-4 mb-md-0 bg-light rounded setting">
+                <div class="col-md-4 col-lg-4 col-xl-4 mb-4 mb-md-0 bg-light rounded setting"  style="height:630px">
                     <h5 class="font-weight-bold mb-3 mt-4 text-dark">Cài đặt</h5>
                     <div class="card p-3">
                         <span class="text-secondary fs-18 ml-1 font-weight-bold mb-3">Các chế độ người dùng</span>
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center" style="cursor:pointer">
                             <input type="checkbox" id="toggle" class="toggle--checkbox">
                             <label for="toggle" class="toggle--label">
                             </label>
                             <span class="text-secondary fs-16 font-weight-bold mb-2 ml-2">Chọn chế độ ánh sáng</span>
                         </div>
                         <div class="">
-                            <span class="text-secondary fs-16 font-weight-bold mb-4 mt-2 d-flex align-items-center open-room">
-                                <i class="ml-3 mr-2 fa-solid fa-square-plus fs-20" style="font-size: 30px;"></i>
+                            <span class="text-secondary fs-16 font-weight-bold mb-2 mt-2 d-flex align-items-center open-room" style="cursor:pointer">
+                                <i class="ml-3 mr-2 fa-solid fa-circle-plus fs-20" style="color: #96dcee; font-size: 30px;"></i>
                                 Tạo cuộc trò chuyện mới
                             </span>
                         </div>
+                        <div class="">
+                            <span class="text-secondary fs-16 font-weight-bold mb-4 mt-2 d-flex align-items-center logout" style="cursor:pointer">
+                                <i class="ml-3 mr-2 fa-solid fa-right-from-bracket fs-20" style="color: #96dcee; font-size: 30px;"></i>
+                                Đăng xuất
+                            </span>
+                        </div>
                     </div>
-                    <div class="history-chat mt-3">
+                    <div class="history-chat mt-3 overflow-auto" style="height:300px">
                         @foreach($allRoomByUser as $key => $roomId)
-                        <div class="d-flex w-100 h-100 border-0 room-chat-items mt-3 align-items-center pl-2" data-room="{{$roomId->code_history}}" style="background-color: transparent;">
-                            <i class="fa-solid fa-message text-secondary fs-20"></i>
-                            <span class="text-secondary ml-2 fs-16">{{$roomId->name_room == '' ? 'Phòng mới' : $roomId->name_room}}</span>
+                        <div class="d-flex w-100 border-0 border-secondary room-chat-items items-{{$roomId->code_history}} mt-2 align-items-center pl-4" data-room="{{$roomId->code_history}}" style="background-color: transparent;">
+                            <i class="fa-regular fa-message text-secondary fs-20"></i>
+                            <span class="text-secondary ml-3 pb-1 fs-16">{{$roomId->name_room == '' ? 'Phòng mới' : $roomId->name_room}}</span>
                         </div>
                         @endforeach
                     </div>
@@ -102,50 +108,49 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    function weatherDay() {
-        var apiKey = '69f59d0621e668fb571e5dda73e6ab46';
-        var url = 'https://api.openweathermap.org/data/2.5/weather?lang=vi&lat=' + localStorage.getItem('lat') + '&lon=' + localStorage.getItem('lng') + '&appid=' + apiKey;
-        $.getJSON(url, function(data) {
-            var weather = data.weather[0].main;
-            var date = new Date();
-            var dayOfWeek = ['Chủ nhật','Thứ hai','Thứ ba','Thứ tư','Thứ năm','Thứ sáu','Thứ bảy'];
-            var day = dayOfWeek[date.getDay()];
-            var days = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-            var hours = date.getHours();
-            if(hours < 10){
-                hours = '0'+hours;
-            }
-            var minutes = date.getMinutes();
-            if(minutes < 10){
-                minutes = '0'+minutes;
-            }
-            var dateTime = day+', '+days+'/'+month+'/'+year+' '+hours+':'+minutes;
-            $('.city-chat').text(data.name);
-            $('.date-chat').text(dateTime);
-            $('.icon-weather').attr('src','http://openweathermap.org/img/w/' + data.weather[0].icon + '.png')
-        });
-    }
-
     $(document).ready(function() {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                // Lấy kinh độ và vĩ độ của vị trí hiện tại
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-
-                // Sử dụng kinh độ và vĩ độ để thực hiện các hành động khác, ví dụ như hiển thị bản đồ
-                localStorage.setItem('lat', latitude);
-                localStorage.setItem('lng', longitude);
+        $('.room-chat-items').each(function(k,v){
+            // console.log($(v).data('room'));
+            $('.items-'+$(v).data('room')).click(function(){
+                var codeRoom = $(v).data('room');
+                $.ajax({
+                    url: "{{route('history.historyMessageRoom')}}",
+                    method: "GET",
+                    dataType: 'json',
+                    data: {
+                        codeRoom: codeRoom
+                    },
+                    success: function(data){
+                        console.log(data);
+                        if(data.res == 'success'){
+                            var html = "";
+                            html += listHistoryMessage(data.result,data.imageCustomer);
+                            $('.room-chat').html(html);
+                            $('.room-chat').removeClass('d-none');
+                        }
+                    }
+                })
+                // console.log($(v).data('room'));
             });
-        } else {
-            // Trình duyệt không hỗ trợ định vị
-            localStorage.removeItem('lat');
-            localStorage.removeItem('lng');
-            console.log("Trình duyệt này không hỗ trợ định vị!");
-        }
-        weatherDay();
+            // console.log($(this).data('room')[v]); 
+        });
+        //dang xuat
+        $('.logout').click(function(){
+            $.ajax({
+                url: "{{route('page.logout')}}",
+                method: 'GET',
+                dataType: 'json',
+                success: function(data){
+                    // console.log(data);
+                    if(data.res == 'success'){
+                        location.href = "{{route('page.loginForm')}}"
+                    }else{
+                        location.href = '/'
+                    }
+                }
+            });
+        });
+        //mo phong
         $('.open-room').click(function() {
             $.ajax({
                 url: "{{route('room.createRoom')}}",
@@ -162,9 +167,9 @@
                         $('.room-chat').attr('data-code',data.code_room);
                         var html = '';
                         if(data.name_room == ''){
-                            html += '<div class="d-flex w-100 h-100 border-0 room-chat-items-'+data.code_room+' mt-3 align-items-center pl-2" style="background-color: transparent;">'
-                            html += '<i class="fa-solid fa-plus text-secondary fs-20"></i>'
-                            html += '<span class="text-secondary ml-2 fs-16">Phòng mới</span>'
+                            html += '<div class="d-flex w-100 border-0 room-chat-items-'+data.code_room+' mt-2 align-items-center pl-4" data-room="{{$roomId->code_history}}" style="background-color: transparent;">'
+                            html += '<i class="fa-regular fa-message text-secondary fs-20"></i>'
+                            html += '<span class="text-secondary ml-3 pb-1 fs-16">Phòng mới</span>'
                             html += '</div>'
                             $('.history-chat').append(html);
                         }
@@ -175,42 +180,7 @@
                 }
             });
         });
-        var recognition = new webkitSpeechRecognition();
-        recognition.continuous = true;
-        recognition.interimResults = true;
 
-        $('.voice-btn').click(function() {
-            recognition.start();
-        });
-
-        recognition.onresult = function(event) {
-            // Lấy kết quả nhận dạng giọng nói
-            var result = event.results[event.results.length - 1][0].transcript;
-            // In kết quả vào input
-            $(".question").val(result);
-        }
-
-        $('.question').keyup(function() {
-            var question = $('.question').val();
-            // console.log(question);
-            if (question !== '') {
-                $('.icon').html('<i class="fas fa-paper-plane fs-22"></i>');
-            } else {
-                $('.icon').html('<i class="fa-solid fa-thumbs-up fs-22"></i>');
-            }
-        });
-
-        $('.toggle--checkbox').change(function(e) {
-            // console.log(1);
-            e.preventDefault();
-            if ($('section').hasClass('bg-dark')) {
-                $('.mode').addClass('bg-cyan');
-                $('.mode').removeClass('bg-dark');
-            } else {
-                $('.mode').addClass('bg-dark');
-                $('.mode').removeClass('bg-cyan');
-            }
-        });
         $('.chat').click(function() {
             // console.log('a');
             var rand = Math.floor(Math.random() * 100) + 1;
@@ -320,5 +290,6 @@
         });
     });
 </script>
+<script src="{{asset('fe/js/main.js')}}"></script>
 
 </html>

@@ -34,6 +34,7 @@ Route::prefix('admin')->group(function(){
 });
 Route::prefix('page')->group(function(){
     Route::get('/login',[HomeController::class,'loginForm'])->name('page.loginForm');
+    Route::get('/logout',[HomeController::class,'logout'])->name('page.logout');
     Route::post('/loginPage',[HomeController::class,'login'])->name('page.login');
     Route::get('/',[HomeController::class,'home'])->name('page.home');
     Route::prefix('answer')->group(function(){
@@ -42,6 +43,9 @@ Route::prefix('page')->group(function(){
     });
     Route::prefix('room')->group(function(){
         Route::post('/create-room',[RoomController::class,'createRoom'])->name('room.createRoom');
+    });
+    Route::prefix('history')->group(function(){
+        Route::get('/history-room',[HistoryMessageController::class,'historyMessageRoom'])->name('history.historyMessageRoom');
     });
 });
 

@@ -49,7 +49,6 @@ class HomeController extends Controller
 
     function login(Request $request){
         $data = $request->all();
-        $response = new Response('Hello World');
         $validator = Validator::make($data,[
             'email' => ['required'],
             'password' => ['required','min:6','max:32']
@@ -72,14 +71,23 @@ class HomeController extends Controller
     }
 
     function home(){
-        $email = Cookie::get('email');
-        $oneCustomer = Customer::where('email_customer',$email)->get();
-        $allRoomByUser = Room::where('id_user',$oneCustomer[0]->id_customer)->get();
-        // dd($allRoomByUser);
-        return view('home',compact(
-            'oneCustomer',
-            'allRoomByUser'
-        ));
+        if(Cookie::get('email')){
+            $email = Cookie::get('email');
+            $oneCustomer = Customer::where('email_customer',$email)->get();
+            $allRoomByUser = Room::where('id_user',$oneCustomer[0]->id_customer)->get();
+            // dd($allRoomByUser);
+            return view('home',compact(
+                'oneCustomer',
+                'allRoomByUser'
+            ));
+        }else{
+            return redirect()->route('page.loginForm');
+        }
+    }
+
+    function logout(){
+        Cookie::queue(Cookie::forget('email'));
+        return response()->json(['res' => 'success'],200);
     }
 
 }
