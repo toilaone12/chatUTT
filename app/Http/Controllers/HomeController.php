@@ -74,11 +74,41 @@ class HomeController extends Controller
         if(Cookie::get('email')){
             $email = Cookie::get('email');
             $oneCustomer = Customer::where('email_customer',$email)->get();
-            $allRoomByUser = Room::where('id_user',$oneCustomer[0]->id_customer)->get();
-            // dd($allRoomByUser);
+            $allRoomByUser = Room::where('id_user',$oneCustomer[0]->id_customer)->orderBy('created_at','DESC')->get();
+            $dateNow = strtotime(date('Y-m-d H:i:s'));
+            $arrRoom = array();
+            foreach($allRoomByUser as $key => $room){
+                $dateCreate = strtotime($room->created_at);
+                $date = intval($dateNow - $dateCreate);
+                $day = $date / 86400;
+                $week = $day / 7;
+                $month = $day / 30;
+                $nameDate = '';
+                if($day < 1){
+                    $nameDate = 'Hôm nay';
+                }else if($day > 1 && $day < 7){
+                    $nameDate = intval($day). ' ngày trước';
+                }else if($week < 4){
+                    $nameDate = intval($week).' tuần trước';
+                }else if($month < 12){
+                    $nameDate = intval($month).' tháng trước';
+                }else{
+                    $nameDate = 'Năm trước';
+                }
+                $arr = [
+                    'name_date' => $nameDate,
+                    'code_history' => $room->code_history,
+                    'name_room' => $room->name_room
+                ];
+                array_push($arrRoom,$arr);
+            }
+            $arrRoom = collect($arrRoom);
+            // dd(collect($arrRoom)); 
+            // dd($arrRoom[0]['name_date']);
             return view('home',compact(
                 'oneCustomer',
-                'allRoomByUser'
+                'arrRoom',
+                'nameDate'
             ));
         }else{
             return redirect()->route('page.loginForm');

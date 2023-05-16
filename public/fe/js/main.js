@@ -1,3 +1,7 @@
+var recognition = new webkitSpeechRecognition();
+recognition.continuous = true;
+recognition.interimResults = true;
+
 function weatherDay() {
     var apiKey = '69f59d0621e668fb571e5dda73e6ab46';
     var url = 'https://api.openweathermap.org/data/2.5/weather?lang=vi&lat=' + localStorage.getItem('lat') + '&lon=' + localStorage.getItem('lng') + '&appid=' + apiKey;
@@ -23,37 +27,66 @@ function weatherDay() {
     });
 }
 
-function listHistoryMessage(result,imageCustomer){
+// function voiceChat(){
+//     recognition.onresult = function(event) {
+//         // Lấy kết quả nhận dạng giọng nói
+//         var result = event.results[event.results.length - 1][0].transcript;
+//         // In kết quả vào input
+//         $(".question").val(result);
+//     }
+// }
+
+function listHistoryMessage(result,imageCustomer,imageBot){
+    var rand = Math.floor(Math.random() * 100) + 1;
     var html = '';
     // $.each(data.result,function(k,v){
     // });
-
-    html += '<div class="card card-bordered">'
-    html +=     '<div class="card-header">'
-    html +=         '<div class="d-flex justify-content-between align-items-center mt-2">'
-    html +=             '<h5 class="text-dark">Nhắn tin với ChatBot</h5>'
-    html +=         '</div>'
-    html +=     '</div>'
-    html += '<div class="ps-container ps-theme-default ps-active-y list-message" id="chat-content" style="overflow-y: scroll !important; height:500px !important;">'
-    html +=     '<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">'
-    html +=         '<div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;">'
-    html +=     '</div>'
-    html +=     '<div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">'
-    html +=         '<div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;">'
-    html +=         '</div>'
-    html +=     '</div>'
-    html += '</div>'
-    // html += '<div class="publisher bt-1 border-light">'
-    // html +=     '<img class="avatar avatar-xs" src="'+imageCustomer+'" alt="...">'
-    // html +=     '<input class="publisher-input form-control question" type="text" placeholder="">'
-    // html +=     '<span class="publisher-btn voice-btn">'
-    // html +=         '<i class="fa-solid fa-microphone fs-22"></i>'
-    // html +=     '</span>'
-    // html +=     '<a class="publisher-btn text-info icon chat" href="#" data-abc="true">'
-    // html +=         '<i class="fa-solid fa-thumbs-up fs-22"></i>'
-    // html +=     '</a>'
-    // html += '</div>'
-    html += '</div>'
+    html+=                '<div class="card card-bordered">'
+    html+=                    '<div class="card-header">'
+    html+=                       '<div class="d-flex justify-content-between align-items-center mt-2">'
+    html+=                            '<h5 class="text-dark">Nhắn tin với ChatBot</h5>'
+    html+=                        '</div>'
+    html+=                    '</div>'
+    html+=                    '<div class="ps-container ps-theme-default ps-active-y list-message" id="chat-content" style="overflow-y: scroll !important; height:500px !important;">'  
+    $.each(result,function(k,v){
+    html+=                        '<div class="media media-chat media-chat-reverse">' 
+    html+=                            '<div class="media-body">' 
+    html+=                                '<p class="mb-0">' 
+    html+=                                    v.question 
+    html+=                                '</p>' 
+    html+=                                '<p class="mr-1 text-dark small mb-0 pr-0 d-flex justify-content-end meta"></p>' 
+    html+=                            '</div>' 
+    html+=                        '</div>';
+    html+=                        '<div class="media media-chat">' 
+    html+=                            '<img class="avatar" src="'+imageBot+'" alt="...">' 
+    html+=                                '<div class="media-body hold">' 
+    html+=                                     '<p class="mb-0 px-3 mr-10 media-answer-' + rand + '">' 
+    html+=                                      v.answer
+    html+=                                     '</p>' 
+    html+=                                     '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta"></p>' 
+    html+=                                '</div>' 
+    html+=                        '</div>'
+    });
+    html+=                        '<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">'
+    html+=                            '<div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;">'
+    html+=                            '</div>'
+    html+=                        '</div>'
+    html+=                        '<div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">'
+    html+=                            '<div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;">'
+    html+=                            '</div>'
+    html+=                       '</div>'
+    html+=                   '</div>'
+    html+=                    '<div class="publisher bt-1 border-light">'
+    html+=                       '<img class="avatar avatar-xs" src="'+imageCustomer+'" alt="...">'
+    html+=                       '<input class="publisher-input form-control question" type="text" placeholder="">'
+    html+=                       '<span class="publisher-btn record-btn">'
+    html+=                            '<i class="fa-solid fa-microphone fs-22"></i>'
+    html+=                        '</span>'
+    html+=                        '<a class="publisher-btn text-info icon chat" href="#" data-abc="true">'
+    html+=                            '<i class="fa-solid fa-thumbs-up fs-22"></i>'
+    html+=                        '</a>'
+    html+=                    '</div>'
+    html+=                '</div>'
     return html;
 }
 $(document).ready(function() {
@@ -74,21 +107,11 @@ $(document).ready(function() {
         // console.log("Trình duyệt này không hỗ trợ định vị!");
     }
     weatherDay();
-
-    var recognition = new webkitSpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-
-    $('.voice-btn').click(function() {
-        recognition.start();
-    });
-
-    recognition.onresult = function(event) {
-        // Lấy kết quả nhận dạng giọng nói
-        var result = event.results[event.results.length - 1][0].transcript;
-        // In kết quả vào input
-        $(".question").val(result);
-    }
+    // $('.voice-btn').click(function() {
+    //     recognition.start();
+    //     voiceChat();
+    //     console.log('a');
+    // });
 
     $('.question').keyup(function() {
         var question = $('.question').val();

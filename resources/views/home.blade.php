@@ -57,10 +57,11 @@
                         </div>
                     </div>
                     <div class="history-chat mt-3 overflow-auto" style="height:300px">
-                        @foreach($allRoomByUser as $key => $roomId)
-                        <div class="d-flex w-100 border-0 border-secondary room-chat-items items-{{$roomId->code_history}} mt-2 align-items-center pl-4" data-room="{{$roomId->code_history}}" style="background-color: transparent;">
+                        @foreach($arrRoom as $key => $room)
+                        <div class="fs-12 pl-3 text-secondary">{{$room['name_date']}}</div>
+                        <div class="d-flex w-100 border-0 border-secondary room-chat-items items-{{$room['code_history']}} mt-2 align-items-center pl-4" data-room="{{$room['code_history']}}" style="background-color: transparent;">
                             <i class="fa-regular fa-message text-secondary fs-20"></i>
-                            <span class="text-secondary ml-3 pb-1 fs-16">{{$roomId->name_room == '' ? 'Phòng mới' : $roomId->name_room}}</span>
+                            <span class="text-secondary ml-3 pb-1 fs-16">{{$room['name_room'] == '' ? 'Phòng mới' : $room['name_room']}}</span>
                         </div>
                         @endforeach
                     </div>
@@ -88,8 +89,8 @@
                         <div class="publisher bt-1 border-light">
                             <img class="avatar avatar-xs" src="{{$oneCustomer[0]->image_customer}}" alt="...">
                             <input class="publisher-input form-control question" type="text" placeholder="">
-                            <span class="publisher-btn voice-btn">
-                                <i class="fa-solid fa-microphone fs-22"></i>
+                            <span class="publisher-btn record-btn">
+                                <i class="fa-solid fa-microphone fs-22 "></i>
                             </span>
                             <!-- <a class="publisher-btn" href="#" data-abc="true"><i
                                     class="fa fa-smile"></i></a>  -->
@@ -97,7 +98,6 @@
                                 <i class="fa-solid fa-thumbs-up fs-22"></i>
                             </a>
                         </div>
-
                     </div>
                 </div>
 
@@ -107,8 +107,51 @@
     </section>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{asset('fe/js/main.js')}}"></script>
 <script>
     $(document).ready(function() {
+        var recognition;
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+        } else if ('SpeechRecognition' in window) {
+            recognition = new SpeechRecognition();
+        } else {
+            console.log('API Web Speech Recognition không được hỗ trợ trong trình duyệt này.');
+            return;
+        }
+
+        var recordButton = $('.record-btn');
+        var transcript = $('.question');
+    
+        recordButton.on('click', function() {
+            // recognition.start();
+            alert('a');
+        });
+
+        recognition.onresult = function(event) {
+            var result = event.results[0][0].transcript;
+            transcript.text(result);
+        };
+
+        recognition.onerror = function(event) {
+            console.log('Lỗi trong quá trình thu âm:', event.error);
+        };
+        // var recognition = new webkitSpeechRecognition();
+        // recognition.continuous = true;
+        // recognition.interimResults = true;
+        // function voiceChat(){
+        //     recognition.onresult = function(event) {
+        //         // Lấy kết quả nhận dạng giọng nói
+        //         var result = event.results[event.results.length - 1][0].transcript;
+        //         // In kết quả vào input
+        //         $(".question").val(result);
+        //     }
+        // }
+        // $('.voice-btn').click(function() {
+        //     recognition.start();
+        //     voiceChat();
+        //     console.log('a');
+        // });
         $('.room-chat-items').each(function(k,v){
             // console.log($(v).data('room'));
             $('.items-'+$(v).data('room')).click(function(){
@@ -124,7 +167,7 @@
                         console.log(data);
                         if(data.res == 'success'){
                             var html = "";
-                            html += listHistoryMessage(data.result,data.imageCustomer);
+                            html += listHistoryMessage(data.result,data.imageCustomer,'{{asset("fe/image/icons8-bot-30.png")}}');
                             $('.room-chat').html(html);
                             $('.room-chat').removeClass('d-none');
                         }
@@ -167,11 +210,12 @@
                         $('.room-chat').attr('data-code',data.code_room);
                         var html = '';
                         if(data.name_room == ''){
-                            html += '<div class="d-flex w-100 border-0 room-chat-items-'+data.code_room+' mt-2 align-items-center pl-4" data-room="{{$roomId->code_history}}" style="background-color: transparent;">'
+                            html += '<div class="fs-12 pl-3 text-secondary">Hôm nay</div>'
+                            html += '<div class="d-flex w-100 border-0 room-chat-items items-'+data.code_room+' mt-2 align-items-center pl-4" data-room="'+data.code_room+'" style="background-color: transparent;">'
                             html += '<i class="fa-regular fa-message text-secondary fs-20"></i>'
                             html += '<span class="text-secondary ml-3 pb-1 fs-16">Phòng mới</span>'
                             html += '</div>'
-                            $('.history-chat').append(html);
+                            $('.history-chat').prepend(html);
                         }
                     }
                 },
@@ -290,6 +334,5 @@
         });
     });
 </script>
-<script src="{{asset('fe/js/main.js')}}"></script>
 
 </html>
