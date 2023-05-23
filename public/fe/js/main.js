@@ -20,6 +20,9 @@ function weatherDay() {
         if(minutes < 10){
             minutes = '0'+minutes;
         }
+        if(month < 10){
+            month = '0'+month;
+        }
         var dateTime = day+', '+days+'/'+month+'/'+year+' '+hours+':'+minutes;
         $('.city-chat').text(data.name);
         $('.date-chat').text(dateTime);
@@ -27,18 +30,153 @@ function weatherDay() {
     });
 }
 
-// function voiceChat(){
-//     recognition.onresult = function(event) {
-//         // Lấy kết quả nhận dạng giọng nói
-//         var result = event.results[event.results.length - 1][0].transcript;
-//         // In kết quả vào input
-//         $(".question").val(result);
-//     }
-// }
+function voiceChat(){
+    recognition.onresult = function(event) {
+        // Lấy kết quả nhận dạng giọng nói
+        var result = event.results[event.results.length - 1][0].transcript;
+        // In kết quả vào input
+        $(".question").val(result);
+    }
+    console.log('a3');
+}
 
-function listHistoryMessage(result,imageCustomer,imageBot){
+function autoWrite(){
+    var question = $('.question').val();
+    if (question !== '') {
+        $('.icon').html('<i class="fas fa-paper-plane fs-22"></i>');
+    } else {
+        $('.icon').html('<i class="fa-solid fa-thumbs-up fs-22"></i>');
+    }
+}
+
+function printText(text, index, rand) {
+    if (index < text.length) {
+        setTimeout(function() {
+            printText(text, index + 1, rand);
+        }, 50);
+        $('.media-answer-' + rand).append(text[index]);
+    }
+    return '';
+}
+
+function printTextRoom(text, index, code) {
+    if (index < text.length) {
+        setTimeout(function() {
+            printTextRoom(text, index + 1, code);
+        }, 500);
+        $('.items-'+code + '.text-room').append(text[index])
+        // console.log('.items-'+code);
+        console.log( $('.items-'+code + '.text-room'));
+        // console.log(text.length);
+        // console.log(text[index]);
+        // $('.media-answer-' + rand).append(text[index]);
+    }
+    return '';
+}
+
+function chatBot(question,url,image){
+    var rand = Math.floor(Math.random() * 100) + 1;
+    var date = new Date();
+    var minutes = 0;
+    var delay = 3000;
+    // var index = 0;
+    // console.log(rand);
+    if (date.getMinutes() < 10) {
+        var minutes = '0' + date.getMinutes();
+    } else {
+        var minutes = date.getMinutes();
+    }
+    // var str = 'Cảm ơn bạn vì đã thích câu nói vừa rồi!';
+    var time = date.getHours() + ":" + minutes;
+    var html = '';
+    if ($('.chat > i').hasClass('fa-thumbs-up')) {
+        html = '<div class="media media-chat media-chat-reverse">' +
+            '<div class="media-body">' +
+            '<p class="mb-0">' +
+            '<i class="fa-solid fa-thumbs-up fs-22"></i>' +
+            '</p>' +
+            '<p class="mr-1 text-dark small mb-0 pr-0 d-flex justify-content-end meta">' + time + '</p>' +
+            '</div>' +
+            '</div>';
+    } else {
+        html = '<div class="media media-chat media-chat-reverse">' +
+            '<div class="media-body">' +
+            '<p class="mb-0">' +
+            question +
+            '</p>' +
+            '<p class="mr-1 text-dark small mb-0 pr-0 d-flex justify-content-end meta">' + time + '</p>' +
+            '</div>' +
+            '</div>';
+        $('.question').val('');
+        $('.icon').html('<i class="fa-solid fa-thumbs-up fs-22"></i>');
+    }
+    $('.list-message').append(html);
+    setTimeout(function() {
+        $('.list-message').append(
+            '<div class="lds-ellipsis border ml-4 mt-4"><div></div><div></div><div></div></div></br>'
+        )
+    }, 1000);
+    // console.log(question);
+    $.ajax({
+        url: url,
+        method: 'POST',
+        data: {
+            question: question,
+            userId: $('body').data('id'),
+            codeRoom: $('.room-chat').data('code')
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(data) {
+            console.log(data);
+            if (data.res == 'fail') {
+                setTimeout(function() {
+                    $('.list-message').append(
+                        '<div class="media media-chat">' +
+                        '<img class="avatar" src="'+image+'" alt="...">' +
+                        '<div class="media-body hold">' +
+                        '<p class="mb-0 mr-10 media-answer-' + rand + '">' +
+                        printText(data.status, -1, rand) +
+                        '</p>' +
+                        '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
+                        '</div>' +
+                        '</div>',
+                        $('.lds-ellipsis').hide())
+                }, delay);
+            } else {
+                // setTimeout(function() {
+                //     $('.list-message').append(
+                //         '<div class="media media-chat">' +
+                //         '<img class="avatar" src="'+image+'" alt="...">' +
+                //         '<div class="media-body hold">' +
+                //         '<p class="mb-0 px-3 mr-10 media-answer-' + rand + '">' +
+                //         printText(data.result.answer, -1, rand) +
+                //         '</p>' +
+                //         '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
+                //         '</div>' +
+                //         '</div>',
+                //         $('.lds-ellipsis').hide()
+                //     )
+                //     // if($('.room-chat-items').attr('data-room') == data.code_room){
+                //         // }
+                // }, data.result.time_request * 100);
+                if(data.result.noti == true){
+                    // console.log(question)
+                    printTextRoom(question,0,data.result.code_room);
+                    // console.log(text(printText(question)));
+                }else{
+                    // console.log(data.code_room);
+                }
+            }
+        }
+    })
+}
+
+function listHistoryMessage(result,imageCustomer,imageBot,codeRoom){
     var rand = Math.floor(Math.random() * 100) + 1;
     var html = '';
+    // console.log(result);
     // $.each(data.result,function(k,v){
     // });
     html+=                '<div class="card card-bordered">'
@@ -79,7 +217,7 @@ function listHistoryMessage(result,imageCustomer,imageBot){
     html+=                    '<div class="publisher bt-1 border-light">'
     html+=                       '<img class="avatar avatar-xs" src="'+imageCustomer+'" alt="...">'
     html+=                       '<input class="publisher-input form-control question" type="text" placeholder="">'
-    html+=                       '<span class="publisher-btn record-btn">'
+    html+=                       '<span class="publisher-btn record-btn-'+codeRoom+'">'
     html+=                            '<i class="fa-solid fa-microphone fs-22"></i>'
     html+=                        '</span>'
     html+=                        '<a class="publisher-btn text-info icon chat" href="#" data-abc="true">'
@@ -107,20 +245,14 @@ $(document).ready(function() {
         // console.log("Trình duyệt này không hỗ trợ định vị!");
     }
     weatherDay();
-    // $('.voice-btn').click(function() {
-    //     recognition.start();
-    //     voiceChat();
-    //     console.log('a');
-    // });
+    $('.record-btn').click(function() {
+        recognition.start();
+        voiceChat();
+        console.log('a');
+    });
 
     $('.question').keyup(function() {
-        var question = $('.question').val();
-        // console.log(question);
-        if (question !== '') {
-            $('.icon').html('<i class="fas fa-paper-plane fs-22"></i>');
-        } else {
-            $('.icon').html('<i class="fa-solid fa-thumbs-up fs-22"></i>');
-        }
+        autoWrite();
     });
 
     $('.toggle--checkbox').change(function(e) {

@@ -61,7 +61,7 @@
                         <div class="fs-12 pl-3 text-secondary">{{$room['name_date']}}</div>
                         <div class="d-flex w-100 border-0 border-secondary room-chat-items items-{{$room['code_history']}} mt-2 align-items-center pl-4" data-room="{{$room['code_history']}}" style="background-color: transparent;">
                             <i class="fa-regular fa-message text-secondary fs-20"></i>
-                            <span class="text-secondary ml-3 pb-1 fs-16">{{$room['name_room'] == '' ? 'Phòng mới' : $room['name_room']}}</span>
+                            <span class="text-secondary ml-3 pb-1 fs-16 text-room">{{$room['name_room'] == '' ? 'Phòng mới' : $room['name_room']}}</span>
                         </div>
                         @endforeach
                     </div>
@@ -109,51 +109,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{asset('fe/js/main.js')}}"></script>
 <script>
-    $(document).ready(function() {
-        var recognition;
-        if ('webkitSpeechRecognition' in window) {
-            recognition = new webkitSpeechRecognition();
-        } else if ('SpeechRecognition' in window) {
-            recognition = new SpeechRecognition();
-        } else {
-            console.log('API Web Speech Recognition không được hỗ trợ trong trình duyệt này.');
-            return;
-        }
-
-        var recordButton = $('.record-btn');
-        var transcript = $('.question');
-    
-        recordButton.on('click', function() {
-            // recognition.start();
-            alert('a');
-        });
-
-        recognition.onresult = function(event) {
-            var result = event.results[0][0].transcript;
-            transcript.text(result);
-        };
-
-        recognition.onerror = function(event) {
-            console.log('Lỗi trong quá trình thu âm:', event.error);
-        };
-        // var recognition = new webkitSpeechRecognition();
-        // recognition.continuous = true;
-        // recognition.interimResults = true;
-        // function voiceChat(){
-        //     recognition.onresult = function(event) {
-        //         // Lấy kết quả nhận dạng giọng nói
-        //         var result = event.results[event.results.length - 1][0].transcript;
-        //         // In kết quả vào input
-        //         $(".question").val(result);
-        //     }
-        // }
-        // $('.voice-btn').click(function() {
-        //     recognition.start();
-        //     voiceChat();
-        //     console.log('a');
-        // });
+    $(document).ready(function() {      
         $('.room-chat-items').each(function(k,v){
-            // console.log($(v).data('room'));
             $('.items-'+$(v).data('room')).click(function(){
                 var codeRoom = $(v).data('room');
                 $.ajax({
@@ -167,10 +124,25 @@
                         console.log(data);
                         if(data.res == 'success'){
                             var html = "";
-                            html += listHistoryMessage(data.result,data.imageCustomer,'{{asset("fe/image/icons8-bot-30.png")}}');
+                            html += listHistoryMessage(data.result,data.imageCustomer,'{{asset("fe/image/icons8-bot-30.png")}}',codeRoom);
                             $('.room-chat').html(html);
                             $('.room-chat').removeClass('d-none');
+                            $('.room-chat').attr('data-code',codeRoom);
                         }
+                        $('.record-btn-'+codeRoom).click(function(){
+                            recognition.start();
+                            voiceChat();
+                            console.log('a2');
+                        })
+                        $('.question').keyup(function() {
+                            autoWrite();
+                        });
+                        $('.chat').click(function() {
+                            var url = "{{route('answer.botAnswer')}}";
+                            var image = '{{asset("fe/image/icons8-bot-30.png")}}'
+                            var question = $('.question').val();
+                            chatBot(question,url,image);
+                        });
                     }
                 })
                 // console.log($(v).data('room'));
@@ -211,12 +183,47 @@
                         var html = '';
                         if(data.name_room == ''){
                             html += '<div class="fs-12 pl-3 text-secondary">Hôm nay</div>'
-                            html += '<div class="d-flex w-100 border-0 room-chat-items items-'+data.code_room+' mt-2 align-items-center pl-4" data-room="'+data.code_room+'" style="background-color: transparent;">'
+                            html += '<div class="d-flex w-100 border-0 border-secondary room-chat-items items-'+data.code_room+' mt-2 align-items-center pl-4" data-room="'+data.code_room+'" style="background-color: transparent;">'
                             html += '<i class="fa-regular fa-message text-secondary fs-20"></i>'
-                            html += '<span class="text-secondary ml-3 pb-1 fs-16">Phòng mới</span>'
+                            html += '<span class="text-secondary ml-3 pb-1 fs-16 text-room">Phòng mới</span>'
                             html += '</div>'
                             $('.history-chat').prepend(html);
                         }
+                        $('.items-'+data.code_room).click(function(){
+                            // var codeRoom = $(this).data('room');
+                            $.ajax({
+                                url: "{{route('history.historyMessageRoom')}}",
+                                method: "GET",
+                                dataType: 'json',
+                                data: {
+                                    codeRoom: data.code_room
+                                },
+                                success: function(data){
+                                    console.log(data);
+                                    if(data.res == 'success'){
+                                        var html = "";
+                                        html += listHistoryMessage(data.result,data.imageCustomer,'{{asset("fe/image/icons8-bot-30.png")}}',data.code_room);
+                                        $('.room-chat').html(html);
+                                        $('.room-chat').removeClass('d-none');
+                                        $('.room-chat').attr('data-code',data.code_room);
+                                    }
+                                    $('.record-btn-'+data.code_room).click(function(){
+                                        recognition.start();
+                                        voiceChat();
+                                        console.log('a1');
+                                    })
+                                    $('.question').keyup(function() {
+                                        autoWrite();
+                                    });
+                                    $('.chat').click(function() {
+                                        var url = "{{route('answer.botAnswer')}}";
+                                        var image = '{{asset("fe/image/icons8-bot-30.png")}}'
+                                        var question = $('.question').val();
+                                        chatBot(question,url,image);
+                                    });
+                                }
+                            })
+                        });
                     }
                 },
                 error: function(error){
@@ -227,108 +234,10 @@
 
         $('.chat').click(function() {
             // console.log('a');
-            var rand = Math.floor(Math.random() * 100) + 1;
-            // console.log(rand);
-            function printText(text, index) {
-                if (index < text.length) {
-                    setTimeout(function() {
-                        printText(text, index + 1);
-                    }, 50);
-                    $('.media-answer-' + rand).append(text[index]);
-                }
-                return '';
-            }
             var question = $('.question').val();
-            var date = new Date();
-            var minutes = 0;
-            var delay = 3000;
-            var index = 0;
-            if (date.getMinutes() < 10) {
-                var minutes = '0' + date.getMinutes();
-            } else {
-                var minutes = date.getMinutes();
-            }
-            var str = 'Cảm ơn bạn vì đã thích câu nói vừa rồi!';
-            var time = date.getHours() + ":" + minutes;
-            var html = '';
-            if ($('.chat > i').hasClass('fa-thumbs-up')) {
-                html = '<div class="media media-chat media-chat-reverse">' +
-                    '<div class="media-body">' +
-                    '<p class="mb-0">' +
-                    '<i class="fa-solid fa-thumbs-up fs-22"></i>' +
-                    '</p>' +
-                    '<p class="mr-1 text-dark small mb-0 pr-0 d-flex justify-content-end meta">' + time + '</p>' +
-                    '</div>' +
-                    '</div>';
-            } else {
-                html = '<div class="media media-chat media-chat-reverse">' +
-                    '<div class="media-body">' +
-                    '<p class="mb-0">' +
-                    question +
-                    '</p>' +
-                    '<p class="mr-1 text-dark small mb-0 pr-0 d-flex justify-content-end meta">' + time + '</p>' +
-                    '</div>' +
-                    '</div>';
-                $('.question').val('');
-                $('.icon').html('<i class="fa-solid fa-thumbs-up fs-22"></i>');
-            }
-            $('.list-message').append(html);
-            setTimeout(function() {
-                $('.list-message').append(
-                    '<div class="lds-ellipsis border ml-4 mt-4"><div></div><div></div><div></div></div></br>'
-                )
-            }, 1000);
-            // console.log(question);
-            $.ajax({
-                url: "{{route('answer.botAnswer')}}",
-                method: 'POST',
-                data: {
-                    question: question,
-                    userId: $('body').data('id'),
-                    codeRoom: $('.room-chat').data('code')
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    // console.log(data.result.time_request);
-                    if (data.res == 'fail') {
-                        setTimeout(function() {
-                            $('.list-message').append(
-                                '<div class="media media-chat">' +
-                                '<img class="avatar" src="{{asset("fe/image/icons8-bot-30.png")}}" alt="...">' +
-                                '<div class="media-body hold">' +
-                                '<p class="mb-0 mr-10 media-answer-' + rand + '">' +
-                                printText(data.status, -1) +
-                                '</p>' +
-                                '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
-                                '</div>' +
-                                '</div>',
-                                $('.lds-ellipsis').hide())
-                        }, delay);
-                    } else {
-                        setTimeout(function() {
-                            $('.list-message').append(
-                                '<div class="media media-chat">' +
-                                '<img class="avatar" src="{{asset("fe/image/icons8-bot-30.png")}}" alt="...">' +
-                                '<div class="media-body hold">' +
-                                '<p class="mb-0 px-3 mr-10 media-answer-' + rand + '">' +
-                                printText(data.result.answer, -1) +
-                                '</p>' +
-                                '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
-                                '</div>' +
-                                '</div>',
-                                $('.lds-ellipsis').hide()
-                            )
-                            // if($('.room-chat-items').attr('data-room') == data.code_room){
-                            if(data.noti == true){
-                                $('.room-chat-items-'.data.code_room).text(printText(question));
-                            }
-                            // }
-                        }, data.result.time_request * 100);
-                    }
-                }
-            })
+            var url = "{{route('answer.botAnswer')}}";
+            var image = '{{asset("fe/image/icons8-bot-30.png")}}'
+            chatBot(question,url,image);
             // console.log(printText("Hello, world!", 0));
 
         });

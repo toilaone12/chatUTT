@@ -91,14 +91,18 @@ class HomeController extends Controller
                 }else if($week < 4){
                     $nameDate = intval($week).' tuần trước';
                 }else if($month < 12){
-                    $nameDate = intval($month).' tháng trước';
+                    if($week > 4 && $week < 5){
+                        $nameDate = '1 tháng trước';
+                    }else{
+                        $nameDate = intval($month).' tháng trước';
+                    }
                 }else{
                     $nameDate = 'Năm trước';
                 }
                 $arr = [
                     'name_date' => $nameDate,
                     'code_history' => $room->code_history,
-                    'name_room' => $room->name_room
+                    'name_room' => $room->name_room,
                 ];
                 array_push($arrRoom,$arr);
             }
