@@ -84,4 +84,24 @@
 </body>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // Lấy kinh độ và vĩ độ của vị trí hiện tại
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+        
+                // Sử dụng kinh độ và vĩ độ để thực hiện các hành động khác, ví dụ như hiển thị bản đồ
+                localStorage.setItem('lat', latitude);
+                localStorage.setItem('lng', longitude);
+            });
+        } else {
+            // Trình duyệt không hỗ trợ định vị
+            localStorage.removeItem('lat');
+            localStorage.removeItem('lng');
+            // console.log("Trình duyệt này không hỗ trợ định vị!");
+        }
+    })
+</script>
 </html>

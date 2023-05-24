@@ -35,16 +35,16 @@ class AnswerController extends Controller
             // $updateNameRoom = Room::update()
             if(count($select) > 0){
                 $noti = '';
-                // $insertHistoryMessage = HistoryMessage::create([
-                //     'id_user' => $data['userId'],
-                //     'code_history' => $data['codeRoom'],
-                //     'question' => $data['question'],
-                //     'answer' => $select[0]->answer
-                // ]);
+                $insertHistoryMessage = HistoryMessage::create([
+                    'id_user' => $data['userId'],
+                    'code_history' => $data['codeRoom'],
+                    'question' => $data['question'],
+                    'answer' => $select[0]->answer
+                ]);
                 $oneRoom = Room::where('code_history',$data['codeRoom'])->first();
                 if($oneRoom->name_room == ''){
-                    // $oneRoom->name_room = $data['question'];
-                    // $oneRoom->save();
+                    $oneRoom->name_room = $data['question'];
+                    $oneRoom->save();
                     $noti = true;
                 }else{
                     $noti = false;

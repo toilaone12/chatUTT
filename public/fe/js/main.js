@@ -61,12 +61,13 @@ function printText(text, index, rand) {
 
 function printTextRoom(text, index, code) {
     if (index < text.length) {
+        var textRoom = $('.text-room-'+code);
         setTimeout(function() {
             printTextRoom(text, index + 1, code);
         }, 500);
-        $('.items-'+code + '.text-room').append(text[index])
+        textRoom.append(text[index]);
         // console.log('.items-'+code);
-        console.log( $('.items-'+code + '.text-room'));
+        // console.log(text[index]);
         // console.log(text.length);
         // console.log(text[index]);
         // $('.media-answer-' + rand).append(text[index]);
@@ -115,7 +116,7 @@ function chatBot(question,url,image){
         $('.list-message').append(
             '<div class="lds-ellipsis border ml-4 mt-4"><div></div><div></div><div></div></div></br>'
         )
-    }, 1000);
+    }, 100);
     // console.log(question);
     $.ajax({
         url: url,
@@ -145,24 +146,28 @@ function chatBot(question,url,image){
                         $('.lds-ellipsis').hide())
                 }, delay);
             } else {
-                // setTimeout(function() {
-                //     $('.list-message').append(
-                //         '<div class="media media-chat">' +
-                //         '<img class="avatar" src="'+image+'" alt="...">' +
-                //         '<div class="media-body hold">' +
-                //         '<p class="mb-0 px-3 mr-10 media-answer-' + rand + '">' +
-                //         printText(data.result.answer, -1, rand) +
-                //         '</p>' +
-                //         '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
-                //         '</div>' +
-                //         '</div>',
-                //         $('.lds-ellipsis').hide()
-                //     )
-                //     // if($('.room-chat-items').attr('data-room') == data.code_room){
-                //         // }
-                // }, data.result.time_request * 100);
+                setTimeout(function() {
+                    $('.list-message').append(
+                        '<div class="media media-chat">' +
+                        '<img class="avatar" src="'+image+'" alt="...">' +
+                        '<div class="media-body hold">' +
+                        '<p class="mb-0 px-3 mr-10 media-answer-' + rand + '">' +
+                        printText(data.result.answer, -1, rand) +
+                        '</p>' +
+                        '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
+                        '</div>' +
+                        '</div>',
+                        $('.lds-ellipsis').hide()
+                    )
+                    // if($('.room-chat-items').attr('data-room') == data.code_room){
+                        // }
+                }, data.result.time_request * 100);
                 if(data.result.noti == true){
                     // console.log(question)
+                    var textRoom = $('.text-room-'+data.result.code_room);
+                    if(textRoom.text()){
+                        textRoom.text('');
+                    }
                     printTextRoom(question,0,data.result.code_room);
                     // console.log(text(printText(question)));
                 }else{
@@ -228,22 +233,6 @@ function listHistoryMessage(result,imageCustomer,imageBot,codeRoom){
     return html;
 }
 $(document).ready(function() {
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            // Lấy kinh độ và vĩ độ của vị trí hiện tại
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-    
-            // Sử dụng kinh độ và vĩ độ để thực hiện các hành động khác, ví dụ như hiển thị bản đồ
-            localStorage.setItem('lat', latitude);
-            localStorage.setItem('lng', longitude);
-        });
-    } else {
-        // Trình duyệt không hỗ trợ định vị
-        localStorage.removeItem('lat');
-        localStorage.removeItem('lng');
-        // console.log("Trình duyệt này không hỗ trợ định vị!");
-    }
     weatherDay();
     $('.record-btn').click(function() {
         recognition.start();

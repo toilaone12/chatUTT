@@ -61,7 +61,7 @@
                         <div class="fs-12 pl-3 text-secondary">{{$room['name_date']}}</div>
                         <div class="d-flex w-100 border-0 border-secondary room-chat-items items-{{$room['code_history']}} mt-2 align-items-center pl-4" data-room="{{$room['code_history']}}" style="background-color: transparent;">
                             <i class="fa-regular fa-message text-secondary fs-20"></i>
-                            <span class="text-secondary ml-3 pb-1 fs-16 text-room">{{$room['name_room'] == '' ? 'Phòng mới' : $room['name_room']}}</span>
+                            <span class="text-secondary ml-3 pb-1 fs-16 text-room-{{$room['code_history']}}">{{$room['name_room'] == '' ? 'Phòng mới' : $room['name_room']}}</span>
                         </div>
                         @endforeach
                     </div>
@@ -185,7 +185,7 @@
                             html += '<div class="fs-12 pl-3 text-secondary">Hôm nay</div>'
                             html += '<div class="d-flex w-100 border-0 border-secondary room-chat-items items-'+data.code_room+' mt-2 align-items-center pl-4" data-room="'+data.code_room+'" style="background-color: transparent;">'
                             html += '<i class="fa-regular fa-message text-secondary fs-20"></i>'
-                            html += '<span class="text-secondary ml-3 pb-1 fs-16 text-room">Phòng mới</span>'
+                            html += '<span class="text-secondary ml-3 pb-1 fs-16 text-room-'+data.code_room+'">Phòng mới</span>'
                             html += '</div>'
                             $('.history-chat').prepend(html);
                         }
