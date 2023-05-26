@@ -53,7 +53,7 @@ function printText(text, index, rand) {
     if (index < text.length) {
         setTimeout(function() {
             printText(text, index + 1, rand);
-        }, 50);
+        }, 33);
         $('.media-answer-' + rand).append(text[index]);
     }
     return '';
@@ -145,7 +145,18 @@ function chatBot(question,url,image){
                         '</div>',
                         $('.lds-ellipsis').hide())
                 }, delay);
-            } else {
+            } else { 
+                if(data.result.noti == true){
+                    // console.log(question)
+                    var textRoom = $('.text-room-'+data.result.code_room);
+                    if(textRoom.text()){
+                        textRoom.text('');
+                    }
+                    printTextRoom(question,0,data.result.code_room);
+                    // console.log(text(printText(question)));
+                }else{
+                    // console.log(data.code_room);
+                }
                 setTimeout(function() {
                     $('.list-message').append(
                         '<div class="media media-chat">' +
@@ -162,17 +173,7 @@ function chatBot(question,url,image){
                     // if($('.room-chat-items').attr('data-room') == data.code_room){
                         // }
                 }, data.result.time_request * 100);
-                if(data.result.noti == true){
-                    // console.log(question)
-                    var textRoom = $('.text-room-'+data.result.code_room);
-                    if(textRoom.text()){
-                        textRoom.text('');
-                    }
-                    printTextRoom(question,0,data.result.code_room);
-                    // console.log(text(printText(question)));
-                }else{
-                    // console.log(data.code_room);
-                }
+               
             }
         }
     })
@@ -237,7 +238,7 @@ $(document).ready(function() {
     $('.record-btn').click(function() {
         recognition.start();
         voiceChat();
-        console.log('a');
+        // console.log('a');
     });
 
     $('.question').keyup(function() {

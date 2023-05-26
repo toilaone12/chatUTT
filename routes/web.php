@@ -37,6 +37,10 @@ Route::prefix('page')->group(function(){
     Route::get('/logout',[HomeController::class,'logout'])->name('page.logout');
     Route::post('/loginPage',[HomeController::class,'login'])->name('page.login');
     Route::get('/',[HomeController::class,'home'])->name('page.home');
+    Route::prefix('google')->group(function(){
+        Route::get('/login-gg',[HomeController::class,'redirectGoogle'])->name('google.redirect');
+        Route::get('/callback',[HomeController::class,'loginGoogle'])->name('google.login');
+    });
     Route::prefix('answer')->group(function(){
         Route::post('/bot-answer',[AnswerController::class,'botAnswer'])->name('answer.botAnswer');
         // Route::post('/create-history',[HistoryMessageController::class,'createHistoryMessage'])->name('history.createRoom');

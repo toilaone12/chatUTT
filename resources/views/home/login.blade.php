@@ -10,7 +10,10 @@
     <title>Đăng nhập</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="{{asset('fe/css/style.css')}}"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('fe/css/login.css')}}">
@@ -18,6 +21,11 @@
 </head>
 
 <body>
+    <style>
+        body{
+            font-family: 'Raleway', sans-serif;
+        }
+    </style>
     <div class="container">
         <div class="row d-flex justify-content-center mt-5">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -31,7 +39,7 @@
                             <i class="fab fa-facebook"></i>
                         </div>
                         <div class="col-4">
-                            <i class="fab fa-google"></i>
+                            <i class="fab fa-google login-gg"></i>
                         </div>
                     </div>
                     <div class="division">
@@ -48,7 +56,7 @@
                     <form method="POST" action="{{route('page.login')}}" class="myform">
                         @csrf
                         <div class="form-group">
-                            <input type="email" name="email" class="form-control" placeholder="Tài khoản">
+                            <input type="email" name="email" autocomplete="email" class="form-control" placeholder="Tài khoản">
                         </div>
                         <div class="form-group">
                             @error('email')
@@ -56,7 +64,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
+                            <input type="password" autocomplete="current-password" name="password" class="form-control" placeholder="Mật khẩu">
                         </div>
                         <div class="form-group">
                             @error('password')
@@ -102,6 +110,9 @@
             localStorage.removeItem('lng');
             // console.log("Trình duyệt này không hỗ trợ định vị!");
         }
+        $('.login-gg').click(function(){
+            location.href = "{{route('google.redirect')}}"
+        });
     })
 </script>
 </html>
