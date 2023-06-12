@@ -74,7 +74,16 @@ class HomeController extends Controller
     
         // return view('home.login');
     }
-
+    //Facebook
+    function redirectFacebook(){
+        // die('1');
+        return Socialite::driver('facebook')->redirect();
+    }
+    function loginFacebook(){
+        $user = Socialite::driver('facebook')->user();
+        dd($user);
+    }
+    //Google
     function redirectGoogle(){
         return Socialite::driver('google')->redirect();
     }

@@ -36,7 +36,7 @@
                             <i class="fab fa-twitter"></i>
                         </div>
                         <div class="col-4">
-                            <i class="fab fa-facebook"></i>
+                            <i class="fab fa-facebook login-fb"></i>
                         </div>
                         <div class="col-4">
                             <i class="fab fa-google login-gg"></i>
@@ -112,6 +112,10 @@
         }
         $('.login-gg').click(function(){
             location.href = "{{route('google.redirect')}}"
+        });
+
+        $('.login-fb').click(function(){
+            location.href = "{{route('facebook.redirect')}}"
         });
     })
 </script>

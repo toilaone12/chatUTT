@@ -35,6 +35,7 @@ function voiceChat(){
         // Lấy kết quả nhận dạng giọng nói
         var result = event.results[event.results.length - 1][0].transcript;
         // In kết quả vào input
+        console.log(event);
         $(".question").val(result);
     }
     console.log('a3');
@@ -79,7 +80,7 @@ function chatBot(question,url,image){
     var rand = Math.floor(Math.random() * 100) + 1;
     var date = new Date();
     var minutes = 0;
-    var delay = 3000;
+    var delay = 2000;
     // var index = 0;
     // console.log(rand);
     if (date.getMinutes() < 10) {
@@ -131,50 +132,50 @@ function chatBot(question,url,image){
         },
         success: function(data) {
             console.log(data);
-            if (data.res == 'fail') {
-                setTimeout(function() {
-                    $('.list-message').append(
-                        '<div class="media media-chat">' +
-                        '<img class="avatar" src="'+image+'" alt="...">' +
-                        '<div class="media-body hold">' +
-                        '<p class="mb-0 mr-10 media-answer-' + rand + '">' +
-                        printText(data.status, -1, rand) +
-                        '</p>' +
-                        '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
-                        '</div>' +
-                        '</div>',
-                        $('.lds-ellipsis').hide())
-                }, delay);
-            } else { 
-                if(data.result.noti == true){
-                    // console.log(question)
-                    var textRoom = $('.text-room-'+data.result.code_room);
-                    if(textRoom.text()){
-                        textRoom.text('');
-                    }
-                    printTextRoom(question,0,data.result.code_room);
-                    // console.log(text(printText(question)));
-                }else{
-                    // console.log(data.code_room);
-                }
-                setTimeout(function() {
-                    $('.list-message').append(
-                        '<div class="media media-chat">' +
-                        '<img class="avatar" src="'+image+'" alt="...">' +
-                        '<div class="media-body hold">' +
-                        '<p class="mb-0 px-3 mr-10 media-answer-' + rand + '">' +
-                        printText(data.result.answer, -1, rand) +
-                        '</p>' +
-                        '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
-                        '</div>' +
-                        '</div>',
-                        $('.lds-ellipsis').hide()
-                    )
-                    // if($('.room-chat-items').attr('data-room') == data.code_room){
-                        // }
-                }, data.result.time_request * 100);
+            // if (data.res == 'fail') {
+            //     setTimeout(function() {
+            //         $('.list-message').append(
+            //             '<div class="media media-chat">' +
+            //             '<img class="avatar" src="'+image+'" alt="...">' +
+            //             '<div class="media-body hold">' +
+            //             '<p class="mb-0 mr-10 media-answer-' + rand + '">' +
+            //             printText(data.status, -1, rand) +
+            //             '</p>' +
+            //             '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
+            //             '</div>' +
+            //             '</div>',
+            //             $('.lds-ellipsis').hide())
+            //     }, delay);
+            // } else { 
+            //     if(data.result.noti == true){
+            //         // console.log(question)
+            //         var textRoom = $('.text-room-'+data.result.code_room);
+            //         if(textRoom.text()){
+            //             textRoom.text('');
+            //         }
+            //         printTextRoom(question,0,data.result.code_room);
+            //         // console.log(text(printText(question)));
+            //     }else{
+            //         // console.log(data.code_room);
+            //     }
+            //     setTimeout(function() {
+            //         $('.list-message').append(
+            //             '<div class="media media-chat">' +
+            //             '<img class="avatar" src="'+image+'" alt="...">' +
+            //             '<div class="media-body hold">' +
+            //             '<p class="mb-0 px-3 mr-10 media-answer-' + rand + '">' +
+            //             printText(data.result.answer, -1, rand) +
+            //             '</p>' +
+            //             '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
+            //             '</div>' +
+            //             '</div>',
+            //             $('.lds-ellipsis').hide()
+            //         )
+            //         // if($('.room-chat-items').attr('data-room') == data.code_room){
+            //             // }
+            //     }, data.result.time_request * 100);
                
-            }
+            // }
         }
     })
 }
