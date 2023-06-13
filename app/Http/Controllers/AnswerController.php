@@ -26,6 +26,12 @@ class AnswerController extends Controller
     public function botAnswer(Request $request){
         $data = $request->all();
         if($data['question'] == ''){
+            $insertHistoryMessage = HistoryMessage::create([
+                'id_user' => $data['userId'],
+                'code_history' => $data['codeRoom'],
+                'question' => '<i class="fa-solid fa-thumbs-up fs-12"></i>',
+                'answer' => 'Cảm ơn bạn vì đã thích câu nói vừa rồi!'
+            ]);
             return response()->json(['res' => 'fail','status' => 'Cảm ơn bạn vì đã thích câu nói vừa rồi!'],200);
         }else{
             $startTime = microtime(true);
