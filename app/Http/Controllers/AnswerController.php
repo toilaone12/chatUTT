@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Answer;
 use App\Models\HistoryMessage;
+use App\Models\Question;
 use App\Models\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AnswerController extends Controller
 {
@@ -33,19 +35,31 @@ class AnswerController extends Controller
         }else{
             $question = $this->removeAccents($data['question']);
             // $word = $this->spliceString($question);
-            $keywords = array('dai hoc cong nghe giao thong van tai', 'utt', 'quy che', 'tuyen sinh', 'diem', 'giang vien', 'thac si', 'tien si');
-            $pattern = '/(' . implode('|', array_map('preg_quote', $keywords)) . ')/i';
-            // dd($pattern);
-            $keyQuery = '';
-            if (preg_match_all($pattern, $question, $matches)) {
-                $foundKeywords = $matches[0];
-                $keyQuery = $foundKeywords[0];
+            $keywords = Question::all();
+            // $keywords = array('dai hoc cong nghe giao thong van tai', 'utt', 'ngoai ngu', 'tieng anh','noi quy', 'tuyen sinh', 'diem', 'giang vien', 'thac si', 'tien si');
+            $arr = [];
+            foreach($keywords as $keyword){
+                array_push($arr,$keyword->question);
             }
-            $startTime = microtime(true);
-            $select = Answer::where('question_list','like','%'.$keyQuery.'%')->get();
-            $endTime = microtime(true);
-            $queryTime = ($endTime - $startTime) * 1000;
-            dd($keyQuery);
+            // dd($arr);
+            $pattern = '/(' . implode('|', array_map('preg_quote', $arr)) . ')/i';
+            if (preg_match_all($pattern, $question, $matches)) {
+                $foundKeywords = array_unique($matches[0]);
+                $startTime = microtime(true);
+                $endTime = microtime(true);
+                $queryTime = ($endTime - $startTime) * 1000;
+                DB::enableQueryLog();
+                $select = Answer::where('question_list','like','%'.$foundKeywords[0].'%');
+                foreach($foundKeywords as $key => $keyword){
+                    // $keyQuery = $keyword;
+                    if($key > 0){
+                       $select = $select->where('question_list','like','%'.$keyword.'%');
+                    }
+                }
+                $select = $select->get();
+                $s = DB::getQueryLog();
+                dd($foundKeywords);
+            }
             // $updateNameRoom = Room::update()
             // if(count($select) > 0){
             //     $noti = '';

@@ -37,8 +37,21 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Thêm câu hỏi cho Chatbot</h5>
-                                    <!--<span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>-->
+                                    <h5>Thêm từ khóa cho Chatbot</h5>
+                                    <div class="form-group">
+                                        <p class="text-success">
+                                            <?php
+
+                                            use Illuminate\Support\Facades\Session;
+
+                                            $message = Session::get('message');
+                                            if (isset($message)) {
+                                                echo $message;
+                                                Session::put('message', '');
+                                            }
+                                            ?>
+                                        </p>
+                                    </div>
                                 </div>
                                 <div class="card-block">
                                     <form action="{{route('question.insertQuestion')}}" method="POST" class="form-material">
@@ -46,7 +59,7 @@
                                         <div class="form-group form-default">
                                             <input type="text" name="name" class="form-control" required="">
                                             <span class="form-bar"></span>
-                                            <label class="float-label">Tên câu hỏi</label>
+                                            <label class="float-label">Tên từ khóa</label>
                                             @error('name')
                                                 <span class="text-danger">{{$message}}</span>
                                             @enderror

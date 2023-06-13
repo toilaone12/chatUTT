@@ -125,6 +125,8 @@
                         if(data.res == 'success'){
                             var html = "";
                             html += listHistoryMessage(data.result,data.imageCustomer,'{{asset("fe/image/icons8-bot-30.png")}}',codeRoom);
+                            // console.log($('.list').children().last().scrollIntoView());
+                            // // $('.list').children().last().scrollIntoView();
                             $('.room-chat').html(html);
                             $('.room-chat').removeClass('d-none');
                             $('.room-chat').attr('data-code',codeRoom);
@@ -214,7 +216,7 @@
                 }
             });
         });
-        //mo phong
+        //tao phong
         $('.open-room').click(function() {
             $.ajax({
                 url: "{{route('room.createRoom')}}",
@@ -252,6 +254,8 @@
                                     if(data.res == 'success'){
                                         var html = "";
                                         html += listHistoryMessage(data.result,data.imageCustomer,'{{asset("fe/image/icons8-bot-30.png")}}',data.code_room);
+                                        console.log('a');
+                                        $('.list-message').scrollTop = $('.list-message').scrollHeight;
                                         $('.room-chat').html(html);
                                         $('.room-chat').removeClass('d-none');
                                         $('.room-chat').attr('data-code',data.code_room);

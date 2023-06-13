@@ -33,9 +33,9 @@ class QuestionController extends Controller
             'question' => $data['name']
         ]);
         if($insert){
-            return redirect()->route('question.listQuestion')->with('message','Thêm câu hỏi thành công!');
+            return redirect()->route('question.insertQuestionForm')->with('message','Thêm từ khóa thành công!');
         }else{
-            return redirect()->route('question.listQuestion')->with('message','Thêm câu hỏi thất bại!');
+            return redirect()->route('question.insertQuestionForm')->with('message','Thêm từ khóa thất bại!');
         }
     }
 

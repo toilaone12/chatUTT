@@ -193,6 +193,7 @@ function listHistoryMessage(result,imageCustomer,imageBot,codeRoom){
     html+=                        '</div>'
     html+=                    '</div>'
     html+=                    '<div class="ps-container ps-theme-default ps-active-y list-message" id="chat-content" style="overflow-y: scroll !important; height:500px !important;">'  
+    html+=                        '<div class="list">'
     $.each(result,function(k,v){
     html+=                        '<div class="media media-chat media-chat-reverse">' 
     html+=                            '<div class="media-body">' 
@@ -212,6 +213,7 @@ function listHistoryMessage(result,imageCustomer,imageBot,codeRoom){
     html+=                                '</div>' 
     html+=                        '</div>'
     });
+    html+=                        '</div>'
     html+=                        '<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">'
     html+=                            '<div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;">'
     html+=                            '</div>'

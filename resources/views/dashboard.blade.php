@@ -342,9 +342,9 @@
                 $('.choose-question:checked').each(function(key,val) {
                     html += '<tr>'
                     html += '<th scope = "row">'+(parseInt(key)+1)+'</th>'
-                    html += '<td class="question-choose">'+$('.question-'+key).text()+'</td>'
+                    html += '<td class="question-choose">'+$('.question-'+$(this).val()).text()+'</td>'
                     html += '</tr>'
-                    // choose.push($(this).val());
+                    console.log($(this).val());
                 });
                 $('.list-question-choose').html(html);
             });
@@ -361,10 +361,10 @@
                 var chooseQuestion = $('.question-choose').text();
                 var arrQuestion = '|';
                 $('.choose-question:checked').each(function(key,val) {
-                    arrQuestion += $('.question-'+key).text();
+                    arrQuestion += $('.question-'+$(this).val()).text();
                     arrQuestion += '|';
                 });
-                // console.log(textAnswer+'/'+arrQuestion);
+                // console.log(arrQuestion);
                 $.ajax({
                     url: '{{route("answer.answerListQuestion")}}',
                     type: 'POST',
@@ -379,9 +379,9 @@
                     success: function(data){
                         console.log(data);
                         if(data.res == 'success'){
-                            $('.message-answer').text('<span class="text-success">'+data.status+'</span>');
+                            $('.message-answer').html('<span class="text-success">'+data.status+'</span>');
                         }else if(data.res == 'fail'){
-                            $('.message-answer').text('<span class="text-danger">'+data.status+'</span>');
+                            $('.message-answer').html('<span class="text-danger">'+data.status+'</span>');
                         }
                     },
                     error: function(error){
