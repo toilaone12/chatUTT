@@ -178,7 +178,7 @@
     
                             <div class="publisher bt-1 border-light">
                                 <img class="avatar avatar-xs" src="{{$oneCustomer[0]->image_customer}}" alt="...">
-                                <input class="publisher-input form-control question" type="text" placeholder="">
+                                <input class="publisher-input form-control question-mb" type="text" placeholder="">
                                 <span class="publisher-btn record-btn">
                                     <i class="fa-solid fa-microphone fs-22 "></i>
                                 </span>
@@ -204,6 +204,7 @@
         //pc
         $('.room-chat-items').each(function(k,v){
             $('.items-'+$(v).data('room')).click(function(){
+                $('.room-chat').removeClass('d-lg-none d-ssm-none d-block')              
                 var codeRoom = $(v).data('room');
                 $.ajax({
                     url: "{{route('history.historyMessageRoom')}}",
@@ -217,14 +218,65 @@
                         if(data.res == 'success'){
                             var html = "";
                             html += listHistoryMessage(data.result,data.imageCustomer,'{{asset("fe/image/icons8-bot-30.png")}}',codeRoom);
+                            // console.log($('.list').children().last().scrollIntoView());
+                            // // $('.list').children().last().scrollIntoView();
                             $('.room-chat').html(html);
                             $('.room-chat').removeClass('d-none');
                             $('.room-chat').attr('data-code',codeRoom);
                         }
                         $('.record-btn-'+codeRoom).click(function(){
-                            recognition.start();
-                            voiceChat();
-                            console.log('a2');
+                            // recognition.start();
+                            // // voiceChat();
+                            // recognition.onresult = function(event) {
+                            //     // Lấy kết quả nhận dạng giọng nói
+                            //     var result = event.results[event.results.length - 1][0].transcript;
+                            //     // In kết quả vào input
+                            //     console.log(result);
+                            //     $(".question").val(result);
+                            // }
+                            // console.log('a2');
+                            if ('webkitSpeechRecognition' in window) {
+                                console.log('Web Speech Recognition is supported');
+
+                                // Khởi tạo đối tượng Web Speech Recognition
+                                var recognition = new webkitSpeechRecognition();
+
+                                // Cấu hình các thiết lập của đối tượng recognition
+                                recognition.continuous = true; // Tiếp tục nhận diện liên tục
+                                recognition.interimResults = true; // Kết quả tạm thời
+
+                                // Sự kiện khi nhận diện âm thanh thành công
+                                recognition.onresult = function(event) {
+                                    var interimTranscripts = '';
+                                    var finalTranscripts = '';
+
+                                    // Lặp qua các kết quả nhận diện
+                                    for (var i = event.resultIndex; i < event.results.length; i++) {
+                                    var transcript = event.results[i][0].transcript;
+
+                                    // Nếu kết quả là kết quả tạm thời
+                                    if (event.results[i].isFinal) {
+                                        finalTranscripts += transcript;
+                                    } else {
+                                        interimTranscripts += transcript;
+                                    }
+                                    }
+
+                                    // Hiển thị kết quả tạm thời và kết quả cuối cùng
+                                    console.log('Interim Transcripts: ' + interimTranscripts);
+                                    console.log('Final Transcripts: ' + finalTranscripts);
+                                };
+
+                                // Sự kiện khi xảy ra lỗi
+                                recognition.onerror = function(event) {
+                                    console.error('Speech recognition error: ' + event.error);
+                                };
+
+                                // Bắt đầu nhận diện giọng nói
+                                recognition.start();
+                            } else {
+                                console.log('Web Speech Recognition is not supported');
+                            }
                         })
                         $('.question').keyup(function() {
                             autoWrite();
@@ -242,8 +294,14 @@
             $('.items-'+$(v).data('room')+'-mb').click(function(){
                 var codeRoom = $(this).data('room-mb');
                 // console.log(codeRoom);
-                $('.setting').addClass('d-none');
+                $('.setting').addClass('d-ssm-none d-lg-block d-md-block');
                 $('.room-chat-mb').addClass('d-block');
+                $('.room-chat').addClass('d-block');
+                $('.question-mb').keyup(function() {
+                    autoWriteMoblie();
+                    $('.question').val($(this).val());
+                    // console.log(1);
+                });
                 // $.ajax({
                 //     url: "{{route('history.historyMessageRoom')}}",
                 //     method: "GET",
@@ -265,9 +323,6 @@
                 //             voiceChat();
                 //             console.log('a2');
                 //         })
-                //         $('.question').keyup(function() {
-                //             autoWrite();
-                //         });
                 //         $('.chat').click(function() {
                 //             var url = "{{route('answer.botAnswer')}}";
                 //             var image = '{{asset("fe/image/icons8-bot-30.png")}}'
@@ -278,6 +333,9 @@
                 // })
                 // console.log($(v).data('room'));
             });
+            $('.items-'+$(v).data('room')).dblclick(function(){
+                $('.room-chat').addClass('d-lg-none d-ssm-none')              
+            })
             // console.log($(this).data('room')[v]); 
         });
         //dang xuat
@@ -296,7 +354,7 @@
                 }
             });
         });
-        //mo phong
+        //tao phong
         $('.open-room').click(function() {
             $.ajax({
                 url: "{{route('room.createRoom')}}",
@@ -334,6 +392,8 @@
                                     if(data.res == 'success'){
                                         var html = "";
                                         html += listHistoryMessage(data.result,data.imageCustomer,'{{asset("fe/image/icons8-bot-30.png")}}',data.code_room);
+                                        console.log('a');
+                                        $('.list-message').scrollTop = $('.list-message').scrollHeight;
                                         $('.room-chat').html(html);
                                         $('.room-chat').removeClass('d-none');
                                         $('.room-chat').attr('data-code',data.code_room);
@@ -345,6 +405,48 @@
                                     })
                                     $('.question').keyup(function() {
                                         autoWrite();
+                                    });
+                                    $('.chat').click(function() {
+                                        var url = "{{route('answer.botAnswer')}}";
+                                        var image = '{{asset("fe/image/icons8-bot-30.png")}}'
+                                        var question = $('.question').val();
+                                        chatBot(question,url,image);
+                                    });
+                                }
+                            })
+                        });
+                        $('.items-'+data.code_room+'-mb').click(function(){
+                            // var codeRoom = $(this).data('room');
+                            $.ajax({
+                                url: "{{route('history.historyMessageRoom')}}",
+                                method: "GET",
+                                dataType: 'json',
+                                data: {
+                                    codeRoom: data.code_room
+                                },
+                                success: function(data){
+                                    console.log(data);
+                                    if(data.res == 'success'){
+                                        var html = "";
+                                        html += listHistoryMessage(data.result,data.imageCustomer,'{{asset("fe/image/icons8-bot-30.png")}}',data.code_room);
+                                        console.log('a');
+                                        $('.list-message').scrollTop = $('.list-message').scrollHeight;
+                                        $('.room-chat').html(html);
+                                        $('.room-chat').removeClass('d-none');
+                                        $('.room-chat').attr('data-code',data.code_room);
+                                    }
+                                    $('.record-btn-'+data.code_room).click(function(){
+                                        recognition.start();
+                                        voiceChat();
+                                        console.log('a1');
+                                    })
+                                    $('.setting').addClass('d-ssm-none d-lg-block d-md-block');
+                                    $('.room-chat-mb').addClass('d-block');
+                                    $('.room-chat').addClass('d-block');
+                                    $('.question-mb').keyup(function() {
+                                        autoWriteMoblie();
+                                        $('.question').val($(this).val());
+                                        // console.log(1);
                                     });
                                     $('.chat').click(function() {
                                         var url = "{{route('answer.botAnswer')}}";

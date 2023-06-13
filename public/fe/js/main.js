@@ -44,6 +44,7 @@ function voiceChat(){
         // Lấy kết quả nhận dạng giọng nói
         var result = event.results[event.results.length - 1][0].transcript;
         // In kết quả vào input
+        console.log(event);
         $(".question").val(result);
     }
     console.log('a3');
@@ -51,6 +52,17 @@ function voiceChat(){
 
 function autoWrite(){
     var question = $('.question').val();
+    // console.log($('.question'));
+    if (question !== '') {
+        $('.icon').html('<i class="fas fa-paper-plane fs-22"></i>');
+    } else {
+        $('.icon').html('<i class="fa-solid fa-thumbs-up fs-22"></i>');
+    }
+}
+
+function autoWriteMoblie(){
+    var question = $('.question-mb').val();
+    // console.log($('.question-mb').length);
     if (question !== '') {
         $('.icon').html('<i class="fas fa-paper-plane fs-22"></i>');
     } else {
@@ -62,7 +74,7 @@ function printText(text, index, rand) {
     if (index < text.length) {
         setTimeout(function() {
             printText(text, index + 1, rand);
-        }, 50);
+        }, 33);
         $('.media-answer-' + rand).append(text[index]);
     }
     return '';
@@ -88,7 +100,7 @@ function chatBot(question,url,image){
     var rand = Math.floor(Math.random() * 100) + 1;
     var date = new Date();
     var minutes = 0;
-    var delay = 3000;
+    var delay = 2000;
     // var index = 0;
     // console.log(rand);
     if (date.getMinutes() < 10) {
@@ -183,6 +195,50 @@ function chatBot(question,url,image){
                     // console.log(data.code_room);
                 }
             }
+            // if (data.res == 'fail') {
+            //     setTimeout(function() {
+            //         $('.list-message').append(
+            //             '<div class="media media-chat">' +
+            //             '<img class="avatar" src="'+image+'" alt="...">' +
+            //             '<div class="media-body hold">' +
+            //             '<p class="mb-0 mr-10 media-answer-' + rand + '">' +
+            //             printText(data.status, -1, rand) +
+            //             '</p>' +
+            //             '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
+            //             '</div>' +
+            //             '</div>',
+            //             $('.lds-ellipsis').hide())
+            //     }, delay);
+            // } else { 
+            //     if(data.result.noti == true){
+            //         // console.log(question)
+            //         var textRoom = $('.text-room-'+data.result.code_room);
+            //         if(textRoom.text()){
+            //             textRoom.text('');
+            //         }
+            //         printTextRoom(question,0,data.result.code_room);
+            //         // console.log(text(printText(question)));
+            //     }else{
+            //         // console.log(data.code_room);
+            //     }
+            //     setTimeout(function() {
+            //         $('.list-message').append(
+            //             '<div class="media media-chat">' +
+            //             '<img class="avatar" src="'+image+'" alt="...">' +
+            //             '<div class="media-body hold">' +
+            //             '<p class="mb-0 px-3 mr-10 media-answer-' + rand + '">' +
+            //             printText(data.result.answer, -1, rand) +
+            //             '</p>' +
+            //             '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
+            //             '</div>' +
+            //             '</div>',
+            //             $('.lds-ellipsis').hide()
+            //         )
+            //         // if($('.room-chat-items').attr('data-room') == data.code_room){
+            //             // }
+            //     }, data.result.time_request * 100);
+               
+            // }
         }
     })
 }
@@ -200,6 +256,7 @@ function listHistoryMessage(result,imageCustomer,imageBot,codeRoom){
     html+=                        '</div>'
     html+=                    '</div>'
     html+=                    '<div class="ps-container ps-theme-default ps-active-y list-message" id="chat-content" style="overflow-y: scroll !important; height:500px !important;">'  
+    html+=                        '<div class="list">'
     $.each(result,function(k,v){
     html+=                        '<div class="media media-chat media-chat-reverse">' 
     html+=                            '<div class="media-body">' 
@@ -219,6 +276,7 @@ function listHistoryMessage(result,imageCustomer,imageBot,codeRoom){
     html+=                                '</div>' 
     html+=                        '</div>'
     });
+    html+=                        '</div>'
     html+=                        '<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">'
     html+=                            '<div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;">'
     html+=                            '</div>'
@@ -246,7 +304,7 @@ $(document).ready(function() {
     $('.record-btn').click(function() {
         recognition.start();
         voiceChat();
-        console.log('a');
+        // console.log('a');
     });
 
     $('.question').keyup(function() {
@@ -266,7 +324,9 @@ $(document).ready(function() {
     });
 
     $('.back-to-setting-mb').click(function(){
-        $('.setting').removeClass('d-none');
+        $('.setting').removeClass('d-ssm-none');
         $('.room-chat-mb').removeClass('d-block');
+        $('.room-chat').removeClass('d-block');
+        $('.room-chat').addClass('d-none');
     })
 });

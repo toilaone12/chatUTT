@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Room;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
+
 
 class HomeController extends Controller
 {
@@ -69,6 +74,57 @@ class HomeController extends Controller
     
         // return view('home.login');
     }
+    //Facebook
+    function redirectFacebook(){
+        // die('1');
+        return Socialite::driver('facebook')->redirect();
+    }
+    function loginFacebook(){
+        $user = Socialite::driver('facebook')->user();
+        dd($user);
+    }
+    //Google
+    function redirectGoogle(){
+        return Socialite::driver('google')->redirect();
+    }
+
+    function loginGoogle(){
+        // die('1');
+        $user = Socialite::driver('google')->user();
+        $userName = $user->name;
+        $email = $user->email;
+        $picture = $user->avatar;
+        $client = new Client();
+        $response = $client->get($picture);
+        $image = $response->getBody()->getContents();
+        // dd(Str::slug($userName,''));
+        $fileName = Str::slug($userName,'').'-'.strtotime(now()).'.jpg'; // Tên tệp tin
+        // dd($fileName);
+        Storage::disk('public')->put($fileName, $image);
+        $checkLogin = Customer::where('email_customer',$email)->get();
+        // dd($checkLogin);
+        Cookie::queue('email',$email,2628000);
+        if(count($checkLogin) == 1){
+            // Cookie::queue('email',$email,2628000);
+            return redirect()->route('page.home');
+        }else{
+            $loginGoogle = Customer::create([
+                'image_customer' => 'http://127.0.0.1:8000/storage/'.$fileName,
+                'name_customer' => $userName,
+                'birthday_customer' => date('Y-m-d H:i:s'),
+                'email_customer' => $email,
+                'gentle_customer' => 0,
+            ]);
+            if($loginGoogle){
+                return redirect()->route('page.home');
+            }else{
+                dd('1');
+            }
+        }
+        
+        // dd($user);
+        // dd(Socialite::driver('google')->user());
+    }
 
     function home(){
         if(Cookie::get('email')){
@@ -77,6 +133,7 @@ class HomeController extends Controller
             $allRoomByUser = Room::where('id_user',$oneCustomer[0]->id_customer)->orderBy('created_at','DESC')->get();
             $dateNow = strtotime(date('Y-m-d H:i:s'));
             $arrRoom = array();
+            
             foreach($allRoomByUser as $key => $room){
                 $dateCreate = strtotime($room->created_at);
                 $date = intval($dateNow - $dateCreate);
@@ -112,7 +169,6 @@ class HomeController extends Controller
             return view('home',compact(
                 'oneCustomer',
                 'arrRoom',
-                'nameDate'
             ));
         }else{
             return redirect()->route('page.loginForm');

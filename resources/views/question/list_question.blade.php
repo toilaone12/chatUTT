@@ -38,20 +38,6 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h5>Danh sách câu hỏi</h5>
-                                    <div class="form-group">
-                                        <p class="text-success">
-                                            <?php
-
-                                            use Illuminate\Support\Facades\Session;
-
-                                            $message = Session::get('message');
-                                            if (isset($message)) {
-                                                echo $message;
-                                                Session::put('message', '');
-                                            }
-                                            ?>
-                                        </p>
-                                    </div>
                                     <div class="card-header-right">
                                         <ul class="list-unstyled card-option">
                                             <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -80,7 +66,7 @@
                                                 <tr>
                                                     <td width="20"><input type="checkbox" name="" value="{{$question->id_question}}" class="choose-question" id=""></td>
                                                     <td scope="row">{{$key + 1}}</td>
-                                                    <td class="question-{{$key}}">{{$question->question}}</td>
+                                                    <td class="question-{{$question->id_question}}">{{$question->question}}</td>
                                                     <td>
                                                         <a href="" class="btn btn-success mr-3"><i class="fa-solid fa-pen-to-square"></i></a>
                                                         <a href="" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
