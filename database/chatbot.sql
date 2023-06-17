@@ -1,0 +1,419 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th6 17, 2023 lúc 05:48 AM
+-- Phiên bản máy phục vụ: 10.4.25-MariaDB
+-- Phiên bản PHP: 7.4.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Cơ sở dữ liệu: `chatbot`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `answer`
+--
+
+CREATE TABLE `answer` (
+  `id_answer` int(10) UNSIGNED NOT NULL,
+  `question_list` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `answer` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `answer`
+--
+
+INSERT INTO `answer` (`id_answer`, `question_list`, `answer`, `created_at`, `updated_at`) VALUES
+(1, '|dai hoc giao thong van tai|utt|', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-04-02 20:38:38', '2023-04-02 20:38:38'),
+(4, '|noi quy|dai hoc cong nghe giao thong van tai|utt|', '1. Sinh viên khi đến Trường phải đeo “Thẻ sinh viên”, sinh viên không đeo thẻ không được vào Trường, lớp học, giảng đường.\n\n2. Trang phục gọn gàng, lịch sự.\n\n3. Sinh viên ra, vào lớp phải đúng giờ quy định. Chỉ những sinh viên có tên trong danh sách lớp, môn học mới được tham dự lớp học.\n\n4. Khi Giảng viên vào lớp sinh viên phải đứng dậy chào. Trong lớp phải nghiêm túc trật tự nghe giảng. Giúp đỡ đối xử hòa nhã với bạn bè. Không có hành vi, lời nói vô lễ với cán bộ, giảng viên, nhân viên Nhà trường. Không viết và nói những điều sai sự thật làm ảnh hưởng đến uy tín Nhà trường. Không gây rối làm ảnh hưởng tới công tác giảng dạy của giảng viên, các hoạt động của Nhà trường.\n\n5. Không sử dụng điện thoại, không chơi Game trong lớp học và phòng thi. Không chơi bài bạc dưới mọi hình thức.\n\n6. Không có những hành vi thiếu văn hóa như nói tục, cãi nhau, làm ồn ào mất trật tự ở nơi đông người như ở hội trường, lớp học, giảng đường, thư viện, căng tin…Nghiêm cấm không mang bất kỳ vật dụng nào có thể làm hung khí đánh nhau vào Trường.\n\n7. Hết giờ học trước khi ra khỏi lớp, sinh viên phải tự giác kê lại bàn ghế ngay ngắn, đúng vị trí, tắt đèn, tắt quạt, đóng cửa…\n\n8. Không dùng bút, vật sắc nhọn để viết, vẽ, rạch lên bàn ghế, bảng, tường, rèm cửa trong phòng học, giảng đường, hội trường, thư viện, căng tin, khu vệ sinh… làm hư hỏng tài sản của Nhà trường. Không chạy nhảy hoặc ngồi lên bàn; không đạp chân lên tường và lan can, hành lang lớp học. Không tự động di chuyển bàn ghế từ phòng này sang phòng khác.\n\n9. Phải có trách nhiệm bảo vệ môi trường cảnh quan, cây xanh, chậu cảnh trong khuôn viên Nhà trường. Phải giữ gìn vệ sinh chung; không vứt rác làm mất vệ sinh trong khuôn viên Trường.\n\n10. Không hút thuốc lá, ăn kẹo cao su, ăn quà bánh, cơm, cà phê…trong phòng học, giảng đường, hội trường, thư viện.\n\nNếu vi phạm các quy định trên đây tùy theo mức độ sinh viên sẽ phải bồi thường thiệt hại hoặc chịu các hình thức kỷ luật từ khiển trách đến buộc thôi học.', '2023-06-13 03:36:04', '2023-06-13 03:36:04'),
+(6, '|noi quy|dai hoc cong nghe giao thong van tai|utt|tieng anh|quy dinh|thi|mien|', 'Điều 1. Phạm vi và Đối tượng áp dụng\n1. Văn bản này quy định về điều kiện, quy trình, thủ tục miễn học phần Tiếng Anh cơ bản và quy đổi điểm đối với sinh viên dại học hệ chính quy của trường Đại học Công nghệ giao thông vận tải.\n2. Quy định được áp dụng đối với sinh viên K72 (tuyển sinh từ năm 2022) trở về sau.\n3. Quy định này không áp dụng với sinh viên đào tạo văn bằng 2.\nĐiều 2. Điều kiện xét miễn học, miễn thi và quy đổi điểm tương ứng\nSinh viên có một trong các chứng chỉ dưới đây sẽ được miễn học phần Tiếng Anh cơ bản với mức quy đổi điểm tương ứng sau:\n* IELTS (4.5 - 5.0), TOEIC (450 - 595), TOEFL ITP (450 - 499), TOEFL (30 - 45), CAMBRIDGE TESTS (140 - 159), APTIS (B1), PTE (Level 3) sẽ tương ứng điểm tổng kết học phần sẽ quy đổi thành 8 (theo thang điểm 10).\n* IELTS (5.5 - 6.5), TOEIC (600 - 845), TOEFL ITP (500 - 626), TOEFL (46 - 93), CAMBRIDGE TESTS (160 - 179), APTIS (B2), PTE (Level 4) sẽ tương ứng điểm tổng kết học phần sẽ quy đổi thành 9 (theo thang điểm 10).\n* IELTS (7.0 - 9.0), TOEIC (850  - 990), TOEFL ITP (627 - 677), TOEFL (94 - 120), CAMBRIDGE TESTS (180 - 230), APTIS (C1 - C2), PTE (Level 5-6) sẽ tương ứng điểm tổng kết học phần sẽ quy đổi thành 10 (theo thang điểm 10) .\n* Lưu ý:\n(1). Là các chứng chỉ do các đơn vị đủ điều kiện tổ chức thi và cấp chứng chỉ theo quy định hiện hành của Bộ Giáo dục và Đào tạo.\n(2). Là các chứng chỉ được liệt kê trong bảng quy đổi.\nĐiều 3. Thủ tục xin miễn học phần\nSinh viên thỏa mãn các điều kiện theo Điều 2, nếu có nhu cầu cần phải nộp về phòng Đào tạo 21 ngày trước khi bắt đầu học kỳ có đăng ký học phần này. Hồ sơ bao gồm: \n- Đơn theo mẫu (phụ lục 1)\n- Bản sao công chứng chứng chỉ ngoại ngữ, (Lưu ý: Khi nộp, sinh viên cần tình bản gốc điểm kiểm tra, đối chiếu và phải có hiệu lực trong thời điểm xét miễn học).\nĐiều 4. Quy trình\n1. Tập hợp đơn, lập d/s sinh viên miễn học: Trong thời hạn 21 ngày trước khi bắt đầu học kỳ (đơn vị phụ trách: phòng Đào tạo).\n2. Thẩm định hồ sơ, chứng chỉ: Trong thời hạn 15 ngày trước khi bắt đầu học kỳ (đơn vị phụ trách: phòng Đào tạo).\n3. Tổng hợp kết quả, trình Hội đồng với sinh viên hợp lệ: Trong thời hạn 15 ngày trước khi bắt đầu học kỳ (đơn vị phụ trách: phòng Đào tạo).\n4. Tổ chức xét miễn học phần và trình Hiệu trưởng công nhận miễn học phần: Trong thời hạn 10 ngày trước khi bắt đầu học kỳ (đơn vị phụ trách: Hội đồng Xét miễn HP TACB và quy đổi điểm).\n5. Ra quyết định miễn học phần: Trong thời hạn 7 ngày trước khi bắt đầu học kỳ (đơn vị phụ trách: Hiệu trưởng).\nĐiều 5. Tổ chức thực hiện\n- Phòng Đào tạo chủ trì, phối hợp với các đơn vị liên quan hướng dẫn và triển khai thực hiện Quy định này đến cán bộ, giảng viên và sinh viên của Trường.\n- Trong quá trình triển khai thực hiện, nếu có vấn đề chưa phù hợp, các đơn vị đề xuất với Nhà trường (phòng Đào tạo) để điều chỉnh, bổ sung cho phù hợp.\n* Lưu ý: Đơn xin miễn học phần TACB trên đường dẫn: https://utt.edu.vn/ct-sv/noi-quy-quy-che/quy-dinh-ve-mien-hoc-phan-tieng-anh-co-ban-va-quy-doi-diem-doi-voi-sinh-vien-dai-hoc-he-chinh-quy-a14213.html', '2023-06-13 04:48:54', '2023-06-13 04:48:54'),
+(7, '|noi quy|dai hoc cong nghe giao thong van tai|utt|tieng anh|quy dinh|thi|thi tieng anh|ngoai ngu|', 'Điều 1. Phạm vi, đối tượng áp dụng \n\n1. Văn bản này quy định về tổ chức kiểm tra đánh giá, phân loại trình độ ngoại ngữ theo chuẩn đầu ra; điều kiện miễn thi ngoại ngữ trước khi tốt nghiệp đối với sinh viên đào tạo theo hệ thống tín chỉ tại Trường Đại học Công nghệ GTVT. \n\n2. Xác định nội dung, phương pháp tổ chức thi đánh giá năng lực ngoại ngữ đáp ứng chuẩn đầu ra tại Trường Đại học Công nghệ GTVT. \n\n3. Quy định này quy định về ngoại ngữ được đào tạo tại Trường Đại học Công nghệ GTVT là tiếng Anh. Đối với lưu học sinh, ngoài tiếng Anh có thể lựa chọn tiếng Việt làm ngoại ngữ chính. \n\nĐiều 2. Mục đích, nguyên tắc \n\n1. Thi đánh giá trình độ tiếng Anh nội bộ của Trường để kiểm tra sát hạch trình độ tiếng Anh của sinh viên, làm cơ sở xác định điều kiện tốt nghiệp cho sinh viên theo quy chế đào tạo đại học hiện hành. \n\n2. Việc tổ chức thi đánh giá trình độ tiếng Anh nội bộ của Trường phải đảm bảo nguyên tắc đúng quy chế, trung thực, chính xác, khách quan, minh bạch, phản ánh đúng năng lực tiếng Anh của người học. \n\nĐiều 3. Căn cứ xây dựng quy định \n\n- Chỉ thị số 3575/CT-BGDĐT ngày 10/9/2014 của Bộ Trưởng Bộ GD&ĐT về việc tăng cường triển khai dạy và học ngoại ngữ trong hệ thống giáo dục quốc dân; \n\n- Quyết định số 2080/QĐ-TTg ngày 22/12/2017 của Thủ tướng Chính phủ phê duyệt điều chỉnh, bổ sung Đề án dạy và học ngoại ngữ trong hệ thống giáo dục quốc dân giai đoạn 2017-2025; \n\n- Quy chế thi đánh giá năng lực ngoại ngữ theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam Ban hành kèm theo Thông tư 23/2017/TT-BGDĐT ngày 29/9/2017 của Bộ trưởng Bộ Giáo dục và Đào tạo. \n\n- Quy chế đào tạo đại học chính quy theo hệ thống tín chỉ ban hành kèm theo Quyết định số 2414/QĐ-ĐHCNGTVT ngày 08/8/2018 của Hiệu trưởng Trường Đại học Công nghệ GTVT; \n\n-  Quy định chuẩn đầu ra trình độ ngoại ngữ của sinh viên đại học hệ chính quy tại Trường Đại học Công nghệ GTVT ban hành kèm theo Quyết định số 299/QĐ-ĐHCNGTVT ngày 18/01/2021 của Hiệu trưởng Trường Đại học Công nghệ GTVT. \n\nĐiều 4. Chuẩn đầu ra  \n\nThực hiện theo Điều 2 thuộc Quy định Chuẩn đầu ra trình độ Ngoại ngữ của sinh viên đại học chính quy tại Trường Đại học Công nghệ Giao thông vận tải ban hành kèm theo Quyết định số 299/QĐ-ĐHCNGTVT ngày 18 tháng 01 năm 2021 của Trường Đại học Công nghệ GTVT. \n\nĐiều 5. Hội đồng đánh giá trình độ tiếng Anh nội bộ của Trường Đại học Công nghệ GTVT và các ban giúp việc \n\n1. Hội đồng thi và các ban của Hội đồng thi: \n\na) Các thành viên của Hội đồng thi gồm: Chủ tịch Hội đồng thi là Phó Hiệu trưởng phụ trách đào tạo; Phó Chủ tịch Hội đồng thi và các ủy viên Hội đồng thi là người của đơn vị tổ chức thi, đơn vị phối hợp (nếu có); cán bộ thanh tra; \n\nb) Các ban của Hội đồng thi gồm: Ban Thư ký; Ban Đề thi; Ban In sao đề thi; Ban Coi thi; Ban Chấm thi; Ban Phúc khảo (nếu có đơn đề nghị phúc khảo). Thành viên các ban được chọn trong số cán bộ quản lý; giáo viên; giảng viên; những người làm nhiệm vụ giám sát, bảo vệ an toàn thi; kỹ thuật viên, nhân viên y tế, phục vụ có đủ trình độ chuyên môn, nghiệp vụ và kinh nghiệm trong công tác thi. \n\n 2. Chủ tịch Hội đồng thi, Phó Chủ tịch Hội đồng thi, ủy viên Hội đồng thi và thành viên các ban của Hội đồng thi phải là người có trình độ chuyên môn, nghiệp vụ tốt, không có người thân (cha, mẹ, vợ, chồng, con đẻ, con nuôi, anh chị em ruột, anh chị em ruột vợ hoặc chồng) là thí sinh tham dự kỳ thi tại Hội đồng thi. \n\n3. Hội đồng thi tự giải thể sau khi hoàn thành nhiệm vụ. \n\nĐiều 6. Nhiệm vụ của Hội đồng thi và các ban của Hội đồng thi \n\n1. Hội đồng thi \n\na) Chủ tịch Hội đồng thi: \n\n- Điều hành các công việc của Hội đồng thi; \n\n- Ký duyệt danh sách thí sinh đăng ký dự thi; \n\n- Tiếp nhận, quản lý và bảo mật đề thi, đáp án, hướng dẫn chấm; \n\n- Quy định việc làm phách bài thi bảo đảm an toàn, bảo mật; \n\n- Ký duyệt kết quả thi và danh sách thí sinh dự thi đạt yêu cầu, uỷ quyền cho trưởng phòng Đào tạo cấp chứng nhận cho các sinh viên có kết quả đạt từ 450 trở lên; \n\n- Quyết định các hình thức kỷ luật đối với các đối tượng vi phạm Quy chế thi.  \n\nb) Phó Chủ tịch Hội đồng thi thực hiện các nhiệm vụ được Chủ tịch Hội đồng thi phân công và thay mặt Chủ tịch Hội đồng thi giải quyết công việc khi được Chủ tịch Hội đồng thi uỷ quyền; \n\nc) Các ủy viên Hội đồng thi chấp hành phân công của lãnh đạo Hội đồng thi. \n\n2. Ban Đề thi \n\na) Tổ chức biên soạn bộ đề thi theo yêu cầu tổ chức thi; \n\nb) Chuyển giao đề thi đã được niêm phong cho Chủ tịch Hội đồng thi; \n\nc) Thành viên Ban đề thi chịu trách nhiệm về toàn bộ nội dung, đảm bảo bí mật, an toàn của đề thi theo đúng chức trách của mình theo quy định hiện hành, những người trong Ban đề thi có tiếp xúc với nội dung đề thi phải được cách ly triệt để từ khi bắt đầu làm việc cho đến hết thời gian làm bài thi. \n\n3. Ban In sao đề thi  \n\na) In sao đề thi đảm bảo nguyên tắc bí mật, an toàn của đề thi theo đúng chức trách của mình theo quy định hiện hành về bảo vệ bí mật nhà nước độ Tối mật; \n\nb) Sau khi in sao xong số lượng theo yêu cầu, chuyển giao đề thi cho Chủ tịch Hội đồng thi hoặc Ban Coi thi khi được Chủ tịch Hội đồng thi phân công; \n\nc) Những người trong Ban In sao đề thi có tiếp xúc với nội dung đề thi phải được cách ly triệt để từ khi bắt đầu làm việc cho đến hết thời gian làm bài thi. \n\n4. Ban Coi thi: \n\na) Những công việc chung: \n\n- Bố trí đủ lực lượng coi thi, bảo vệ phòng thi, đảm bảo an toàn cho kỳ thi và bài làm của thí sinh; phân công nhiệm vụ cụ thể cho từng thành viên của Ban Coi thi; \n\n- Tổ chức, quản lý, giám sát thí sinh theo đúng lịch thi, nội quy phòng thi.  \n\nb) Đối với thi trên giấy: \n\n- Tiếp nhận, bảo quản, sử dụng đề thi theo hướng dẫn; \n\n- Thu nhận bài thi, niêm phong bài thi, hồ sơ thi, lập biên bản bàn giao cho Ban Thư ký  \n\n5. Ban Chấm thi: \n\na) Tiếp nhận toàn bộ bài thi, hồ sơ thi do Ban Thư ký bàn giao và bảo quản trong thời gian chấm thi; \n\nb) Tổ chức chấm thi theo đúng hướng dẫn, đáp án, thang điểm; \n\nc) Nộp bài thi và bảng điểm theo số phách cho Ban Thư ký để tổng hợp kết quả. \n\n6. Ban Phúc khảo: \n\na) Tổ chức chấm lại bài thi theo văn bản hướng dẫn chấm, đảm bảo nguyên tắc hai cán bộ chấm thi chấm độc lập trên một bài thi; \n\nb) Lập các biên bản, danh sách thí sinh với kết quả điểm phúc khảo và trình Chủ tịch Hội đồng thi phê duyệt. \n\n7. Ban Thư ký: \n\na) Giúp Hội đồng thi soạn thảo các văn bản, lập các biểu bảng cần thiết, xây dựng cơ sở dữ liệu thí sinh dự thi, ghi biên bản các cuộc họp của Hội đồng thi; \n\nb) Nhận bài thi từ Ban Coi thi; bảo quản, kiểm kê bài thi; đối chiếu chữ ký niêm phong trên túi đựng bài thi của cán bộ coi thi hoặc cán bộ chấm thi với chữ ký trên phiếu thu bài thi và bài làm của thí sinh; đánh số phách, cắt phách; niêm phong, bảo quản phần phách; \n\nc) Giao bài thi đã cắt phách cho Ban Chấm thi; hồi phách, lên điểm; lập biểu thống kê kết quả thi của thí sinh.  \n\nd) Tổng hợp, phân tích kết quả thi; kiến nghị về sự bất thường trong kết quả thi (nếu có), đề xuất Chủ tịch Hội đồng thi xử lý; \n\nđ) Trình Chủ tịch Hội đồng thi kết quả thi. \n\nĐiều 7. Đối tượng dự thi đánh giá trình độ tiếng Anh nội bộ của Trường Đại học Công nghệ GTVT  \n\nSinh viên đại học hệ chính quy của Trường Đại học Công nghệ Giao thông vận tải có nhu cầu được đánh giá năng lực ngoại ngữ.  \n\nĐiều 8. Hình thức thi, đề thi, địa điểm tổ chức thi đánh giá trình độ tiếng Anh nội bộ của Trường Đại học Công nghệ GTVT  \n\n Hình thức thi: Theo dạng chuẩn TOEIC \n\n2. Đề thi, đáp án, hướng dẫn chấm thi phải đáp ứng các yêu cầu sau: \n\na) Đề thi đảm bảo đánh giá được các kỹ năng nghe, đọc; \n\nb) Các câu hỏi thi và đề thi được xây dựng theo chuẩn TOEIC, ngoài phần kiến thức chung, đề thi được bổ sung thêm một số câu hỏi liên quan đến các khối ngành mà Trường đang tổ chức đào tạo (Xem chi tiết tại phụ lục đính kèm); \n\nc) Đề thi, đáp án, hướng dẫn chấm thi phải được bảo mật trước, trong và sau khi thi. \n\n3) Địa điểm thi: Tại Trường Đại học Công nghệ GTVT. \n\nĐiều 9. Tổ chức thi đánh giá trình độ tiếng Anh nội bộ của Trường Đại học Công nghệ GTVT  \n\na) Công tác chuẩn bị: \n\n- Phòng Đào tạo lập danh sách phòng thi, bố trí phòng thi và thông báo cho sinh viên trước kỳ thi ít nhất 05 ngày;  \n\n- Trước ngày thi 01 ngày, Hội đồng thi và Ban coi thi kiểm tra các điều kiện tổ chức thi đảm bảo các yêu cầu sau: \n\n+ Khu vực thi phải được bố trí an toàn, yên tĩnh; phải đảm bảo có hệ thống âm thanh, ánh sáng đạt chất lượng theo yêu cầu; \n\n+ Các thí sinh trong phòng thi được bố trí ngồi số báo danh và theo quy tắc bố trí sơ đồ phòng thi ngẫu nhiên theo từng buổi thi. \n\nb) Quy trình coi thi: \n\n- Trước giờ thi: Ban coi thi kiểm tra nguồn điện; kiểm tra âm thanh; gọi thí sinh vào phòng thi, kiểm tra giấy tờ tùy thân; đảm bảo thí sinh ngồi đúng vị trí; ký tên vào các tờ giấy nháp và phát cho thí sinh; phổ biến quy chế thi cho thí sinh, nhắc nhở thí sinh không được phép viết vào quyển đề thi; hướng dẫn thí sinh các điểm cần lưu ý trong thời gian thi; \n\n- Khi có hiệu lệnh: cán bộ coi thi phát đề cho từng thí sinh. \n\n- Trong thời gian làm bài thi:  \n\nCán bộ coi thi giám sát chặt chẽ phòng thi; kiểm tra lại giấy tờ tùy thân của thí sinh, vị trí ngồi của thí sinh; không cho thí sinh trao đổi, bàn bạc, có hành vi gian lận trong phòng thi; cán bộ coi thi không được đọc đề thi, không tự ý trao đổi với thí sinh về nội dung đề thi, không cho thí sinh sao chép câu hỏi thi, đề thi dưới bất kỳ hình thức nào; trường hợp cần phải cho thí sinh ra ngoài phòng thi, cán bộ coi thi chỉ cho từng thí sinh ra ngoài và báo cho cán bộ giám sát ngoài phòng thi; trường hợp có thí sinh vi phạm Quy chế thi, cán bộ coi thi lập biên bản và báo cáo Trưởng Ban Coi thi để có biện pháp xử lý thích hợp, kịp thời. Cán bộ giám sát ngoài phòng thi có trách nhiệm giám sát thí sinh, giám sát cán bộ coi thi, kỹ thuật viên trong phòng thi tại khu vực được Trưởng Ban Coi thi phân công; đồng thời giám sát thí sinh ra ngoài phòng thi (nếu có) và không cho phép thí sinh tiếp xúc với người khác. \n\nc) Sinh viên và cán bộ tham gia kì thi vi phạm quy chế bị xử lý theo quy định hiện hành của Trường Đại học Công nghệ GTVT. \n\nĐiều 10. Nguyên tắc đánh giá, công nhận kết quả và cấp chứng nhận trình độ tiếng Anh nội bộ của Trường Đại học Công nghệ GTVT  \n\nCăn cứ vào kết quả làm bài của thí sinh, đối chiếu với Phụ lục đính kèm, phòng Đào tạo lập danh sách những thí sinh đạt yêu cầu chuẩn đầu ra ngoại ngữ của Trường, Chủ tịch hội đồng trình Hiệu trưởng phê duyệt danh sách những thí sinh đạt yêu cầu. \n\nCăn cứ danh sách thí sinh thi đạt yêu cầu được phê duyệt, Trưởng phòng Đào tạo được ủy quyền cấp giấy chứng nhận cho những sinh viên đạt chuẩn đầu ra ngoại ngữ của Trường.', '2023-06-13 04:53:32', '2023-06-13 04:53:32');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `customer`
+--
+
+CREATE TABLE `customer` (
+  `id_customer` int(10) UNSIGNED NOT NULL,
+  `image_customer` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_customer` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `birthday_customer` datetime NOT NULL,
+  `gentle_customer` tinyint(4) NOT NULL,
+  `email_customer` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password_customer` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone_customer` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `customer`
+--
+
+INSERT INTO `customer` (`id_customer`, `image_customer`, `name_customer`, `birthday_customer`, `gentle_customer`, `email_customer`, `password_customer`, `phone_customer`, `created_at`, `updated_at`) VALUES
+(1, 'http://127.0.0.1:8000/fe/image/person.png', 'Sơn', '2023-04-24 10:33:45', 0, 'baooson3005@gmail.com', '69b21e9c5b38d7c34449a5b290363487', '0386278998', NULL, NULL),
+(3, 'http://127.0.0.1:8000/storage/baoson-1685094051.jpg', 'Bảo Sơn', '2023-05-26 16:40:51', 0, 'toilaone12@gmail.com', NULL, NULL, '2023-05-26 09:40:51', '2023-05-26 09:40:51'),
+(4, 'http://127.0.0.1:8000/storage/sonkieudangbao-1685094394.jpg', 'Sơn Kiều Đặng Bảo', '2023-05-26 16:46:34', 0, 'kieudangbaoson@gmail.com', NULL, NULL, '2023-05-26 09:46:34', '2023-05-26 09:46:34');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `history_message`
+--
+
+CREATE TABLE `history_message` (
+  `id_history` int(10) UNSIGNED NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `code_history` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `question` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `answer` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `history_message`
+--
+
+INSERT INTO `history_message` (`id_history`, `id_user`, `code_history`, `question`, `answer`, `created_at`, `updated_at`) VALUES
+(1, 1, '30301cc0c33c079', '', '', '2023-04-12 01:34:04', '2023-04-12 01:34:04'),
+(2, 1, 'cc156de965ce533', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-04-24 02:29:07', '2023-04-24 02:29:07'),
+(3, 1, 'cc156de965ce533', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-04-24 02:29:20', '2023-04-24 02:29:20'),
+(4, 1, '74d07c42f945f62', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-04-24 02:42:54', '2023-04-24 02:42:54'),
+(5, 1, 'fd2b3ed63600514', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-04-24 02:46:32', '2023-04-24 02:46:32'),
+(6, 1, 'c0b60a18b8e3e8b', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-04-24 02:47:37', '2023-04-24 02:47:37'),
+(7, 1, '25bed494390d7dd', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-23 04:14:21', '2023-05-23 04:14:21'),
+(8, 1, '25bed494390d7dd', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-23 04:22:08', '2023-05-23 04:22:08'),
+(9, 1, '3eb2aa58ccf7781', 'U', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-23 04:23:30', '2023-05-23 04:23:30'),
+(10, 1, 'd9a915ea274497d', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-23 04:26:02', '2023-05-23 04:26:02'),
+(11, 1, 'f83cb8088f9a583', 'UT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-23 04:28:24', '2023-05-23 04:28:24'),
+(12, 1, '3eb2aa58ccf7781', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 00:33:25', '2023-05-26 00:33:25'),
+(13, 1, '3eb2aa58ccf7781', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 00:33:42', '2023-05-26 00:33:42'),
+(14, 1, '8d4dd827d46bfa5', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 00:36:35', '2023-05-26 00:36:35'),
+(15, 1, '9cf18671f6c7e5f', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 00:37:33', '2023-05-26 00:37:33'),
+(16, 1, '9cf18671f6c7e5f', 'UT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 00:37:45', '2023-05-26 00:37:45'),
+(17, 1, '9cf18671f6c7e5f', 'UT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 00:38:37', '2023-05-26 00:38:37'),
+(18, 4, 'f176fcae71f00fe', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 09:46:46', '2023-05-26 09:46:46'),
+(19, 4, 'f176fcae71f00fe', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 09:47:49', '2023-05-26 09:47:49'),
+(20, 4, 'f176fcae71f00fe', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 09:48:00', '2023-05-26 09:48:00'),
+(21, 4, 'f176fcae71f00fe', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 09:48:18', '2023-05-26 09:48:18'),
+(22, 4, 'f176fcae71f00fe', 'UTT', 'Trường Đại học Công nghệ Giao thông Vận tải (tên tiếng Anh: University Of Transport Technology, tên viết tắt: UTT) là trường Đại học công lập được nâng cấp năm 2011 từ Trường Cao đẳng giao thông vận tải- trực thuộc Bộ Giao thông Vận tải[1]. Tiền thân là trường Cao đẳng Công chính, được thành lập ngày 15/11/1945. Trường đào tạo đa ngành, đa lĩnh vực về công nghệ kỹ thuật giao thông, công nghệ kỹ thuật cơ khí, ô tô, kinh tế, vận tải, logistics, công nghệ thông tin, điện tử viễn thông, môi trường... theo định hướng ứng dụng phục vụ ngành GTVT và các ngành kinh tế quốc dân. Năm 2016, Trường được Thủ tướng Chính phủ quy hoạch phát triển thành trường đại học trọng điểm Quốc gia; năm 2017 trường là 1 trong 15 trường đại học đầu tiên của Việt Nam được công nhận đạt tiêu chuẩn chất lượng giáo dục đại học.', '2023-05-26 09:49:02', '2023-05-26 09:49:02');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2023_03_14_155341_create_question', 1),
+(8, '2023_04_03_032351_create_answer', 2),
+(9, '2023_04_12_041629_create_history_message', 3),
+(10, '2023_04_12_083552_create_room', 4),
+(11, '2023_04_24_073706_create_customer', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `personal_access_tokens`
+--
+
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `question`
+--
+
+CREATE TABLE `question` (
+  `id_question` int(10) UNSIGNED NOT NULL,
+  `question` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `question`
+--
+
+INSERT INTO `question` (`id_question`, `question`, `created_at`, `updated_at`) VALUES
+(6, 'noi quy', '2023-06-13 03:11:42', '2023-06-13 03:11:42'),
+(7, 'dai hoc cong nghe giao thong van tai', '2023-06-13 03:32:17', '2023-06-13 03:32:17'),
+(8, 'utt', '2023-06-13 03:32:30', '2023-06-13 03:32:30'),
+(9, 'tieng anh', '2023-06-13 04:06:05', '2023-06-13 04:06:05'),
+(10, 'tuyen sinh', '2023-06-13 04:06:20', '2023-06-13 04:06:20'),
+(11, 'giang vien', '2023-06-13 04:06:44', '2023-06-13 04:06:44'),
+(12, 'diem', '2023-06-13 04:06:56', '2023-06-13 04:06:56'),
+(13, 'quy dinh', '2023-06-13 04:09:24', '2023-06-13 04:09:24'),
+(16, 'tieng anh', '2023-06-13 04:50:12', '2023-06-13 04:50:12'),
+(17, 'thi tieng anh', '2023-06-13 04:50:44', '2023-06-13 04:50:44'),
+(18, 'danh gia', '2023-06-13 04:50:50', '2023-06-13 04:50:50'),
+(19, 'ngoai ngu', '2023-06-13 04:52:03', '2023-06-13 04:52:03'),
+(20, 'mien thi tieng anh', '2023-06-13 04:57:38', '2023-06-13 04:57:38'),
+(21, 'mien thi ngoai ngu', '2023-06-13 04:57:47', '2023-06-13 04:57:47'),
+(22, 'mien tieng anh', '2023-06-13 04:57:54', '2023-06-13 04:57:54'),
+(23, 'mien ngoai ngu', '2023-06-13 04:58:00', '2023-06-13 04:58:00'),
+(24, 'thi ngoai ngu', '2023-06-13 04:58:07', '2023-06-13 04:58:07');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `room`
+--
+
+CREATE TABLE `room` (
+  `id_room` int(10) UNSIGNED NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `code_history` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_room` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `room`
+--
+
+INSERT INTO `room` (`id_room`, `id_user`, `code_history`, `name_room`, `created_at`, `updated_at`) VALUES
+(1, 1, '763fceb3c3780ed', '', '2023-03-25 01:41:52', '2023-04-12 01:41:52'),
+(2, 1, '9cf18671f6c7e5f', 'UTT', '2023-02-24 02:18:54', '2023-05-26 00:37:33'),
+(3, 1, '8d4dd827d46bfa5', 'UTT', '2022-04-24 02:26:49', '2023-05-26 00:36:35'),
+(4, 1, '2a74e95a17adbce', '', '2023-04-24 02:27:56', '2023-04-24 02:27:56'),
+(5, 1, 'cc156de965ce533', '', '2023-04-24 02:29:03', '2023-04-24 02:29:03'),
+(6, 1, '74d07c42f945f62', '', '2023-04-24 02:42:50', '2023-04-24 02:42:50'),
+(7, 1, 'fd2b3ed63600514', '', '2023-04-24 02:46:25', '2023-04-24 02:46:25'),
+(8, 1, 'c0b60a18b8e3e8b', 'UTT', '2023-04-24 02:47:31', '2023-04-24 02:47:37'),
+(9, 1, '289c873c6d5d89a', '', '2023-04-25 01:35:53', '2023-04-25 01:35:53'),
+(10, 1, '286180cefea11e4', '', '2023-05-16 02:05:42', '2023-05-16 02:05:42'),
+(11, 1, 'a330cf329a00856', '', '2023-05-16 02:22:21', '2023-05-16 02:22:21'),
+(12, 1, '8e69ce1c672725e', '', '2023-05-16 02:30:13', '2023-05-16 02:30:13'),
+(13, 1, '70fbd9734f7ccb0', '', '2023-05-16 02:31:13', '2023-05-16 02:31:13'),
+(20, 1, '69ca51d752bd6c8', '', '2023-05-23 03:51:51', '2023-05-23 03:51:51'),
+(21, 1, '8e36df5420b7ab3', '', '2023-05-23 03:59:50', '2023-05-23 03:59:50'),
+(22, 1, 'a68c041aaef8f2a', '', '2023-05-23 04:00:29', '2023-05-23 04:00:29'),
+(23, 1, 'ce52091a141407a', 'UTT', '2023-05-23 04:01:25', '2023-05-23 04:30:29'),
+(24, 1, '828260353ec7f30', 'UTT', '2023-05-23 04:08:33', '2023-05-23 04:29:33'),
+(25, 1, 'f83cb8088f9a583', 'UT', '2023-05-23 04:08:44', '2023-05-23 04:28:24'),
+(26, 1, 'd9a915ea274497d', 'UTT', '2023-05-23 04:11:49', '2023-05-23 04:26:02'),
+(27, 1, '3eb2aa58ccf7781', 'U', '2023-05-23 04:12:23', '2023-05-23 04:23:30'),
+(28, 1, '25bed494390d7dd', 'UTT', '2023-05-23 04:14:18', '2023-05-23 04:14:21'),
+(29, 4, 'f176fcae71f00fe', 'UTT', '2023-05-26 09:46:36', '2023-05-26 09:46:46');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Chỉ mục cho các bảng đã đổ
+--
+
+--
+-- Chỉ mục cho bảng `answer`
+--
+ALTER TABLE `answer`
+  ADD PRIMARY KEY (`id_answer`);
+
+--
+-- Chỉ mục cho bảng `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`id_customer`);
+
+--
+-- Chỉ mục cho bảng `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Chỉ mục cho bảng `history_message`
+--
+ALTER TABLE `history_message`
+  ADD PRIMARY KEY (`id_history`);
+
+--
+-- Chỉ mục cho bảng `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Chỉ mục cho bảng `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Chỉ mục cho bảng `question`
+--
+ALTER TABLE `question`
+  ADD PRIMARY KEY (`id_question`);
+
+--
+-- Chỉ mục cho bảng `room`
+--
+ALTER TABLE `room`
+  ADD PRIMARY KEY (`id_room`);
+
+--
+-- Chỉ mục cho bảng `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `answer`
+--
+ALTER TABLE `answer`
+  MODIFY `id_answer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT cho bảng `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `id_customer` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `history_message`
+--
+ALTER TABLE `history_message`
+  MODIFY `id_history` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT cho bảng `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT cho bảng `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `question`
+--
+ALTER TABLE `question`
+  MODIFY `id_question` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT cho bảng `room`
+--
+ALTER TABLE `room`
+  MODIFY `id_room` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT cho bảng `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
