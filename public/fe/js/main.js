@@ -23,10 +23,19 @@ function weatherDay() {
         if(month < 10){
             month = '0'+month;
         }
+        if(days < 10){
+            days = '0'+days;
+        }
         var dateTime = day+', '+days+'/'+month+'/'+year+' '+hours+':'+minutes;
+        var degree = Math.round(data.main.temp - 273.15);
+        // console.log(data.main.temp - 273.15);
         $('.city-chat').text(data.name);
         $('.date-chat').text(dateTime);
-        $('.icon-weather').attr('src','http://openweathermap.org/img/w/' + data.weather[0].icon + '.png')
+        // console.log(url);
+        var html = '';
+        html += '<img src="http://openweathermap.org/img/w/' + data.weather[0].icon + '.png" class="icon-weather" alt="" width="60">';
+        html += degree+'&deg;'
+        $('.degree-weather').html(html);
     });
 }
 
@@ -43,6 +52,17 @@ function voiceChat(){
 
 function autoWrite(){
     var question = $('.question').val();
+    // console.log($('.question'));
+    if (question !== '') {
+        $('.icon').html('<i class="fas fa-paper-plane fs-22"></i>');
+    } else {
+        $('.icon').html('<i class="fa-solid fa-thumbs-up fs-22"></i>');
+    }
+}
+
+function autoWriteMoblie(){
+    var question = $('.question-mb').val();
+    // console.log($('.question-mb').length);
     if (question !== '') {
         $('.icon').html('<i class="fas fa-paper-plane fs-22"></i>');
     } else {
@@ -132,6 +152,49 @@ function chatBot(question,url,image){
         },
         success: function(data) {
             console.log(data);
+            if (data.res == 'fail') {
+                setTimeout(function() {
+                    $('.list-message').append(
+                        '<div class="media media-chat">' +
+                        '<img class="avatar" src="'+image+'" alt="...">' +
+                        '<div class="media-body hold">' +
+                        '<p class="mb-0 mr-lg-8 mr-ssm-5 media-answer-' + rand + '">' +
+                        printText(data.status, -1, rand) +
+                        '</p>' +
+                        '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
+                        '</div>' +
+                        '</div>',
+                        $('.lds-ellipsis').hide())
+                }, delay);
+            } else {
+                setTimeout(function() {
+                    $('.list-message').append(
+                        '<div class="media media-chat">' +
+                        '<img class="avatar" src="'+image+'" alt="...">' +
+                        '<div class="media-body hold">' +
+                        '<p class="mb-0 px-3 mr-lg-8 mr-ssm-5 media-answer-' + rand + '">' +
+                        printText(data.result.answer, -1, rand) +
+                        '</p>' +
+                        '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
+                        '</div>' +
+                        '</div>',
+                        $('.lds-ellipsis').hide()
+                    )
+                    // if($('.room-chat-items').attr('data-room') == data.code_room){
+                        // }
+                }, data.result.time_request * 100);
+                if(data.result.noti == true){
+                    // console.log(question)
+                    var textRoom = $('.text-room-'+data.result.code_room);
+                    if(textRoom.text()){
+                        textRoom.text('');
+                    }
+                    printTextRoom(question,0,data.result.code_room);
+                    // console.log(text(printText(question)));
+                }else{
+                    // console.log(data.code_room);
+                }
+            }
             // if (data.res == 'fail') {
             //     setTimeout(function() {
             //         $('.list-message').append(
@@ -206,7 +269,7 @@ function listHistoryMessage(result,imageCustomer,imageBot,codeRoom){
     html+=                        '<div class="media media-chat">' 
     html+=                            '<img class="avatar" src="'+imageBot+'" alt="...">' 
     html+=                                '<div class="media-body hold">' 
-    html+=                                     '<p class="mb-0 px-3 mr-10 media-answer-' + rand + '">' 
+    html+=                                     '<p class="mb-0 px-3 mr-lg-8 mr-ssm-5 media-answer-' + rand + '">' 
     html+=                                      v.answer
     html+=                                     '</p>' 
     html+=                                     '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta"></p>' 
@@ -260,4 +323,10 @@ $(document).ready(function() {
         }
     });
 
+    $('.back-to-setting-mb').click(function(){
+        $('.setting').removeClass('d-ssm-none');
+        $('.room-chat-mb').removeClass('d-block');
+        $('.room-chat').removeClass('d-block');
+        $('.room-chat').addClass('d-none');
+    })
 });

@@ -31,6 +31,12 @@ class AnswerController extends Controller
         $data = $request->all();
         // dd($data['question']);
         if($data['question'] == ''){
+            $insertHistoryMessage = HistoryMessage::create([
+                'id_user' => $data['userId'],
+                'code_history' => $data['codeRoom'],
+                'question' => '<i class="fa-solid fa-thumbs-up fs-12"></i>',
+                'answer' => 'Cảm ơn bạn vì đã thích câu nói vừa rồi!'
+            ]);
             return response()->json(['res' => 'fail','status' => 'Cảm ơn bạn vì đã thích câu trả lời vừa rồi!'],200);
         }else{
             $question = $this->removeAccents($data['question']);
