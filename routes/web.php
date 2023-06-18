@@ -27,9 +27,15 @@ Route::prefix('admin')->group(function(){
         Route::get('/list-question',[QuestionController::class,'listQuestion'])->name('question.listQuestion');
         Route::get('/form-insert',[QuestionController::class,'insertQuestionForm'])->name('question.insertQuestionForm');
         Route::post('/insert',[QuestionController::class,'insertQuestion'])->name('question.insertQuestion');
+        Route::get('/form-edit/{id}',[QuestionController::class,'editQuestionForm'])->name('question.editQuestionForm');
+        Route::post('/edit/{id}',[QuestionController::class,'editQuestion'])->name('question.editQuestion');
+        Route::get('/delete/{id}',[QuestionController::class,'deleteQuestion'])->name('question.deleteQuestion');
     });
     Route::prefix('answer')->group(function(){
+        Route::get('/list-answer',[AnswerController::class,'listAnswer'])->name('answer.listAnswer');
         Route::post('/answer-question',[AnswerController::class,'answerListQuestion'])->name('answer.answerListQuestion');
+        Route::get('/form-edit/{id}',[AnswerController::class,'editFormAnswer'])->name('answer.editFormAnswer');
+        Route::post('/edit-answer',[AnswerController::class,'editAnswer'])->name('answer.editAnswer');
     });
 });
 Route::prefix('page')->group(function(){

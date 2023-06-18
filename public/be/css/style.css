@@ -16456,3 +16456,10 @@ body.dark {
   bottom: 50px;
   opacity: 1;
 }
+
+.long-paragraph {
+  word-wrap: break-word;
+  /* hoặc */
+  overflow-wrap: break-word;
+}
+

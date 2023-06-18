@@ -284,6 +284,29 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li class="pcoded-hasmenu">
+                                  <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                      <span class="pcoded-micon"><i class="fa-solid fa-voicemail"></i></span>
+                                      <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Câu trả lời</span>
+                                      <span class="pcoded-mcaret"></span>
+                                  </a>
+                                  <ul class="pcoded-submenu">
+                                      <li class=" ">
+                                          <a href="{{route('answer.listAnswer')}}" class="waves-effect waves-dark">
+                                              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                              <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Danh sách</span>
+                                              <span class="pcoded-mcaret"></span>
+                                          </a>
+                                      </li>
+                                      <li class=" ">
+                                          <a href="auth-sign-up.html" class="waves-effect waves-dark">
+                                              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                              <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Register</span>
+                                              <span class="pcoded-mcaret"></span>
+                                          </a>
+                                      </li>
+                                  </ul>
+                              </li>
                             </ul>
 
                         </div>
@@ -379,9 +402,9 @@
                     success: function(data){
                         console.log(data);
                         if(data.res == 'success'){
-                            $('.message-answer').html('<span class="text-success">'+data.status+'</span>');
+                            $('.message-answer').html('<span class="text-success mr-2">'+data.status+'</span>');
                         }else if(data.res == 'fail'){
-                            $('.message-answer').html('<span class="text-danger">'+data.status+'</span>');
+                            $('.message-answer').html('<span class="text-danger mr-2">'+data.status+'</span>');
                         }
                     },
                     error: function(error){
@@ -389,6 +412,41 @@
                     }
                 })
             });
+
+            $('.edit-answer').click(function(){
+                var arrQuestion = '|';
+                var answer = $('textarea[name="answer"]').text();
+                var id = $(this).data('id');
+                $('.option-question:checked').each(function(){
+                    arrQuestion += $('.question-'+$(this).val()).text();
+                    arrQuestion += '|';
+                })
+                // console.log(answer);
+                $.ajax({
+                    url: '{{route("answer.editAnswer")}}',
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        answer: answer,
+                        question: arrQuestion,
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data);
+                        // if(data.res == 'success'){
+                        //     $('.message-answer').html('<span class="text-success">'+data.status+'</span>');
+                        // }else if(data.res == 'fail'){
+                        //     $('.message-answer').html('<span class="text-danger">'+data.status+'</span>');
+                        // }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                })
+            })
         });
     </script>
 </body>

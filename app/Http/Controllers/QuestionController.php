@@ -18,7 +18,7 @@ class QuestionController extends Controller
     }
 
     public function insertQuestionForm(){
-        $titlePage = 'Thêm câu hỏi';
+        $titlePage = 'Thêm từ khóa';
         return view('question.insert_question',compact(
             'titlePage',
         ));
@@ -39,5 +39,37 @@ class QuestionController extends Controller
         }
     }
 
+    public function editQuestionForm($id){
+        $titlePage = 'Sửa từ khóa';
+        $question = Question::find($id);
+        return view('question.edit_question',compact(
+            'question',
+            'titlePage'
+        ));
+    }
 
+    public function editQuestion($id,Request $request){
+        $data = $request->all();
+        Validator::make($data,[
+            'name' => ['required'],
+        ])->validate();
+        $question = Question::find($id);
+        // dd($question);
+        $question->question = $data['name'];
+        $edit = $question->save();
+        if($edit){
+            return redirect()->route('question.editQuestionForm',['id'=>$id])->with('message','Sửa từ khóa thành công!');
+        }else{
+            return redirect()->route('question.editQuestionForm',['id'=>$id])->with('message','Sửa từ khóa thất bại!');
+        }
+    }
+
+    public function deleteQuestion($id){
+        $delete = Question::find($id)->delete();
+        if($delete){
+            return redirect()->route('question.listQuestion',['id'=>$id])->with('message','Xóa từ khóa thành công!');
+        }else{
+            return redirect()->route('question.listQuestion',['id'=>$id])->with('message','Xóa từ khóa thất bại!');
+        }
+    }
 }

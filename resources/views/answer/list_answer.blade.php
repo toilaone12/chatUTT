@@ -30,14 +30,14 @@
         <!-- Main-body start -->
         <div class="main-body">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="page-wrapper">
                         <!-- Page-body start -->
                         <div class="page-body">
                             <!-- Hover table card start -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Danh sách câu hỏi</h5>.
+                                    <h5>Danh sách câu trả lời</h5>.
                                     <div class="form-group">
                                         <p class="text-success">
                                             <?php
@@ -66,9 +66,10 @@
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th width="20">Chọn</th>
+                                                    <!-- <th width="20">Chọn</th> -->
                                                     <th>STT</th>
-                                                    <th>Câu hỏi</th>
+                                                    <th>Các từ khóa</th>
+                                                    <th>Câu trả lời</th>
                                                     <th>Chức năng</th>
                                                 </tr>
                                             </thead>
@@ -76,14 +77,14 @@
                                                 <?php
                                                 $i = 0;
                                                 ?>
-                                                @foreach($listQuestion as $key => $question)
+                                                @foreach($listAnswer as $key => $answer)
                                                 <tr>
-                                                    <td width="20"><input type="checkbox" name="" value="{{$question->id_question}}" class="choose-question" id=""></td>
                                                     <td scope="row">{{$key + 1}}</td>
-                                                    <td class="question-{{$question->id_question}}">{{$question->question}}</td>
+                                                    <td class="" style="white-space:normal">{{$answer->question_list}}</td>
+                                                    <td style="white-space:normal">{{$answer->answer}}</td>
                                                     <td>
-                                                        <a href="{{route('question.editQuestionForm',['id' => $question->id_question])}}" class="btn btn-success mr-3"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                        <a href="{{route('question.deleteQuestion',['id' => $question->id_question])}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                                        <a href="{{route('answer.editFormAnswer',['id' => $answer->id_answer])}}" class="btn btn-success mr-3"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -97,7 +98,7 @@
                         <!-- Page-body end -->
                     </div>
                 </div>
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                     <div class="page-wrapper">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
@@ -115,7 +116,6 @@
                 <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <!--Header-->
                             <div class="modal-header">
                                 <h4 class="modal-title" id="myModalLabel">Trả lời câu hỏi</h4>
                                 <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
@@ -125,9 +125,8 @@
                             <div class="message-answer">
                          
                             </div>
-                            <!--Body-->
                             <div class="modal-body">
-                                <table class="table table-hover" style="max-height:450px;">
+                                <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>STT</th>
@@ -142,14 +141,13 @@
                                     <textarea name="text-question" placeholder="Câu trả lời" class="form-control mt-2 text-question-choose" id="" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
-                            <!--Footer-->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-primary rounded" data-dismiss="modal">Đóng</button>
                                 <button class="btn btn-primary rounded answer-question-choose pe-none disabled">Trả lời</button>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>

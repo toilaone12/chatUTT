@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\DB;
 class AnswerController extends Controller
 {
     //
+    public function listAnswer(){
+        $titlePage = 'Danh sách câu trả lời';
+        $listAnswer = Answer::all();
+        return view('answer.list_answer',compact(
+            'titlePage',
+            'listAnswer'
+        ));
+    }
+
     public function answerListQuestion(Request $request)
     {
         $data = $request->all();
@@ -21,6 +30,31 @@ class AnswerController extends Controller
         ]);
         if ($insert) {
             return response()->json(['res' => 'success', 'status' => 'Bạn đã trả lời thành công!'], 200);
+        } else {
+            return response()->json(['res' => 'fail', 'status' => 'Kiểm tra lại truy vấn của bạn!'], 200);
+        }
+    }
+
+    public function editFormAnswer($id){
+        $answer = Answer::find($id);
+        $listQuestion = Question::all();
+        $titlePage = 'Sửa câu trả lời';
+        return view('answer.edit_answer',compact(
+            'titlePage',
+            'answer',
+            'listQuestion'
+        ));
+    }
+
+    public function editAnswer(Request $request){
+        $data = $request->all();
+        $answer = Answer::find($data['id']);
+        // dd($answer);
+        $answer->question_list = $data['question'];
+        $answer->answer = $data['answer'];
+        $update = $answer->save();
+        if ($update) {
+            return response()->json(['res' => 'success', 'status' => 'Bạn đã sửa lại câu trả lời thành công!'], 200);
         } else {
             return response()->json(['res' => 'fail', 'status' => 'Kiểm tra lại truy vấn của bạn!'], 200);
         }
@@ -54,7 +88,7 @@ class AnswerController extends Controller
                 $startTime = microtime(true);
                 $endTime = microtime(true);
                 $queryTime = ($endTime - $startTime) * 1000;
-                DB::enableQueryLog();
+                // DB::enableQueryLog();
                 $select = Answer::where('question_list','like','%'.$foundKeywords[0].'%');
                 foreach($foundKeywords as $key => $keyword){
                     // $keyQuery = $keyword;
@@ -64,29 +98,28 @@ class AnswerController extends Controller
                 }
                 $select = $select->get();
                 $s = DB::getQueryLog();
-                dd($foundKeywords);
+                // dd($select);
+                if(count($select) > 0){
+                    $noti = '';
+                    $insertHistoryMessage = HistoryMessage::create([
+                        'id_user' => $data['userId'],
+                        'code_history' => $data['codeRoom'],
+                        'question' => $data['question'],
+                        'answer' => $select[0]->answer
+                    ]);
+                    $oneRoom = Room::where('code_history',$data['codeRoom'])->first();
+                    if($oneRoom->name_room == ''){
+                        $oneRoom->name_room = $data['question'];
+                        $oneRoom->save();
+                        $noti = true;
+                    }else{
+                        $noti = false;
+                    }
+                    return response()->json(['res' => 'success', 'status' => 'Trả lời thành công!', 'result' => ['answer' => $select[0]->answer,'noti' => $noti, 'code_room' => $data['codeRoom'], 'time_request' => $queryTime]]);
+                }else{
+                    return response()->json(['res' => 'fail','status' => 'Xin lỗi bạn vì chúng tôi chưa cập nhật thông tin về câu hỏi này!', 'result' => ['time_request' => $queryTime / 1000000 ]],200);
+                }
             }
-            // $updateNameRoom = Room::update()
-            // if(count($select) > 0){
-            //     $noti = '';
-            //     $insertHistoryMessage = HistoryMessage::create([
-            //         'id_user' => $data['userId'],
-            //         'code_history' => $data['codeRoom'],
-            //         'question' => $data['question'],
-            //         'answer' => $select[0]->answer
-            //     ]);
-            //     $oneRoom = Room::where('code_history',$data['codeRoom'])->first();
-            //     if($oneRoom->name_room == ''){
-            //         $oneRoom->name_room = $data['question'];
-            //         $oneRoom->save();
-            //         $noti = true;
-            //     }else{
-            //         $noti = false;
-            //     }
-            //     return response()->json(['res' => 'success', 'status' => 'Trả lời thành công!', 'result' => ['answer' => $select[0]->answer,'noti' => $noti, 'code_room' => $data['codeRoom'], 'time_request' => $queryTime]]);
-            // }else{
-            //     return response()->json(['res' => 'fail','status' => 'Xin lỗi bạn vì chúng tôi chưa cập nhật thông tin về câu hỏi này!', 'result' => ['time_request' => $queryTime / 1000000 ]],200);
-            // }
         }
     }
 
