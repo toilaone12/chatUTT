@@ -39,10 +39,14 @@ class AnswerController extends Controller
         $answer = Answer::find($id);
         $listQuestion = Question::all();
         $titlePage = 'Sửa câu trả lời';
+        $replaceAnswer = trim(str_replace('|', ', ',$answer->question_list),', ');
+        $arrAnswer = (explode(', ',$replaceAnswer));
+        // dd($arrAnswer);
         return view('answer.edit_answer',compact(
             'titlePage',
             'answer',
-            'listQuestion'
+            'listQuestion',
+            'arrAnswer'
         ));
     }
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class QuestionController extends Controller
@@ -65,11 +67,28 @@ class QuestionController extends Controller
     }
 
     public function deleteQuestion($id){
-        $delete = Question::find($id)->delete();
+        $question = Question::find($id);
+        $delete = $question->delete();
         if($delete){
+            $listAnswer = Answer::where('question_list','like','%|'.$question->question.'|%')->get();
+            foreach($listAnswer as $key => $val){
+                $id = $val->id_answer;
+                $trimAnswer = trim($val->question_list,'|'); // cat 2 dau
+                $arrAnswer = explode('|',$trimAnswer); //quy doi tu chuoi thanh mang
+                $deleteArrSearch = array_diff($arrAnswer,array($question->question)); //xoa value trong mang
+                $convertToStringAnswer = '|'.implode('|',$deleteArrSearch).'|';
+                // dd($id);
+                $oneAnswer = Answer::find($id);
+                $oneAnswer->question_list = $convertToStringAnswer;
+                $oneAnswer->save();
+            }
             return redirect()->route('question.listQuestion',['id'=>$id])->with('message','Xóa từ khóa thành công!');
         }else{
             return redirect()->route('question.listQuestion',['id'=>$id])->with('message','Xóa từ khóa thất bại!');
         }
+    }
+
+    public function deleteMoreQuestion(Request $request){
+        
     }
 }

@@ -61,8 +61,8 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="card-block table-border-style">
-                                    <div class="table-responsive">
+                                <div class="card-block table-border-style"  style="height: 643px; margin-bottom: 30px">
+                                    <div class="table-responsive" style="height: inherit;">
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>

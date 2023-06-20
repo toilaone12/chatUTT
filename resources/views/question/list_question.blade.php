@@ -61,8 +61,8 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="card-block table-border-style">
-                                    <div class="table-responsive">
+                                <div class="card-block table-border-style" style="height: 643px; margin-bottom: 30px">
+                                    <div class="table-responsive" style="height: inherit;">
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
@@ -72,13 +72,13 @@
                                                     <th>Chức năng</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody style="height: auto;">
                                                 <?php
                                                 $i = 0;
                                                 ?>
                                                 @foreach($listQuestion as $key => $question)
                                                 <tr>
-                                                    <td width="20"><input type="checkbox" name="" value="{{$question->id_question}}" class="choose-question" id=""></td>
+                                                    <td width="20"><input type="checkbox" name="" value="{{$question->id_question}}" class="form-check-input choose-question" id=""></td>
                                                     <td scope="row">{{$key + 1}}</td>
                                                     <td class="question-{{$question->id_question}}">{{$question->question}}</td>
                                                     <td>
@@ -106,7 +106,10 @@
                                     <button type="submit" class="d-block m-auto btn btn-success rounded disabled add-question" data-toggle="modal" data-target="#modalCart" style="pointer-events: none;">Trả lời câu hỏi</button>
                                 </div>
                                 <div class="mt-3">
-                                    <button type="submit" class="d-block m-auto mt-1 btn btn-success rounded" disabled>Trả lời câu hỏi</button>
+                                    <button type="submit" class="d-block m-auto mt-1 btn btn-success rounded disabled delete-questions" style="pointer-events: none;" >Xóa nhiều câu hỏi</button>
+                                </div>
+                                <div class="mt-3">
+                                    <button type="submit" class="d-block m-auto mt-1 btn btn-success rounded choose-all-question" style="pointer-events: auto;" >Chọn tất cả</button>
                                 </div>
                             </div>
                         </div>

@@ -59,7 +59,7 @@
                                         <div class="form-group">
                                             @foreach($listQuestion as $key => $question)
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input option-question" value="{{$question->id_question}}" type="checkbox" id="flexCheckDefault-{{$key}}">
+                                                <input class="form-check-input option-question" value="{{$question->id_question}}" {{in_array($question->question,$arrAnswer) ? 'checked' : ''}} type="checkbox" id="flexCheckDefault-{{$key}}">
                                                 <label class="form-check-label question-{{$question->id_question}}" for="flexCheckDefault-{{$key}}">{{$question->question}}</label>
                                             </div>
                                             @endforeach

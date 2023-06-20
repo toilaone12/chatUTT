@@ -347,15 +347,20 @@
     <!-- custom js -->
     <script type="text/javascript" src="{{asset('be/js/custom-dashboard.js')}}"></script>
     <script type="text/javascript" src="{{asset('be/js/script.js')}} "></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         $(document).ready(function() {
             $('.choose-question').click(function() {
                 // alert(1);
                 if ($('input[type="checkbox"]:checked').length > 0) {
                     $('.add-question').addClass('pe-auto');
+                    $('.delete-questions').addClass('pe-auto');
                     $('.add-question').removeClass('disabled');
+                    $('.delete-questions').removeClass('disabled');
                 } else {
                     $('.add-question').removeClass('pe-auto');
+                    $('.delete-questions').removeClass('pe-auto');
+                    $('.delete-questions').addClass('disabled');
                     $('.add-question').addClass('disabled');
                 }
             });
@@ -370,7 +375,48 @@
                     console.log($(this).val());
                 });
                 $('.list-question-choose').html(html);
+                
             });
+            $('.choose-all-question').click(function(){
+                var isChecked = $('.choose-question').not(':checked').length !== 0; // b1: true b2: false
+                $('.choose-question').prop('checked', isChecked);
+                if ($('input[type="checkbox"]:checked').length > 0) {
+                    $('.add-question').addClass('pe-auto');
+                    $('.delete-questions').addClass('pe-auto');
+                    $('.add-question').removeClass('disabled');
+                    $('.delete-questions').removeClass('disabled');
+                } else {
+                    $('.add-question').removeClass('pe-auto');
+                    $('.delete-questions').removeClass('pe-auto');
+                    $('.delete-questions').addClass('disabled');
+                    $('.add-question').addClass('disabled');
+                }
+            })
+            $('.delete-questions').click(function(){
+                // console.log('a');
+                var html = '<ul class="list-group">'
+                var arr = [];
+                $('.choose-question:checked').each(function(key,val) {
+                    html += '<li class="list-group-item">'+$('.question-'+$(this).val()).text()+'</li>'
+                    arr.push($('.question-'+$(this).val()).text())
+                });
+                // console.log(arr);
+                html += '</ul>';
+                Swal.fire({
+                    title: '<p class="f-16">Bạn chắc chắn muốn xóa không?</p>',
+                    icon: 'warning',
+                    html: html,
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    confirmButtonText:
+                        '<i class="fa-solid fa-check"></i> Có',
+                    confirmButtonAriaLabel: 'Đã xóa thành công!',
+                    cancelButtonText:
+                        '<i class="fa-solid fa-xmark"></i> Không',
+                    cancelButtonAriaLabel: 'Đã hủy bỏ'
+                })
+            })
             $('.text-question-choose').keyup(function(){
                 console.log($(this).val().length);
                 if($(this).val().length > 0){
