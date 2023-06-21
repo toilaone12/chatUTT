@@ -30,6 +30,7 @@ Route::prefix('admin')->group(function(){
         Route::get('/form-edit/{id}',[QuestionController::class,'editQuestionForm'])->name('question.editQuestionForm');
         Route::post('/edit/{id}',[QuestionController::class,'editQuestion'])->name('question.editQuestion');
         Route::get('/delete/{id}',[QuestionController::class,'deleteQuestion'])->name('question.deleteQuestion');
+        Route::post('/delete-questions',[QuestionController::class,'deleteMoreQuestion'])->name('question.deleteMoreQuestion');
     });
     Route::prefix('answer')->group(function(){
         Route::get('/list-answer',[AnswerController::class,'listAnswer'])->name('answer.listAnswer');

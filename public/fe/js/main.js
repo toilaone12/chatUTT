@@ -195,50 +195,6 @@ function chatBot(question,url,image){
                     // console.log(data.code_room);
                 }
             }
-            // if (data.res == 'fail') {
-            //     setTimeout(function() {
-            //         $('.list-message').append(
-            //             '<div class="media media-chat">' +
-            //             '<img class="avatar" src="'+image+'" alt="...">' +
-            //             '<div class="media-body hold">' +
-            //             '<p class="mb-0 mr-10 media-answer-' + rand + '">' +
-            //             printText(data.status, -1, rand) +
-            //             '</p>' +
-            //             '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
-            //             '</div>' +
-            //             '</div>',
-            //             $('.lds-ellipsis').hide())
-            //     }, delay);
-            // } else { 
-            //     if(data.result.noti == true){
-            //         // console.log(question)
-            //         var textRoom = $('.text-room-'+data.result.code_room);
-            //         if(textRoom.text()){
-            //             textRoom.text('');
-            //         }
-            //         printTextRoom(question,0,data.result.code_room);
-            //         // console.log(text(printText(question)));
-            //     }else{
-            //         // console.log(data.code_room);
-            //     }
-            //     setTimeout(function() {
-            //         $('.list-message').append(
-            //             '<div class="media media-chat">' +
-            //             '<img class="avatar" src="'+image+'" alt="...">' +
-            //             '<div class="media-body hold">' +
-            //             '<p class="mb-0 px-3 mr-10 media-answer-' + rand + '">' +
-            //             printText(data.result.answer, -1, rand) +
-            //             '</p>' +
-            //             '<p class="mr-1 ml-2 text-dark small pr-0 mb-0 meta">' + time + '</p>' +
-            //             '</div>' +
-            //             '</div>',
-            //             $('.lds-ellipsis').hide()
-            //         )
-            //         // if($('.room-chat-items').attr('data-room') == data.code_room){
-            //             // }
-            //     }, data.result.time_request * 100);
-               
-            // }
         }
     })
 }
@@ -246,7 +202,7 @@ function chatBot(question,url,image){
 function listHistoryMessage(result,imageCustomer,imageBot,codeRoom){
     var rand = Math.floor(Math.random() * 100) + 1;
     var html = '';
-    // console.log(result);
+    console.log(result);
     // $.each(data.result,function(k,v){
     // });
     html+=                '<div class="card card-bordered">'

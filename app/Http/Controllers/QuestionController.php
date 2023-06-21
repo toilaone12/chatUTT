@@ -89,6 +89,38 @@ class QuestionController extends Controller
     }
 
     public function deleteMoreQuestion(Request $request){
-        
+        $data = $request->all();
+        $status = [];
+        foreach($data['arr'] as $key => $val){
+            $id = intval($val['key']);
+            $question = Question::find($id);
+            $delete = $question->delete();
+            if($delete){
+                $listAnswer = Answer::where('question_list','like','%|'.$question->question.'|%')->get();
+                foreach($listAnswer as $key => $val){
+                    $id = $val->id_answer;
+                    $trimAnswer = trim($val->question_list,'|'); // cat 2 dau
+                    $arrAnswer = explode('|',$trimAnswer); //quy doi tu chuoi thanh mang
+                    $deleteArrSearch = array_diff($arrAnswer,array($question->question)); //xoa value trong mang
+                    $convertToStringAnswer = '|'.implode('|',$deleteArrSearch).'|';
+                    $oneAnswer = Answer::find($id);
+                    $oneAnswer->question_list = $convertToStringAnswer;
+                    $update = $oneAnswer->save();
+                    if($update){
+                        $status += ['res' => true];
+                    }else{
+                        $status += ['res' => false];
+                    }
+                }
+            }else{
+                $status += ['res' => false];
+            }
+        }
+        if($status['res'] == true){
+            // dd($status['res'] == true);
+            return response()->json(['res' => 'success', 'status' => 'Xóa từ khóa thành công!']);
+        }else{
+            return response()->json(['res' => 'fail', 'status' => 'Xóa từ khóa thất bại!']);
+        }
     }
 }

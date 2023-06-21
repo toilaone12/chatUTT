@@ -127,7 +127,7 @@
                             <li>
                                 <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
                             </li>
-                            <li class="header-search">
+                            <!-- <li class="header-search">
                                 <div class="main-search morphsearch-search">
                                     <div class="input-group">
                                         <span class="input-group-addon search-close"><i class="fa-solid fa-xmark"></i></span>
@@ -135,7 +135,7 @@
                                         <span class="input-group-addon search-btn"><i class="fa-solid fa-magnifying-glass"></i></span>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
                                     <i class="fa-solid fa-maximize"></i>
@@ -397,8 +397,12 @@
                 var html = '<ul class="list-group">'
                 var arr = [];
                 $('.choose-question:checked').each(function(key,val) {
-                    html += '<li class="list-group-item">'+$('.question-'+$(this).val()).text()+'</li>'
-                    arr.push($('.question-'+$(this).val()).text())
+                    var questionKey = $(this).val(); 
+                    var questionText = $('.question-'+$(this).val()).text(); 
+                    html += '<li class="list-group-item">'+questionText+'</li>'
+                    arr.push({key: questionKey, value: questionText});
+                    // arr.push()
+                    // console.log(questionKey);
                 });
                 // console.log(arr);
                 html += '</ul>';
@@ -415,6 +419,42 @@
                     cancelButtonText:
                         '<i class="fa-solid fa-xmark"></i> Không',
                     cancelButtonAriaLabel: 'Đã hủy bỏ'
+                }).then((result) => {
+                    // console.log(arr);
+                    if(result.isConfirmed){
+                        $.ajax({
+                            method: "POST",
+                            url: '{{route("question.deleteMoreQuestion")}}',
+                            data: {
+                                arr: arr
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data){
+                                // console.log(data);
+                                if(data.res == 'success'){
+                                    Swal.fire({
+                                        title: 'Xóa thành công!',
+                                        text: 'Bạn đã xóa thành công.',
+                                        icon: 'success',
+                                        showCloseButton: true,
+                                        showCancelButton: true,
+                                        confirmButtonText: 'Xác nhận',
+                                    }).then((res) => {
+                                        if(result.isConfirmed){
+                                            location.reload();
+                                        }
+                                    });
+                                }else{
+                                    console.log("Fail");
+                                }
+                            },
+                            error: function(err){
+                                console.log(err);
+                            }
+                        });
+                    }
                 })
             })
             $('.text-question-choose').keyup(function(){
@@ -481,18 +521,34 @@
                     },
                     dataType: 'json',
                     success: function(data){
-                        console.log(data);
-                        // if(data.res == 'success'){
-                        //     $('.message-answer').html('<span class="text-success">'+data.status+'</span>');
-                        // }else if(data.res == 'fail'){
-                        //     $('.message-answer').html('<span class="text-danger">'+data.status+'</span>');
-                        // }
+                        // console.log(data);
+                        if(data.res == 'success'){
+                            $('.notificaton-answer').html('<span class="text-success">'+data.status+'</span>');
+                        }else if(data.res == 'fail'){
+                            $('.notificaton-answer').html('<span class="text-danger">'+data.status+'</span>');
+                        }
                     },
                     error: function(error){
                         console.log(error);
                     }
                 })
             })
+
+            $('.logout').click(function(){
+                $.ajax({
+                    url: "{{route('admin.logout')}}",
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data){
+                        // console.log(data);
+                        if(data.res == 'success'){
+                            location.href = "{{route('page.loginForm')}}"
+                        }else{
+                            location.href = '/'
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>

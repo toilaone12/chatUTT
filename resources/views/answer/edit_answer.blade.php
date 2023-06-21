@@ -38,19 +38,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h5>Sửa câu trả lời cho Chatbot</h5>
-                                    <div class="form-group">
-                                        <p class="text-success">
-                                            <?php
-
-                                            use Illuminate\Support\Facades\Session;
-
-                                            $message = Session::get('message');
-                                            if (isset($message)) {
-                                                echo $message;
-                                                Session::put('message', '');
-                                            }
-                                            ?>
-                                        </p>
+                                    <div class="form-group notificaton-answer">
                                     </div>
                                 </div>
                                 <div class="card-block">
