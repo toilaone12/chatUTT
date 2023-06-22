@@ -1,3 +1,7 @@
+<?php
+
+use Illuminate\Support\Facades\Cookie;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -114,8 +118,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="index.html">
-                            <img class="img-fluid" src="{{asset('be/images/logo.png')}}" alt=" Theme-Logo" />
+                        <a href="#" class="me-2">
+                            <img class="img-fluid w-75" src="{{asset('be/images/banner_utt.png')}}" alt=" Theme-Logo" />
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
@@ -187,15 +191,13 @@
                             </li>
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
-                                    <img src="{{asset('be/images/avatar-4.jpg')}}" class="img-radius" alt="User-Profile-Image">
-                                    <span>John Doe</span>
+                                    <!-- <img src="{{asset('be/images/avatar-4.jpg')}}" class="img-radius" alt="User-Profile-Image"> -->
+                                    <span><?= Cookie::get('username')?></span>
                                     <i class="fa-solid fa-chevron-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
                                     <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="fa-solid fa-gear"></i> Cài đặt
-                                        </a>
+                                        <a href="{{route('user.setting')}}"><i class="fa-solid fa-gear"></i>Thay đổi mật khẩu</a>
                                     </li>
                                     <li class="waves-effect waves-light">
                                         <a href="user-profile.html">
@@ -209,7 +211,7 @@
                                         </a>
                                     </li> -->
                                     <li class="waves-effect waves-light">
-                                        <a href="auth-normal-sign-in.html">
+                                        <a class="logout">
                                             <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
                                         </a>
                                     </li>
@@ -227,9 +229,9 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="">
                                 <div class="main-menu-header">
-                                    <img class="img-80 img-radius" src="{{asset('be/images/avatar-4.jpg')}}" alt="User-Profile-Image">
+                                    <!-- <img class="img-80 img-radius" src="{{asset('be/images/avatar-4.jpg')}}" alt="User-Profile-Image"> -->
                                     <div class="user-details">
-                                        <span id="more-details">John Doe<i class="fa fa-caret-down"></i></span>
+                                        <span id="more-details">{{Cookie::get('username')}}<i class="fa fa-caret-down"></i></span>
                                     </div>
                                 </div>
 
@@ -237,8 +239,8 @@
                                     <ul>
                                         <li class="more-details">
                                             <a href="user-profile.html"><i class="fa-solid fa-user"></i>Hồ sơ cá nhân</a>
-                                            <a href="#!"><i class="fa-solid fa-gear"></i>Cài đặt</a>
-                                            <a href="auth-normal-sign-in.html"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</a>
+                                            <a href="{{route('user.setting')}}"><i class="fa-solid fa-gear"></i>Thay đổi mật khẩu</a>
+                                            <a class="logout"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -260,6 +262,28 @@
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Trang chủ</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="fa-solid fa-user"></i></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Tài khoản</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{{route('question.listQuestion')}}" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="fa-solid fa-list"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Khách hàng</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{{route('user.listUser')}}" class="waves-effect waves-dark">
+                                                <span class="pcoded-micon"><i class="fa-regular fa-square-plus"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Quản trị</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)" class="waves-effect waves-dark">
@@ -295,13 +319,6 @@
                                           <a href="{{route('answer.listAnswer')}}" class="waves-effect waves-dark">
                                               <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                               <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Danh sách</span>
-                                              <span class="pcoded-mcaret"></span>
-                                          </a>
-                                      </li>
-                                      <li class=" ">
-                                          <a href="auth-sign-up.html" class="waves-effect waves-dark">
-                                              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                              <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Register</span>
                                               <span class="pcoded-mcaret"></span>
                                           </a>
                                       </li>
@@ -348,50 +365,9 @@
     <script type="text/javascript" src="{{asset('be/js/custom-dashboard.js')}}"></script>
     <script type="text/javascript" src="{{asset('be/js/script.js')}} "></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script type="text/javascript" src="{{asset('be/js/main.js')}}"></script>
     <script>
         $(document).ready(function() {
-            $('.choose-question').click(function() {
-                // alert(1);
-                if ($('input[type="checkbox"]:checked').length > 0) {
-                    $('.add-question').addClass('pe-auto');
-                    $('.delete-questions').addClass('pe-auto');
-                    $('.add-question').removeClass('disabled');
-                    $('.delete-questions').removeClass('disabled');
-                } else {
-                    $('.add-question').removeClass('pe-auto');
-                    $('.delete-questions').removeClass('pe-auto');
-                    $('.delete-questions').addClass('disabled');
-                    $('.add-question').addClass('disabled');
-                }
-            });
-            $('.add-question').click(function() {
-                // var choose = [];
-                var html = '';
-                $('.choose-question:checked').each(function(key,val) {
-                    html += '<tr>'
-                    html += '<th scope = "row">'+(parseInt(key)+1)+'</th>'
-                    html += '<td class="question-choose">'+$('.question-'+$(this).val()).text()+'</td>'
-                    html += '</tr>'
-                    console.log($(this).val());
-                });
-                $('.list-question-choose').html(html);
-                
-            });
-            $('.choose-all-question').click(function(){
-                var isChecked = $('.choose-question').not(':checked').length !== 0; // b1: true b2: false
-                $('.choose-question').prop('checked', isChecked);
-                if ($('input[type="checkbox"]:checked').length > 0) {
-                    $('.add-question').addClass('pe-auto');
-                    $('.delete-questions').addClass('pe-auto');
-                    $('.add-question').removeClass('disabled');
-                    $('.delete-questions').removeClass('disabled');
-                } else {
-                    $('.add-question').removeClass('pe-auto');
-                    $('.delete-questions').removeClass('pe-auto');
-                    $('.delete-questions').addClass('disabled');
-                    $('.add-question').addClass('disabled');
-                }
-            })
             $('.delete-questions').click(function(){
                 // console.log('a');
                 var html = '<ul class="list-group">'
@@ -456,15 +432,7 @@
                         });
                     }
                 })
-            })
-            $('.text-question-choose').keyup(function(){
-                console.log($(this).val().length);
-                if($(this).val().length > 0){
-                    $('.answer-question-choose').addClass('pe-auto');
-                    $('.answer-question-choose').removeClass('disabled');
-                    $('.answer-question-choose').removeClass('pe-none');
-                }
-            }); 
+            }) 
             $('.answer-question-choose').click(function(){
                 var textAnswer = $('.text-question-choose').val();
                 var chooseQuestion = $('.question-choose').text();
@@ -542,13 +510,68 @@
                     success: function(data){
                         // console.log(data);
                         if(data.res == 'success'){
-                            location.href = "{{route('page.loginForm')}}"
+                            location.href = "{{route('admin.login')}}"
                         }else{
                             location.href = '/'
                         }
                     }
                 });
             });
+
+            $('.create-user').click(function(){
+                // var input = $('.input-field');
+                var username = $('.input-field[name="username"]').val();
+                var fullname = $('.input-field[name="fullname"]').val();
+                var email = $('.input-field[name="email"]').val();
+                $.ajax({
+                    url: "{{route('user.createUser')}}",
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data:{
+                        fullname: fullname,
+                        username: username,
+                        email: email,
+                    },
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data);
+                        if(data.res === 'warning'){
+                            $('.error-fullname').text(data.result.fullname);
+                            $('.error-email').text(data.result.email);
+                            $('.error-username').text(data.result.username);
+                        }else if(data.res === 'fail'){
+                            Swal.fire({
+                                title: 'Tạo tài khoản!',
+                                text: data.result,
+                                icon: 'error',
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                confirmButtonText: 'Xác nhận',
+                            })
+                        }else if(data.res === 'success'){
+                            Swal.fire({
+                                title: 'Tạo tài khoản!',
+                                text: data.result,
+                                icon: 'success',
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                confirmButtonText: 'Xác nhận',
+                            }).then((res) => {
+                                if(result.isConfirmed){
+                                    location.reload();
+                                }
+                            }); 
+                        }
+                        // if(data.res == 'success'){
+                        //     location.href = "{{route('page.loginForm')}}"
+                        // }else{
+                        //     location.href = '/'
+                        // }
+                    }
+                })
+            })
         });
     </script>
 </body>

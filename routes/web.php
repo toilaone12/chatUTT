@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function(){
     Route::get('/login',[AdminController::class,'login'])->name('admin.login');
+    Route::get('/logout',[AdminController::class,'logout'])->name('admin.logout');
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+    Route::post('/sign-in',[AdminController::class,'signIn'])->name('admin.signIn');
     Route::prefix('question')->group(function(){
         Route::get('/list-question',[QuestionController::class,'listQuestion'])->name('question.listQuestion');
         Route::get('/form-insert',[QuestionController::class,'insertQuestionForm'])->name('question.insertQuestionForm');
@@ -37,6 +39,12 @@ Route::prefix('admin')->group(function(){
         Route::post('/answer-question',[AnswerController::class,'answerListQuestion'])->name('answer.answerListQuestion');
         Route::get('/form-edit/{id}',[AnswerController::class,'editFormAnswer'])->name('answer.editFormAnswer');
         Route::post('/edit-answer',[AnswerController::class,'editAnswer'])->name('answer.editAnswer');
+    });
+    Route::prefix('user')->group(function(){
+        Route::get('/list-user',[AdminController::class,'listUser'])->name('user.listUser');
+        Route::post('/create-user',[AdminController::class,'createUser'])->name('user.createUser');
+        Route::get('/setting',[AdminController::class,'setting'])->name('user.setting');
+        Route::get('/change-password',[AdminController::class,'changePassword'])->name('user.changePassword');
     });
 });
 Route::prefix('page')->group(function(){
