@@ -53,6 +53,16 @@
                                         <h3 class="text-center">Đăng nhập</h3>
                                     </div>
                                 </div>
+                                <?php
+
+                                use Illuminate\Support\Facades\Session;
+
+                                $message = Session::get('message');
+                                if (isset($message)) {
+                                    echo $message;
+                                    Session::put('message', '');
+                                }
+                                ?>
                                 <div class="form-group form-primary">
                                     <input type="text" name="username" placeholder="Tên tài khoản" class="form-control" required="">
                                     <span class="form-bar"></span>

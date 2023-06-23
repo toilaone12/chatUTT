@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 21, 2023 lúc 06:18 PM
--- Phiên bản máy phục vụ: 10.4.22-MariaDB
--- Phiên bản PHP: 7.3.33
+-- Thời gian đã tạo: Th6 23, 2023 lúc 11:23 AM
+-- Phiên bản máy phục vụ: 10.4.25-MariaDB
+-- Phiên bản PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -72,7 +72,6 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id_customer`, `image_customer`, `name_customer`, `birthday_customer`, `gentle_customer`, `email_customer`, `password_customer`, `phone_customer`, `created_at`, `updated_at`) VALUES
-(1, 'http://127.0.0.1:8000/fe/image/person.png', 'Sơn', '2023-04-24 10:33:45', 0, 'baooson3005@gmail.com', '69b21e9c5b38d7c34449a5b290363487', '0386278998', NULL, NULL),
 (3, 'http://127.0.0.1:8000/storage/baoson-1685094051.jpg', 'Bảo Sơn', '2023-05-26 16:40:51', 0, 'toilaone12@gmail.com', NULL, NULL, '2023-05-26 09:40:51', '2023-05-26 09:40:51'),
 (4, 'http://127.0.0.1:8000/storage/sonkieudangbao-1685094394.jpg', 'Sơn Kiều Đặng Bảo', '2023-05-26 16:46:34', 0, 'kieudangbaoson@gmail.com', NULL, NULL, '2023-05-26 09:46:34', '2023-05-26 09:46:34');
 
@@ -304,6 +303,7 @@ INSERT INTO `room` (`id_room`, `id_user`, `code_history`, `name_room`, `created_
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -311,6 +311,13 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(5, 'Bảo Sơn', 'son', 'toilaone12@gmail.com', NULL, '3eaba18b022be27a509fd60c1d35a342', '123456', '2023-06-22 07:50:11', '2023-06-23 08:49:37');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -436,7 +443,7 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

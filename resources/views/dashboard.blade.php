@@ -270,7 +270,7 @@ use Illuminate\Support\Facades\Cookie;
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="">
-                                            <a href="{{route('question.listQuestion')}}" class="waves-effect waves-dark">
+                                            <a href="{{route('customer.listCustomer')}}" class="waves-effect waves-dark">
                                                 <span class="pcoded-micon"><i class="fa-solid fa-list"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Khách hàng</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -558,7 +558,7 @@ use Illuminate\Support\Facades\Cookie;
                                 showCloseButton: true,
                                 showCancelButton: true,
                                 confirmButtonText: 'Xác nhận',
-                            }).then((res) => {
+                            }).then((result) => {
                                 if(result.isConfirmed){
                                     location.reload();
                                 }

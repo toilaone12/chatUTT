@@ -37,7 +37,7 @@
                             <!-- Hover table card start -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Danh sách quản trị</h5>
+                                    <h5>Danh sách người đăng ký ứng dụng</h5>
                                     <div class="form-group">
                                         <p class="text-success">
                                             <?php
@@ -67,10 +67,12 @@
                                             <thead>
                                                 <tr>
                                                     <th>STT</th>
-                                                    <th>Tên quản trị</th>
-                                                    <th>Tên đăng nhập</th>
+                                                    <th>Ảnh</th>
+                                                    <th>Tên người đăng ký</th>
+                                                    <th>Giới tính</th>
+                                                    <th>Ngày sinh</th>
                                                     <th>Email</th>
-                                                    <th>Quyền quản trị</th>
+                                                    <th>Số điện thoại</th>
                                                     <th>Chức năng</th>
                                                 </tr>
                                             </thead>
@@ -78,15 +80,17 @@
                                                 <?php
                                                 $i = 0;
                                                 ?>
-                                                @foreach($listUser as $key => $user)
+                                                @foreach($listCustomer as $key => $customer)
                                                 <tr>
                                                     <td scope="row">{{$key + 1}}</td>
-                                                    <td class="">{{$user->name}}</td>
-                                                    <td class="">{{$user->username}}</td>
-                                                    <td class="">{{$user->email}}</td>
-                                                    <td class="">1</td>
+                                                    <td class="w-100"><img width="75" height="75" class="rounded" src="{{$customer->image_customer}}" alt=""></td>
+                                                    <td class="">{{$customer->name_customer}}</td>
+                                                    <td class="">{{$customer->gentle_customer == 0 ? 'Nam' : 'Nữ'}}</td>
+                                                    <td class="">{{$customer->birthday_customer}}</td>
+                                                    <td class="">{{$customer->email_customer}}</td>
+                                                    <td class="">{{$customer->phone_customer}}</td>
                                                     <td>
-                                                        <a href="{{route('user.deleteUser',['id' => $user->id])}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                                        <a href="{{route('customer.deleteCustomer',['id' => $customer->id_customer])}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach

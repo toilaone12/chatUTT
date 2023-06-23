@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\HistoryMessageController;
@@ -44,7 +45,12 @@ Route::prefix('admin')->group(function(){
         Route::get('/list-user',[AdminController::class,'listUser'])->name('user.listUser');
         Route::post('/create-user',[AdminController::class,'createUser'])->name('user.createUser');
         Route::get('/setting',[AdminController::class,'setting'])->name('user.setting');
-        Route::get('/change-password',[AdminController::class,'changePassword'])->name('user.changePassword');
+        Route::get('/delete-user/{id}',[AdminController::class,'deleteUser'])->name('user.deleteUser');
+        Route::post('/change-password',[AdminController::class,'changePassword'])->name('user.changePassword');
+    });
+    Route::prefix('customer')->group(function(){
+        Route::get('/list-customer',[CustomerController::class,'listCustomer'])->name('customer.listCustomer');
+        Route::get('/delete-customer/{id}',[CustomerController::class,'deleteCustomer'])->name('customer.deleteCustomer');
     });
 });
 Route::prefix('page')->group(function(){
