@@ -211,7 +211,7 @@ function listHistoryMessage(result,imageCustomer,imageBot,codeRoom){
     html+=                            '<h5 class="text-dark">Nhắn tin với ChatBot</h5>'
     html+=                        '</div>'
     html+=                    '</div>'
-    html+=                    '<div class="ps-container ps-theme-default ps-active-y list-message" id="chat-content" style="overflow-y: scroll !important; height:500px !important;">'  
+    html+=                    '<div class="ps-container ps-theme-default ps-active-y list-message" id="chat-content" style="overflow-y: scroll !important; height:635px !important;">'  
     html+=                        '<div class="list">'
     $.each(result,function(k,v){
     html+=                        '<div class="media media-chat media-chat-reverse">' 
@@ -284,5 +284,60 @@ $(document).ready(function() {
         $('.room-chat-mb').removeClass('d-block');
         $('.room-chat').removeClass('d-block');
         $('.room-chat').addClass('d-none');
+    })
+
+    $('.click-profile').click(function(){
+        if($('.profile').hasClass('d-none')){
+            $('.change-password').addClass('d-none');
+            $('.upgrade-profile').addClass('d-none');
+            $('.profile').removeClass('d-none');
+            $(this).addClass('active');
+            $('.click-change-password').removeClass('active');
+        }
+        $('.title').text('Thông tin cá nhân')
+    })
+
+    $('.click-change-password').click(function(){
+        if($('.change-password').hasClass('d-none')){
+            $('.change-password').removeClass('d-none');
+            $('.upgrade-profile').addClass('d-none');
+            $('.profile').addClass('d-none');
+            $(this).addClass('active');
+            $('.click-profile').removeClass('active');
+        }
+        $('.title').text('Thay đổi mật khẩu');
+    })
+
+    $('.change-profile').click(function(){
+        if($('.upgrade-profile').hasClass('d-none')){
+            $('.upgrade-profile').removeClass('d-none');
+            $('.change-password').addClass('d-none');
+            $('.profile').addClass('d-none');
+        }
+        $('.title').text('Thay đổi thông tin cá nhân')
+    })
+
+    $('.eye-password').click(function(){
+        if($('#passwordInput').attr('type') === 'password'){
+            $('.icon-password').addClass('fa-eye-slash')
+            $('.icon-password').removeClass('fa-eye')
+            $('#passwordInput').attr('type','text')
+        }else{
+            $('.icon-password').removeClass('fa-eye-slash')
+            $('.icon-password').addClass('fa-eye')
+            $('#passwordInput').attr('type','password')
+        }
+    })
+
+    $('.eye-re-password').click(function(){
+        if($('#rePasswordInput').attr('type') === 'password'){
+            $('.icon-re-password').addClass('fa-eye-slash')
+            $('.icon-re-password').removeClass('fa-eye')
+            $('#rePasswordInput').attr('type','text')
+        }else{
+            $('.icon-re-password').removeClass('fa-eye-slash')
+            $('.icon-re-password').addClass('fa-eye')
+            $('#rePasswordInput').attr('type','password')
+        }
     })
 });

@@ -57,14 +57,18 @@ Route::prefix('page')->group(function(){
     Route::get('/login',[HomeController::class,'loginForm'])->name('page.loginForm');
     Route::get('/logout',[HomeController::class,'logout'])->name('page.logout');
     Route::post('/loginPage',[HomeController::class,'login'])->name('page.login');
-    Route::get('/',[HomeController::class,'home'])->name('page.home');
+    Route::get('/register',[HomeController::class,'registerForm'])->name('page.registerForm');
+    Route::post('/registerPage',[HomeController::class,'register'])->name('page.register');
+    Route::get('/forgot',[HomeController::class,'forgotPasswordForm'])->name('page.forgotPasswordForm');
+    Route::post('/changePassword',[HomeController::class,'changePassword'])->name('page.changePassword');
+    Route::post('/changePasswordCustomer',[HomeController::class,'changePasswordCustomer'])->name('page.changePasswordCustomer');
+    Route::get('/profile/{id}',[HomeController::class,'profile'])->name('page.profile');
     Route::prefix('google')->group(function(){
         Route::get('/login-gg',[HomeController::class,'redirectGoogle'])->name('google.redirect');
         Route::get('/callback',[HomeController::class,'loginGoogle'])->name('google.login');
     });
-    Route::prefix('facebook')->group(function(){
-        Route::get('/login-fb',[HomeController::class,'redirectFacebook'])->name('facebook.redirect');
-        Route::get('/callback',[HomeController::class,'loginFacebook'])->name('facebook.login');
+    Route::group(['middleware' => 'auth.check'], function () {
+        Route::get('/',[HomeController::class,'home'])->name('page.home');
     });
     Route::prefix('answer')->group(function(){
         Route::post('/bot-answer',[AnswerController::class,'botAnswer'])->name('answer.botAnswer');

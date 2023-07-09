@@ -3975,8 +3975,12 @@ a[data-toggle="lightbox"] .img-fluid {
     margin-left: 83.333333%; }
 
   .offset-xl-11 {
-    margin-left: 91.666667%; } }
+    margin-left: 91.666667%; } 
+}
+
+
 /*====== Warning css starts ======= */
+
 .ie-warning {
   position: fixed;
   top: 0;

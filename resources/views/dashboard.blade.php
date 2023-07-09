@@ -118,7 +118,7 @@ use Illuminate\Support\Facades\Cookie;
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="me-2">
+                        <a href="{{route('admin.dashboard')}}" class="me-2">
                             <img class="img-fluid w-75" src="{{asset('be/images/banner_utt.png')}}" alt=" Theme-Logo" />
                         </a>
                         <a class="mobile-options waves-effect waves-light">
