@@ -182,7 +182,7 @@ function chatBot(question,url,image){
                     )
                     // if($('.room-chat-items').attr('data-room') == data.code_room){
                         // }
-                }, data.result.time_request * 100);
+                }, 2500);
                 if(data.result.noti == true){
                     // console.log(question)
                     var textRoom = $('.text-room-'+data.result.code_room);
