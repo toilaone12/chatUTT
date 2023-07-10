@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost
--- Thời gian đã tạo: Th7 10, 2023 lúc 06:22 PM
+-- Thời gian đã tạo: Th7 10, 2023 lúc 08:15 PM
 -- Phiên bản máy phục vụ: 10.4.27-MariaDB
 -- Phiên bản PHP: 7.4.33
 
@@ -82,7 +82,7 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`id_customer`, `image_customer`, `name_customer`, `birthday_customer`, `gentle_customer`, `email_customer`, `password_customer`, `phone_customer`, `created_at`, `updated_at`) VALUES
 (1, 'http://127.0.0.1:8000/storage/baoson-1687057655.jpg', 'Bảo Sơn', '2023-05-26 16:40:51', 0, 'toilaone12@gmail.com', '69b21e9c5b38d7c34449a5b290363487', NULL, '2023-05-26 09:40:51', '2023-07-09 16:53:02'),
 (4, 'http://127.0.0.1:8000/storage/sonkieudangbao-1685094394.jpg', 'Sơn Kiều Đặng Bảo', '2023-05-26 16:46:34', 0, 'kieudangbaoson@gmail.com', NULL, NULL, '2023-05-26 09:46:34', '2023-05-26 09:46:34'),
-(5, 'http://127.0.0.1:8000/storage/sonkieudangbao-1688809838.jpg', 'Sơn Kiều Đặng Bảo', '2023-07-08 16:50:38', 0, 'baooson3005@gmail.com', NULL, NULL, '2023-07-08 09:50:38', '2023-07-08 09:50:38'),
+(5, 'http://127.0.0.1:8000/storage/sonkieudangbao-1688809838.jpg', 'Bảo Sơn', '2001-05-30 00:00:00', 0, 'baooson3005@gmail.com', NULL, '0386278998', '2023-07-08 09:50:38', '2023-07-10 18:13:41'),
 (8, 'http://127.0.0.1:8000/fe/image/person.svg', 'UID143223EFBC24C7D2583BE69251', '2023-07-08 17:57:58', 0, 'bokazem69@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '', '2023-07-08 10:57:58', '2023-07-09 11:08:22');
 
 -- --------------------------------------------------------
@@ -364,7 +364,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(5, 'Bảo Sơn', 'son', 'toilaone12@gmail.com', NULL, '69b21e9c5b38d7c34449a5b290363487', '123456', '2023-06-22 07:50:11', '2023-06-23 08:49:37');
+(5, 'Bảo Sơn', 'son', 'toilaone12@gmail.com', NULL, '69b21e9c5b38d7c34449a5b290363487', '123456', '2023-06-22 07:50:11', '2023-06-23 08:49:37'),
+(9, 'dat', 'dat', 'baooson3005@gmail.com', NULL, 'd0fcefed7b8973bd924940e84b987809', '523918', '2023-07-10 17:33:31', '2023-07-10 17:33:31');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -490,7 +491,7 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
