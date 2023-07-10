@@ -62,7 +62,6 @@ Route::prefix('page')->group(function(){
     Route::get('/forgot',[HomeController::class,'forgotPasswordForm'])->name('page.forgotPasswordForm');
     Route::post('/changePassword',[HomeController::class,'changePassword'])->name('page.changePassword');
     Route::post('/changePasswordCustomer',[HomeController::class,'changePasswordCustomer'])->name('page.changePasswordCustomer');
-    Route::get('/profile/{id}',[HomeController::class,'profile'])->name('page.profile');
     Route::prefix('google')->group(function(){
         Route::get('/login-gg',[HomeController::class,'redirectGoogle'])->name('google.redirect');
         Route::get('/callback',[HomeController::class,'loginGoogle'])->name('google.login');
@@ -79,6 +78,11 @@ Route::prefix('page')->group(function(){
     });
     Route::prefix('history')->group(function(){
         Route::get('/history-room',[HistoryMessageController::class,'historyMessageRoom'])->name('history.historyMessageRoom');
+    });
+    Route::prefix('customer')->group(function(){
+        Route::get('/profile/{id}',[CustomerController::class,'profile'])->name('customer.profile');
+        Route::get('/get-profile',[CustomerController::class,'getProfile'])->name('customer.getProfile');
+        Route::post('/update-profile',[CustomerController::class,'updateProfile'])->name('customer.updateProfile');
     });
 });
 

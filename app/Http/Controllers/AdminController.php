@@ -98,21 +98,26 @@ class AdminController extends Controller
                     'otp' => $otp,
                     'password' => $password
                 ];
-                $create = Admin::create([
-                    'name' => $fullname,
-                    'username' => $username,
-                    'email' => $email,
-                    'remember_token' => $otp,
-                    'password' => md5($password),
-                ]);
-                if($create){
-                    Mail::send('mail.create_user',$dataMail,function($message) use ($titleMail,$email){
-                        $message->to($email)->subject($titleMail);
-                        $message->from($email,$titleMail);
-                    });
-                    return response()->json(['res' => 'success', 'result' => 'Tạo tài khoản thành công, vui lòng vào Gmail để kiểm tra'],200);
+                $mail = Mail::send('mail.create_user',$dataMail,function($message) use ($titleMail,$email){
+                    $message->to($email)->subject($titleMail);
+                    $message->from($email,$titleMail);
+                });
+                // dd($mail);
+                if($mail == null){
+                    $create = Admin::create([
+                        'name' => $fullname,
+                        'username' => $username,
+                        'email' => $email,
+                        'remember_token' => $otp,
+                        'password' => md5($password),
+                    ]);
+                    if($create){
+                        return response()->json(['res' => 'success', 'result' => 'Tạo tài khoản thành công, vui lòng vào Gmail để kiểm tra'],200);
+                    }else{
+                        return response()->json(['res' => 'fail', 'result' => 'Tạo tài khoản thất bại'],200);
+                    }
                 }else{
-                    return response()->json(['res' => 'fail', 'result' => 'Tạo tài khoản thất bại'],200);
+                    return response()->json(['res' => 'fail', 'result' => 'Lỗi email'],200);
                 }
             }
         }

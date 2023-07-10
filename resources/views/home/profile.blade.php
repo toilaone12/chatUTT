@@ -19,7 +19,7 @@
         <div class="col-lg-4">
           <div class="card mb-4">
             <div class="card-body text-center">
-              <img src="{{$oneCustomer->image_customer}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+              <img src="{{($oneCustomer->image_customer == '') ? 'asset("fe/image/person.png")' : $oneCustomer->image_customer}}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
               <h5 class="my-3">{{$oneCustomer->name_customer}}</h5>
             </div>
           </div>
@@ -83,7 +83,6 @@
       <div class="card mb-4">
         <div class="card-header">Thay đổi thông tin cá nhân</div>
         <div class="card-body">
-          <form method="POST" action="">
             @csrf
             <input type="hidden" name="id" value="">
             <!-- Form Row-->
@@ -92,7 +91,7 @@
               <div class="col-md-4">
                 <label class="small mb-1" for="inputPhone">Họ và tên</label>
                 <div class="input-group mb-3">
-                  <input type="text" name="fullname" class="form-control" placeholder="Họ tên">
+                  <input type="text" name="fullname" class="form-control fullname" placeholder="Họ tên">
                 </div>
                 @error('fullname')
                 <span class="text-danger">{{$message}}</span>
@@ -102,7 +101,7 @@
               <div class="col-md-4">
                 <label class="small mb-1" for="inputBirthday">Giới tính</label>
                 <div class="input-group mb-3">
-                  <select name="gentle" id="" class="form-control">
+                  <select name="gentle" id="" class="form-control gentle">
                     <option value="0">Nam</option>
                     <option value="1">Nữ</option>
                   </select>
@@ -114,7 +113,7 @@
               <div class="col-md-4">
                 <label class="small mb-1" for="inputBirthday">Số điện thoại</label>
                 <div class="input-group mb-3">
-                  <input type="number" name="phone" class="form-control" placeholder="Số điện thoại">
+                  <input type="number" name="phone" class="form-control phone" placeholder="Số điện thoại">
                 </div>
                 @error('birthday')
                 <span class="text-danger">{{$message}}</span>
@@ -126,7 +125,7 @@
               <div class="col-md-6">
                 <label class="small mb-1" for="inputPhone">Ngày sinh</label>
                 <div class="input-group mb-3">
-                  <input type="date" name="birthday" class="form-control" placeholder="Ngày tháng năm sinh">
+                  <input type="date" name="birthday" class="form-control birthday" placeholder="Ngày tháng năm sinh">
                 </div>
                 @error('birthday')
                 <span class="text-danger">{{$message}}</span>
@@ -136,7 +135,7 @@
               <div class="col-md-6">
                 <label class="small mb-1" for="inputBirthday">Email</label>
                 <div class="input-group mb-3">
-                  <input type="email" name="birthday" class="form-control" placeholder="Email">
+                  <input type="email" name="birthday" class="form-control email" placeholder="Email">
                 </div>
                 @error('birthday')
                 <span class="text-danger">{{$message}}</span>
@@ -144,8 +143,7 @@
               </div>
             </div>
             <!-- Save changes button-->
-            <button class="btn btn-primary rounded" type="submit">Cập nhật</button>
-          </form>
+            <button class="btn btn-primary rounded update-profile" type="submit">Cập nhật</button>
         </div>
       </div>
     </div>

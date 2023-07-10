@@ -122,16 +122,6 @@ class HomeController extends Controller
 
     function changePasswordCustomer(Request $request){
         $data = $request->all();
-        // dd($data);
-        // Validator::make($data, [
-        //     'password' => ['required', 'min:6', 'max:32'],
-        //     're-password' => ['required', 'same:password', 'min:6', 'max:32']
-        // ], [
-        //     'required' => 'Mật khẩu không được để trống dữ liệu',
-        //     'min' => 'Mật khẩu phải ít nhất có 6 ký tự',
-        //     'max' => 'Mật khẩu phải nhiều nhất có 32 ký tự',
-        //     'rePassword.same' => 'Mật khẩu và mật khẩu xác nhận không khớp.',
-        // ])->validate();
         $customer = Customer::find($data['id']);
         $customer->password_customer = md5($data['password']);
         $changePassword = $customer->save();
@@ -281,16 +271,5 @@ class HomeController extends Controller
         // Auth::logout();
         Cookie::queue(Cookie::forget('email'));
         return response()->json(['res' => 'success'], 200);
-    }
-
-    function profile(Request $request){
-        $id = $request->get('id');
-        $titlePage = 'Thông tin cá nhân';
-        $email = Cookie::get('email');
-        if (isset($email)) {
-            $email = Cookie::get('email');
-            $oneCustomer = Customer::where('email_customer', $email)->first();
-            return view('home.profile',compact('titlePage','oneCustomer'));
-        }
     }
 }

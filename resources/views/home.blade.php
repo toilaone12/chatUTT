@@ -21,7 +21,7 @@
         <a class="navbar-brand" href="{{route('page.home')}}">
             <img class="img-fluid w-75 ml-5" src="{{asset('be/images/banner_utt.png')}}" alt=" Theme-Logo" />
         </a>
-        <a class="navbar-brand d-flex align-items-center" href="{{route('page.profile',['id' => $oneCustomer->id_customer])}}">
+        <a class="navbar-brand d-flex align-items-center" href="{{route('customer.profile',['id' => $oneCustomer->id_customer])}}">
             <img class="avatar avatar-xs" src="{{$oneCustomer->image_customer}}" alt="..."><span class="ml-2 fs-14 text-white">{{$oneCustomer->name_customer}}</span>
         </a>
     </nav>
@@ -322,14 +322,82 @@
                     id: id
                 },
                 success: function(data){
-                    console.log(data);
-                    // if(data.res == 'success')
+                    // console.log(data);
+                    if(data.res == 'success'){
+                        alert('Thay đổi thành công');
+                    }
                 },
                 error: function(err){
                     console.log(err);
                 }
             })
         })
+
+        $('.change-profile').click(function(){
+        const id = '{{$oneCustomer->id_customer}}';
+            if($('.upgrade-profile').hasClass('d-none')){
+                $('.upgrade-profile').removeClass('d-none');
+                $('.change-password').addClass('d-none');
+                $('.profile').addClass('d-none');
+            }
+            $('.title').text('Thay đổi thông tin cá nhân')
+
+            $.ajax({
+                url: '{{route("customer.getProfile")}}',
+                method: 'GET',
+                data: {
+                    id: id
+                },
+                success: function(data){
+                    console.log(data);
+                    var dateTimeString = data.result.birthday_customer;
+                    var dateOnly = dateTimeString.split(' ')[0];
+                    $('.fullname').val(data.result.name_customer);
+                    $('.birthday').val(dateOnly);
+                    $('.email').val(data.result.email_customer);
+                    $('.phone').val(data.result.phone_customer);
+                },
+                error: function(err){
+                    console.log(err);
+                }
+            })
+        })
+
+        $('.update-profile').click(function(){
+            $.ajax({
+                url: '{{route("customer.updateProfile")}}',
+                method: 'POST',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    fullname: $('.fullname').val(),
+                    birthday: $('.birthday').val(),
+                    email: $('.email').val(),
+                    phone: $('.phone').val(),
+                    gentle: $('.gentle').val(),
+                    id : '{{$oneCustomer->id_customer}}'
+
+                },
+                success: function(data){
+                    console.log(data);
+                    if(data.res == 'success'){
+                        alert('Thay đổi thông tin thành công');
+                        location.reload();
+                    }
+                    // var dateTimeString = data.result.birthday_customer;
+                    // var dateOnly = dateTimeString.split(' ')[0];
+                    // $('.fullname').val(data.result.name_customer);
+                    // $('.birthday').val(dateOnly);
+                    // $('.email').val(data.result.email_customer);
+                    // $('.phone').val(data.result.phone_customer);
+                },
+                error: function(err){
+                    console.log(err);
+                }
+            })
+        });
 
         //mb
     });

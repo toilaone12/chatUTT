@@ -308,15 +308,6 @@ $(document).ready(function() {
         $('.title').text('Thay đổi mật khẩu');
     })
 
-    $('.change-profile').click(function(){
-        if($('.upgrade-profile').hasClass('d-none')){
-            $('.upgrade-profile').removeClass('d-none');
-            $('.change-password').addClass('d-none');
-            $('.profile').addClass('d-none');
-        }
-        $('.title').text('Thay đổi thông tin cá nhân')
-    })
-
     $('.eye-password').click(function(){
         if($('#passwordInput').attr('type') === 'password'){
             $('.icon-password').addClass('fa-eye-slash')
